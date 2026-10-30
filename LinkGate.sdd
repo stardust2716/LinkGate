@@ -24,3 +24,4 @@ Must:
   Preserve existing runtime interfaces and exclude private identities, credentials, generated runtimes and local history from Git.
   Distinguish current experimental capabilities from later mature-release requirements.
   Keep release binaries separate from source and publish explicit version/hash metadata.
+  Public deployment instructions must use reproducible commands and public example paths rather than local-session actions. Explain how an agent discovers the repository deployment skill.

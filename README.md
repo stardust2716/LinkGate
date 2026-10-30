@@ -6,6 +6,19 @@
 
 [下载安装包](https://github.com/stardust2716/LinkGate/releases) · [部署安装](docs/DEPLOYMENT.md) · [架构](docs/ARCHITECTURE.md) · [构建](docs/BUILD.md) · [部署 skill](.agents/skills/linkgate-deploy/SKILL.md)
 
+## 获取项目与部署 skill
+
+```sh
+git clone https://github.com/stardust2716/LinkGate.git
+cd LinkGate
+```
+
+在仓库中工作的 Agent 可直接读取 `.agents/skills/linkgate-deploy/SKILL.md`。部署指令示例：
+
+> 使用本仓库的 linkgate-deploy skill，先盘点我指定的 Linux/ECS、Windows 和 Android 环境，再部署 LinkGate、完成设备配对和首个应用的精确授权。保留已有设备身份和服务；不要操作手机画面。
+
+若要在其他项目中复用，将完整的 `.agents/skills/linkgate-deploy` 目录复制到该 Agent 的技能目录（Codex 为 `~/.codex/skills/linkgate-deploy`），并向 Agent 提供本仓库位置。skill 依赖仓库内的部署与构建文档；安装 skill 本身不会部署服务器或改变设备配置。
+
 ## 能做什么
 
 - **应用接入**：Windows .NET SDK、Android Binder/流 SDK，支持 TCP 流上的 HTTP、HTTPS、WebSocket；业务保留自己的认证、TLS 与请求语义。

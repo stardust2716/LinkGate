@@ -5,7 +5,7 @@ description: 部署、安装和排查LinkGate认证应用网关，涵盖Linux/EC
 
 # LinkGate 部署安装
 
-先找到包含gateway/release/version.json和gateway/backend-frp的仓库根。无源码时使用用户指定的LinkGate仓库或可信Release；不依赖维护者的private、artifacts或本机目录。
+先找到包含gateway/release/version.json和gateway/backend-frp的仓库根。用户未指定来源时，项目公共仓库为 https://github.com/stardust2716/LinkGate；只使用用户选定或已核对的版本。无源码时获取对应源码或可信Release；不依赖维护者的private、artifacts或本机目录。
 
 下列相对链接供仓库内阅读；若skill被单独安装到用户目录，把docs路径解析到刚定位的仓库根，不把skill的上级目录当项目。
 

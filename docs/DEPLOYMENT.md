@@ -6,7 +6,7 @@
 
 运行Windows Setup，默认按当前用户安装到 `%LOCALAPPDATA%\Programs\LinkGateTrial`，不要求管理员、不改防火墙/默认路由、不创建开机任务。开始菜单LinkGate打开启动入口；所有者命令在owner目录、声明审核在review目录、SDK示例在sample目录。
 
-Android安装随包APK（包名com.nebula.linkgate.agent，Android10及以上用于认证服务器模式）；它使用开发签名，后续升级需保持签名。不要为升级随意卸载已有Agent，否则设备身份会丢失。本轮不操作手机画面。
+Android安装随包APK（包名com.nebula.linkgate.agent，Android10及以上用于认证服务器模式）；它使用开发签名，后续升级需保持签名。不要为升级随意卸载已有Agent，否则设备身份会丢失。
 
 身份/配置默认放 `%LOCALAPPDATA%\LinkGateTrial`，与程序目录分开。卸载保留这些文件。试用安装器和应用尚未使用生产代码签名。
 
@@ -60,7 +60,18 @@ sudo -u linkgate /opt/linkgate/linkgate-server init /etc/linkgate/server.json /e
 sudo -u linkgate /opt/linkgate/linkgate-server serve /etc/linkgate/server.json
 ```
 
-init只做一次。启动成功输出ready/authenticated。提供的linkgate.service可在核对路径后用于systemd。阿里云安全组/主机防火墙需允许27111、27112/TCP。不要直接替换旧frps；新协议与旧共享token客户端不同。
+init只做一次。启动成功输出ready/authenticated。首次前台验证后正常停止该进程，再安装服务器包中提供的systemd unit：
+
+```sh
+sudo install -o root -g root -m 0644 linkgate.service /etc/systemd/system/linkgate.service
+sudo systemctl daemon-reload
+sudo systemctl enable --now linkgate.service
+sudo systemctl status linkgate.service --no-pager
+sudo ss -lntp '( sport = :27111 or sport = :27112 )'
+sudo journalctl -u linkgate.service -n 30 --no-pager
+```
+
+若已有同名unit，先核对归属并备份，不直接覆盖。路径或账户不同应先修改unit。阿里云安全组入方向与Linux主机防火墙均需允许27111、27112/TCP；安全组选择公网访问来源范围，不能只设置本机防火墙。peerPort是电脑端设备入口，不是ECS上第三个业务端口。不要直接替换旧frps；新协议与旧共享token客户端不同。
 
 ### Android 配对与应用接入
 
@@ -68,7 +79,7 @@ init只做一次。启动成功输出ready/authenticated。提供的linkgate.ser
 
 手机导入与Windows同格式的公开server.json，核对界面显示的服务器证书指纹，再由管理员给手机deviceId发放access角色及精确服务grant。注意Android界面显示的是证书SHA-256，Windows命令cert-key打印的是公钥SPKI SHA-256，两者不能混用。
 
-“导入对端公开配置”接受 `{"certificate":"电脑叶证书PEM","host":"电脑可达数字IPv4","port":电脑peerPort,"expectedRevision":0}`；核对电脑设备公钥并确认。启动网关后，业务应用通过Android SDK提交声明和访问请求，由用户在“应用声明”和“访问请求”页分别批准；电脑发布端还须批准该手机deviceId与实际业务applicationId的grant。SDK使用见仓库android/client-streams/README.md。本APK是应用网关，不提供旧0.2.3任意固定端口配对入口；未接入SDK的应用不能仅安装APK就自动获得P2P。
+“导入对端公开配置”接受 `{"certificate":"电脑叶证书PEM","host":"电脑可达数字IPv4","port":电脑peerPort,"expectedRevision":0}`；核对电脑设备公钥并确认。启动网关后，业务应用通过Android SDK提交声明和访问请求，由用户在“应用声明”和“访问请求”页分别批准；电脑发布端还须批准该手机deviceId与实际业务applicationId的grant。SDK使用见 [Android 接入说明](../gateway/android/client-streams/README.md)。本APK是应用网关，不提供旧0.2.3任意固定端口配对入口；未接入SDK的应用不能仅安装APK就自动获得P2P。
 
 ## 4. 服务器公开配置与授权
 
@@ -154,12 +165,37 @@ sample/LinkGate.Sample.exe fetch <trusted-bootstrap.json> <client-output-dir> <p
 
 仅访问的Android设备不监听发布端口，Windows可用 `trust-certificate <state> <identity> <phone-certificate> <expected-revision> <confirmed-phone-key> <operation-UUID>` 信任其证书，不填写虚构手机端口。该命令不授予任何业务服务访问权，具体应用仍须单独批准grant。
 
-当前版本：Windows 0.3.0-preview.2；Android 0.3.0-preview.3（versionCode 4）。手机四个入口为概览、设备、应用、设置：启停在概览，证书/服务器/恢复工具在设置。APK沿用原包名与签名，覆盖安装保留配对。已获授权卸载旧com.nebula.linkgate及旧linkgate-frps服务；不要卸载新版Agent来更新界面。
+当前发布版本：Windows 0.3.0-preview.2；Android 0.3.0-preview.3（versionCode 4）。手机四个入口为概览、设备、应用、设置：启停在概览，证书/服务器/恢复工具在设置。APK沿用原包名与签名，覆盖安装保留配对。迁移旧com.nebula.linkgate或旧frps时，先确认服务归属和回滚材料，新版验收后再删除已授权的旧组件。
 
 ## 新环境与稳定电脑入口
 
 本指南使用示例路径，部署到自己的主机时先盘点已有账户、端口和服务，避免覆盖。文件型 server.json 应设置为0600、父目录0700并归服务账户；`init`只对全新数据库执行一次。向systemd安装提供的unit后运行`systemctl daemon-reload`和`systemctl enable --now linkgate.service`，再检查实际PID、程序摘要及两个监听。安全组和主机防火墙只放行选定的控制与后端端口；STUN另行配置。
 
-手机“设备”页导入电脑公开配置时，host填电脑可达的实际IPv4，port填Agent真实peerPort。默认菜单入口可使用动态端口；需要稳定入口时，可按上方serve命令显式绑定例如27443，并只为该程序配置必要的局域网防火墙规则。不要将部署在维护者电脑上的私有启动辅助脚本视为Release包必需文件。Windows此版不自动注册开机任务。
+手机“设备”页导入电脑公开配置时，host填电脑可达的实际IPv4，port填Agent真实peerPort。默认菜单入口使用动态端口；需要稳定入口时，先正常停止旧Agent，在Windows安装目录执行：
+
+```powershell
+$state = "$base\state"
+$identity = "$base\identity"
+$config = "$base\server.json"
+$key = (Get-Content "$base\server-key.txt" -Raw).Trim()
+$runtime = "$PWD\runtime\frpc-authority.exe"
+$lock = Get-Content "$PWD\runtime.lock.json" -Raw | ConvertFrom-Json
+if ((Get-FileHash -LiteralPath $runtime -Algorithm SHA256).Hash -ne $lock.sha256) { throw 'Runtime digest differs.' }
+& "$PWD\agent\LinkGate.Agent.Console.exe" serve $state $identity $config $key $runtime $lock.sha256 '0.0.0.0' '27443'
+```
+
+仅为该程序配置必要的局域网防火墙规则，并确认实际监听端口。不要将维护者电脑上的私有启动辅助脚本视为Release包必需文件。Windows此版不自动注册开机任务。
+
+## 首次部署验收
+
+| 检查 | 通过条件 |
+| --- | --- |
+| 服务器 | systemd服务正常，实际进程监听所选两个TCP端口；安全组与主机防火墙一致 |
+| 身份 | 两端保留各自私钥，根证书和服务器指纹经独立核对 |
+| 授权 | 设备角色、服务、服务器grant、本地应用声明及两端grant范围一致 |
+| 业务 | 接入SDK的应用完成一次小规模传输，核对内容、字节和实际连接路径 |
+| 停止与恢复 | 正常停止只回收本次自有运行时；未知审批结果按原UUID查询 |
+
+中继成功只能证明该路径可用。需要声明P2P可用时，另行记录真实网络条件和业务直连证据，不以STUN成功或进程启动替代。
 
 手机应用名为LinkGate。CSR、证书和服务器设置位于“设置”，添加电脑位于“设备”，声明与访问请求位于“应用”。首次应用接入仍须明确applicationId、serviceId和importAlias，并分别批准服务器与本地grant。

@@ -6,3 +6,4 @@ Owns:
 Must:
   Support current authenticated deployment rather than retired token-pairing scripts, preserving explicit target and identity boundaries.
   Guide installation and precise app authorization without private machine dependencies or automatic retries after unknown mutations.
+  Separate installing the skill from deploying a gateway; copied skills resolve documentation against a verified repository checkout and do not imply permission to modify devices.
