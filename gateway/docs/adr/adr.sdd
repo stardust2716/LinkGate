@@ -1,0 +1,26 @@
+Spec: Gateway architecture decisions
+
+Purpose:
+  Record durable decisions that remove cross-platform contract ambiguity.
+
+Owns:
+  ./0001-public-contract-normalization.md
+  ./0002-frp-authorization-boundary.md
+  ./0003-pending-registration.md
+  ./0004-pending-sdk.md
+  ./0005-android-binder-bootstrap.md
+  ./0006-android-client.md
+  ./0007-android-pending-registration.md
+  ./0008-android-pending-sdk.md
+  ./0009-windows-declaration-review.md
+  ./0010-revocation-capacity.md
+  ./0011-local-review-console.md
+  ./0012-pending-grant-requests.md
+  ./0013-secure-direct-streams.md
+  ./0014-android-native-authority.md
+  ./0015-authenticated-transport-control.md
+  ./0016-frp-authority-runtime.md
+  ./0017-android-private-runtime.md
+
+Must:
+  Explain chosen semantics and compatibility impact without weakening legacy credential checks.

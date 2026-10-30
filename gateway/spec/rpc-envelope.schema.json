@@ -1,0 +1,231 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkgate.example.invalid/spec/v1/rpc-envelope.schema.json",
+  "title": "Planned LinkGate API1 envelopes",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "request"
+        },
+        "apiVersion": {
+          "const": 1
+        },
+        "requestId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "method": {
+          "enum": [
+            "hello",
+            "gateway.status",
+            "app.register",
+            "grant.request",
+            "grant.list",
+            "grant.revoke",
+            "device.list",
+            "device.pair.begin",
+            "device.pair.approve",
+            "device.revoke",
+            "service.publish",
+            "service.unpublish",
+            "service.list",
+            "connection.open",
+            "connection.status",
+            "connection.attach",
+            "connection.close",
+            "operation.status",
+            "events.subscribe",
+            "gateway.stop",
+            "device.pair.cancel",
+            "device.key.rotate",
+            "service.prepare"
+          ]
+        },
+        "operationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "params": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "kind",
+        "apiVersion",
+        "requestId",
+        "method",
+        "params"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "enum": [
+                  "app.register",
+                  "grant.request",
+                  "grant.revoke",
+                  "device.pair.begin",
+                  "device.pair.approve",
+                  "device.revoke",
+                  "service.publish",
+                  "service.unpublish",
+                  "connection.open",
+                  "connection.attach",
+                  "connection.close",
+                  "gateway.stop",
+                  "device.pair.cancel",
+                  "device.key.rotate",
+                  "service.prepare"
+                ]
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "required": [
+              "operationId"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "response"
+        },
+        "apiVersion": {
+          "const": 1
+        },
+        "requestId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "result": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "kind",
+        "apiVersion",
+        "requestId",
+        "result"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "response"
+        },
+        "apiVersion": {
+          "const": 1
+        },
+        "requestId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[A-Z][A-Z0-9_]+$"
+            },
+            "stage": {
+              "enum": [
+                "validation",
+                "authorization",
+                "discovery",
+                "direct",
+                "relay",
+                "attach",
+                "runtime",
+                "storage"
+              ]
+            },
+            "retryable": {
+              "type": "boolean"
+            },
+            "message": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512
+            },
+            "details": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "code",
+            "stage",
+            "retryable",
+            "message",
+            "details"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "kind",
+        "apiVersion",
+        "requestId",
+        "error"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "event"
+        },
+        "apiVersion": {
+          "const": 1
+        },
+        "bootId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "cursor": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "eventType": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "timeUtc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "data": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "kind",
+        "apiVersion",
+        "bootId",
+        "cursor",
+        "eventType",
+        "timeUtc",
+        "data"
+      ],
+      "additionalProperties": false
+    }
+  ],
+  "$comment": "Envelope only: validate method params, response models, event data and caller authorization per SPEC.md. Format assertions must be enabled. Size limits are UTF-8 byte limits outside JSON Schema."
+}

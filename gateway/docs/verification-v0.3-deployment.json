@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-30",
+  "version": "0.3.0-preview.2",
+  "passed": true,
+  "server": {
+    "service": "linkgate-trial.service",
+    "enabled": true,
+    "lowPrivilegeUser": true,
+    "realEcs": true,
+    "ports": [
+      27111,
+      27112
+    ],
+    "binaryUnchangedFromFirstTrial": true,
+    "temporaryTransferAuthorizationRemoved": true,
+    "existingRulesPreserved": true,
+    "oldServicesPreserved": true
+  },
+  "windows": {
+    "installerUpgradeVerified": true,
+    "deviceIdentityPreserved": true,
+    "backgroundAgentRunning": true,
+    "peerPort": 27443,
+    "programFirewallRulesVerified": true,
+    "normalStopRestartVerified": true,
+    "automaticStartupConfigured": false,
+    "phoneCertificateTrusted": true,
+    "noRealApplicationGrant": true,
+    "componentSha256": {
+      "agent/LinkGate.Broker.dll": "6ac4fa9eb6cd69e5c462bc8e02f2b8575df2b3be287466492dea984adfc103a5",
+      "agent/LinkGate.Runtime.dll": "65854f839f1d2e19aec50ad8fcfffa003149d3b0e7f78edb3693132f55d2dd7b",
+      "agent/LinkGate.Agent.Console.exe": "631c8a1b29be8ef1bba79d9a2a144fbf02df9566b9d09fcdc994673bb966c301",
+      "owner/LinkGate.Owner.Console.dll": "1c3ef0d9995243cd7a1df3d0231091a37d7e571ae6193d46c840b39d9551a577",
+      "sample/LinkGate.Sample.dll": "919c178eb806eb0de155a4cae6c6bdbe305b3e4d81d64d84c024ac44c9633795"
+    }
+  },
+  "android": {
+    "installed": true,
+    "versionCode": 3,
+    "signatureVerified": true,
+    "sameDevelopmentSigner": true,
+    "ownerImportedCertificates": true,
+    "ownerImportedServerAndPeer": true,
+    "ownerRestartedAfterUpgrade": true,
+    "foregroundServiceVerified": true,
+    "phoneScreenOperatedByAgent": false,
+    "privateKeyExported": false
+  },
+  "stun": {
+    "configured": 2,
+    "actualWindowsUdpChecksPassed": 2,
+    "implicitFallbackEnabled": false
+  },
+  "business": {
+    "lanLoopbackDirectBytes": 2097152,
+    "forcedCloudRelayBytes": 2097152,
+    "relayTx": "1",
+    "relayRx": "2097152",
+    "relayDurationMs": 4096,
+    "complete": true,
+    "digestVerified": true,
+    "halfCloseVerified": true,
+    "independentWindowsApplicationProcesses": true,
+    "physicalPhoneBusinessTested": false,
+    "testApplicationAuthorityRevoked": true,
+    "productionApplicationStoreUntouched": true
+  },
+  "focusedSecureStreamChecks": 42,
+  "failureHistory": [
+    "Original 2-second renewal budget closed active relays after approximately three seconds.",
+    "After increasing renewal tolerance, a two-second publisher FIN acknowledgement deadline interrupted completion behind queued relay data.",
+    "After complete data delivery, the sample reused a control pipe exceeding its two-second idle limit; fixed by explicit verified reconnection before read-only status."
+  ],
+  "fixes": {
+    "peerRenewalSeconds": 8,
+    "publisherRenewalReadSeconds": 12,
+    "publisherFinDrainSeconds": 15,
+    "frpClientHeartbeatResponseSeconds": 15,
+    "independentRevocationPollingUnchanged": true,
+    "businessReplayAdded": false
+  },
+  "sha256": {
+    "LinkGate-0.3.0-preview.2-Android.apk": "3a91443c6e29666ffae55a468d8be37f759d3b1bc641bbd5ab53146eb4d27588",
+    "LinkGate-0.3.0-preview.2-Linux-amd64-Server.zip": "da83f223af292d367e5d51e99ea711924dfe3ef6a383dc147197dba3d7b813fb",
+    "LinkGate-0.3.0-preview.2-Windows-x64-Setup.exe": "ca2c803fffffe2167f8051b76ceea6512570b367c6c363db99e4305c211381ac",
+    "QUICKSTART.md": "ab6a76862b0470dae7bc35dd6a876fee0c230cefbb842c7a822b83c5a572f95b",
+    "SHA256SUMS.txt": "e7d61424f7ed33aa8be9795798f11aca3cb30f526c4b4488de9e00f2bb4e6a55"
+  },
+  "deferred": "mature-release.sdd"
+}

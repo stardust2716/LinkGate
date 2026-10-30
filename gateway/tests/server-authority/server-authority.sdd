@@ -1,0 +1,15 @@
+Spec: Cross-platform standard server authority conformance
+
+Purpose:
+  Verify independently implemented .NET and Java receivers against actual Go-issued JWS and public device certificates.
+
+Owns:
+  ./verify.ps1
+  ./README.md
+
+Structure:
+  ./java: Independent Java lease receiver without server private keys or authority storage.
+
+Must:
+  Build all fixtures before issuing short-lived tokens and keep every generated token in protected ignored artifacts.
+  Verify correct signature/scope plus signed malformed claims and monotonic lifecycle cases, without cloud or installed runtime changes.

@@ -1,0 +1,18 @@
+Spec: Explicit application connection request
+
+Purpose:
+  Validate a secret-free public connection target and prove that its policy does not widen an approved import.
+
+Owns:
+  ./ConnectionOpenRequest.cs
+
+References:
+  /docs/adr/0023-connection-request-policy.md
+  ./ManifestContract.sdd
+
+Must:
+  Require exactly `applicationRef`, `importAlias`, `deviceId`, `publisherAppId`, `remoteServiceId` and `connectionPolicy` within `16 KiB` of strict UTF8 JSON.
+  Normalize UUID and policy defaults while rejecting arbitrary addresses, claimed caller identity, unknown fields and malformed identifiers.
+  Keep models immutable; parsing and policy comparison do not resolve authority or perform IO.
+  Compare only effective permission/budget constraints against a separately supplied approved policy and never grant authority merely because comparison succeeds.
+  Follow the shared tightening cases with exact uint64 comparison and fixed input-free validation errors.

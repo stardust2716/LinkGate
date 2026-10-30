@@ -1,0 +1,15 @@
+Spec: Agent-authorized multi-endpoint STUN discovery
+
+Purpose:
+  Derive real NAT observations using only the endpoints explicitly selected by the owning Agent.
+
+Owns:
+  ./linkgate_discovery.go
+  ./linkgate_discovery_test.go
+
+Must:
+  Require a bounded canonical numeric IPv4 endpoint array in Agent mode; missing, malformed, duplicate or fake-IP configuration fails before network use.
+  Reuse one UDP socket and count at least two distinct actual destinations before reporting sufficient observations, even when mappings are equal.
+  Retain valid observations when another configured endpoint fails; never contact implicit public fallbacks or response-provided alternate addresses outside the configured list.
+  Use upstream standard STUN source/transaction checks and bounded request timeouts, validating returned address and port before NAT classification.
+  Emit only fixed aggregate status and counts; preserve stock discovery only outside Agent mode with no explicit configuration.

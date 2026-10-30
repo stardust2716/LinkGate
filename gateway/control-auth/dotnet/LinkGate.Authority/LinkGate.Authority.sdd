@@ -1,0 +1,14 @@
+Spec: .NET server authorization library
+
+Purpose:
+  Bind authenticated server snapshots and signed leases to exact application/service authority.
+
+Owns:
+  ./LinkGate.Authority.csproj
+  ./packages.lock.json
+
+References:
+  /contracts/dotnet/LinkGate.Control/LinkGate.Control.sdd
+
+Must:
+  Pin dependency versions and keep borrowed device-key handles inside platform mTLS; never export private key material or accept business-service dial targets.

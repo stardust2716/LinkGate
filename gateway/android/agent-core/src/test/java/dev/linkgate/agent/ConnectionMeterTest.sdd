@@ -1,0 +1,10 @@
+Spec: Connection lifetime and accounting verification
+
+Purpose:
+  Distinguish selected transport from payload and verify terminal and clock boundaries.
+
+Owns:
+  ./ConnectionMeterTest.java
+
+Must:
+  Cover zero-byte selection, payload attribution, directional FIN, uint64 overflow, clock rollback, stale late events and malformed public statuses.

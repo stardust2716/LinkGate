@@ -1,0 +1,12 @@
+Spec: Independent native SDK acceptance
+
+Purpose:
+  Verify a real Binder descriptor and application-owned socket across different Android UIDs and signatures.
+
+Owns:
+  ./NativeConsumerTest.java
+
+Must:
+  Reject a wrong Agent signer before binding and retain the approved application reference across test processes.
+  Verify local authorization refusal, large transfer hash and true request FIN, one-use attachment and active revocation.
+  Use explicit operation UUIDs without automatic mutation replay and report only non-secret evidence.

@@ -1,0 +1,25 @@
+Spec: Development Android Binder Broker
+
+Purpose:
+  Expose bounded negotiation and opt-in pending registration without exporting the legacy transport service.
+
+Owns:
+  ./build.gradle
+  ./README.md
+  ./src/main/AndroidManifest.xml
+
+References:
+  /docs/adr/0005-android-binder-bootstrap.md
+  /android/control-ipc/control-ipc.sdd
+
+Must:
+  Use a distinct development package, explicit binding action, no INTERNET permission and no transport dependencies.
+  Keep default builds read-only; require explicit `linkgatePendingRegistration=true` for experimental pending registration.
+  Keep publishing, grants and business-flow capabilities unsupported in every build.
+
+Tasks:
+  [x] #1 Build the bounded read-only Binder entry and verify portable negotiation and quota behavior.
+  [x] #2 Build opt-in durable pending registration and verify portable SQLite transactions.
+
+Done when:
+  JVM checks and development APK construction pass with native identity and cross-UID tests explicitly left unverified.

@@ -1,0 +1,16 @@
+Spec: Experimental pending grant request values
+
+Purpose:
+  Describe a bounded explicit application and remote service permission request without granting access.
+
+Owns:
+  ./PendingGrantRequest.cs
+
+References:
+  /docs/adr/0012-pending-grant-requests.md
+
+Must:
+  Require an application UUID, declared import alias, opaque device reference, publisher application ID and service ID.
+  Normalize an omitted reason to an empty string and bound it to `256` Unicode scalars without control characters or invalid UTF-16.
+  Reject unknown or duplicate fields, including policy, credential and caller-identity override fields.
+  Validate pending receipts and request status as exact shapes; neither represents an active grant.

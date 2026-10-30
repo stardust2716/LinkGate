@@ -1,0 +1,20 @@
+Spec: Agent server-authority verification
+
+Purpose:
+  Verify standard server leases independently at the actual publishing Agent before business admission.
+
+Owns:
+  ./README.md
+
+Structure:
+  ./dotnet: Portable .NET lease verification and monotonic authorization windows.
+  ./java: Portable Android-compatible lease verification.
+
+References:
+  /control-plane/authority/lease.sdd
+  /docs/SECURITY-SPEC.md
+
+Must:
+  Keep server tokens and authority dependencies inside Agent components, outside thin business SDKs.
+  Require current authenticated control snapshots and server epoch as external trust inputs; never derive trust from token claims.
+  Use mature JWS implementations with fixed ES256 and exact-scope validation, preserving certificate checks and monotonic expiry.

@@ -1,0 +1,23 @@
+Spec: Authenticated Java peer stream client
+
+Purpose:
+  Attach a device and application scoped business stream to an authorized publishing Agent.
+
+Owns:
+  ./PeerClient.java
+
+References:
+  ./DeviceIdentity.sdd
+  ./BusinessChannel.sdd
+  /windows/LinkGate.Broker/SecurePeerServer.sdd
+
+Must:
+  Use the same eight-second established-renewal budget as Windows for both socket reads and the raw-socket cancellation timer, without extending opening or signed lease expiry.
+  Authenticate both independent channels to the expected device before delivering business bytes.
+  Use an explicit bounded endpoint and one total opening deadline, never retry payload or replace peer identity.
+  Validate one-use attachment and grant responses and keep control renewals independent of blocked business IO.
+  Preserve fixed authenticated peer refusals as authorization/capacity outcomes rather than reporting them as offline transport failures.
+  Close all owned resources after control loss, cancellation, certificate expiry or failed setup.
+  Accept an optional Agent-owned lease source for a distinct server-authorized wire shape; require a bounded token on open and every heartbeat and never retry without it.
+  Run lease refresh on the bounded control executor under the existing heartbeat cancellation deadline, preserving raw-socket abort behavior.
+  Accept a remaining internal opening budget of one to sixty thousand milliseconds so earlier server authorization and runtime preparation do not reset the application's total deadline.

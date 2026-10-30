@@ -1,0 +1,15 @@
+# ADR0027：Windows 公开连接 API 与实验 SDK
+
+Windows现以显式实验 `connection.api` 提供connection.open/status/attach/close；operation.status可查询原打开结果。入口组合schema8日志、精确本地visitor权限、当前服务器租约与内层设备mTLS，不回退预览认证。原secure.*接口继续保留。
+
+当前Windows连接使用所有者配置的直接目标和精确绑定到client application/import/device/publisher/service的自有中继路由。公开请求不接受地址或运行时配置。固定fixture的直接目标是禁用中继fallback的实际XTCP visitor，故有真实业务P2P证据；这不等于Windows能为任意新应用自动发现和启动XTCP。hello明确用OWNER_CONFIGURED_ENDPOINTS_ONLY标注实验边界。
+
+打开前捕获单调admission，批准/存储/排队计入原总预算。最多32个formal活动项、每caller16个，另外受与旧连接合并的128/1024持久上限。streamRef只派生规范私有管道名，实际附接再次捕获OS调用者、核对当前grant并一次性消费。客户端持有可信启动者传入的Agent进程句柄，发送附接头前及收到确认后再次核对进程，不自动发现、重拨或重放业务。
+
+状态计量在成功写入业务帧后累加，正常双向FIN及排空后才complete。后台累积快照有序保存，状态可以合并向前推进但不能倒退。结束一条流只释放自己的peer和pipe，不停止共用FRP进程。网络代次接口目前由可信宿主显式通知；物理网络回调和TUN出站选择仍待接入。
+
+首次Windows代次测试保留失败运行e5aaf9706a80489d99d01b52af8f0c22。取消回调中，raw abort触发重入release，过早释放CancellationTokenSource，使外层cancel抛ObjectDisposedException。修复将source释放延迟至正在执行的abort/cancel结束，缓存只读token；确定性重入测试验证两个资源均回收、取消只发一次和重复release安全。
+
+[冻结证据](../verification-v0.3-windows-public-connection.json)：548项Broker/SDK回归、400例跨语言合同；实际Windows-only fixture还有45项既有认证传输检查及64项正式SDK检查。直连、中继、自动选路各64 MiB，精确33字节发送/67,108,864字节接收、单次附接、历史成功、独立取消、注入代次和本地visitor撤销通过。SDK经真实管道，但消费者与宿主在同进程，不能替代独立Windows应用和跨设备验收。
+
+下一步仍包括独立Windows消费者、动态Windows运行时/候选、服务prepare/事件/兼容入口、所有者本地grant工作流、生产配对/轮换和安装更新。四组真机、10万短流、24/72小时及发布回滚关口保持开放。

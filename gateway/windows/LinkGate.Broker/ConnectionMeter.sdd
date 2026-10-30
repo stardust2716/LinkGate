@@ -1,0 +1,19 @@
+Spec: Windows ConnectionMeter
+
+Purpose:
+  Track actual business bytes and completion using monotonic admission time.
+
+Owns:
+  ./ConnectionMeter.cs
+
+References:
+  ./LocalAccess.sdd
+  /contracts/dotnet/LinkGate.Contracts/ConnectionStatus.sdd
+
+Must:
+  Keep state transitions, uint64 counters and snapshot sequence under one lock; businessPath requires actual positive bytes on the selected path.
+  Require both FIN directions and drain before complete, preserve known counters on interrupted termination and fail closed on clock rollback or counter overflow.
+  Keep immutable snapshots and recovered terminal records separate from retained open success.
+
+Tasks:
+  [x] #1 Verify state, persistence, replay, recovery and failure boundaries with owned local fixtures.

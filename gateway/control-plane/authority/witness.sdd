@@ -1,0 +1,15 @@
+Spec: Durable independent authorization rollback witness
+
+Purpose:
+  Retain prepared and committed authority generations independently from database backups.
+
+Owns:
+  ./witness.go
+  ./witness_test.go
+
+Must:
+  Use a separately opened, synchronized bbolt database protected by the platform host and excluded from authority backups.
+  Compare-and-swap the complete prior anchor, admit only the next generation and commit only the exact prepared anchor.
+  Detect missing, linked or replaced witness files and malformed records; never recreate missing established witness state.
+  Keep committed acknowledgement idempotent after uncertain replies without permitting an older prepare or commit.
+  Describe local rollback detection honestly; copying both protected databases is outside the accidental database-restore guarantee and not hardware monotonic storage.

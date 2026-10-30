@@ -1,0 +1,15 @@
+Spec: Independent trial SDK sample
+
+Purpose:
+  Demonstrate one separately launched publisher/backend and consumer using only the thin Windows SDK.
+
+Owns:
+  ./LinkGate.Sample.csproj
+  ./Program.cs
+
+Must:
+  Explicitly reconnect the control session after a long business transfer before status/close, since idle control pipes are intentionally bounded independently of business streams; never replay the open.
+  Verify the Agent against an explicit trusted-launcher bootstrap image digest and process creation time before handing its process handle to the SDK.
+  Register fixed sample declarations and request exact access; never approve itself or read Agent identities, runtime profiles or server credentials.
+  Serve only a deterministic loopback sample, transfer a bounded payload with a known digest, and preserve original operation UUIDs across status polling.
+  Store public readiness references only in the selected output directory; keep application payload separate from gateway control results.

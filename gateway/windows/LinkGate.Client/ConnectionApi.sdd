@@ -1,0 +1,18 @@
+Spec: Windows public connection SDK
+
+Purpose:
+  Expose typed opt-in connection operations and process-pinned private data streams.
+
+Owns:
+  ./ConnectionApi.cs
+
+References:
+  ./VerifiedPipeClient.sdd
+  /contracts/dotnet/LinkGate.Contracts/ConnectionOperation.sdd
+  /contracts/dotnet/LinkGate.Contracts/ConnectionStatus.sdd
+
+Must:
+  Require negotiated connection.api and explicit experimental opt-in, caller-persisted mutation IDs and typed correlated results.
+  Keep unknown mutation outcomes on the original operation UUID without automatic reconnect, redial or payload replay.
+  Derive only the canonical local stream pipe name from streamRef and verify the same held Agent process before writing any attach header.
+  Preserve duplex business stream semantics and release all owned pipe/process handles on failure.

@@ -1,0 +1,7 @@
+Spec: Pending response JVM checks
+
+Purpose:
+  Verify immutable registration DTOs and strict pending/query envelopes.
+
+Owns:
+  ./RegistrationReplyTest.java

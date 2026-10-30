@@ -1,0 +1,20 @@
+Spec: Owner-started Android foreground gateway
+
+Purpose:
+  Hold business runtime lifetime under explicit owner control without permitting SDKs to start or stop it.
+
+Owns:
+  ./GatewayService.java
+
+Must:
+  Remain unexported, use connected-device foreground type and provide a private immutable stop action.
+  Separate UI closure from gateway stop, make stop suppress restart and restore only previously owner-enabled runtime after eligible system restart.
+  Load a valid existing Keystore identity before networking and expose a fixed stopped state on setup failure.
+
+  Perform enrollment validation and server handshake on a bounded background worker, publish only the current startup generation and close any late result after owner stop.
+  A present invalid server configuration stops startup with a fixed error; it never starts the unauthenticated-authority preview.
+
+  Serialize boot journal recovery with final startup-generation publication so an obsolete startup cannot close a newer runtime's opens.
+
+  Queue owner start/stop actions through the unexported service rather than stopping an undelivered foreground start; each start command satisfies foreground registration before applying owner state.
+  A destroyed superseded service instance must not stop or unpublish a newer instance.

@@ -1,0 +1,19 @@
+Spec: Formal Android connection execution
+
+Purpose:
+  Execute retained caller-bound public connection operations through authenticated direct-first transports and one-use descriptors.
+
+Owns:
+  ./FormalConnections.java
+
+References:
+  /agent-core/src/main/java/dev/linkgate/agent/ConnectionJournal.sdd
+  /transport-core/src/main/java/dev/linkgate/transport/ConnectionPlanner.sdd
+
+Must:
+  Require configured server authority and an owner-started host before opening; preserve original admission through journal, authorization, candidates and peer handshakes.
+  Use only reviewed endpoints and current exact local/server grants; candidate selection cannot widen the request or replay payload.
+  Share bounded host executors and private runtime leases with experimental streams, keep at most `32` retained runtime entries and `16` per caller, and retain failed persistence entries rather than growing unbounded.
+  Attach only an atomically consumed caller/boot-bound claim, require descriptor acknowledgement within ten seconds and close on caller death or authority loss.
+  Count payload only after successful directional writes, observe real FIN/drain and persist cumulative terminal state after aborting IO.
+  Reject stale generation completions, close affected streams on network change and report the original selected path and incomplete counters after failures.

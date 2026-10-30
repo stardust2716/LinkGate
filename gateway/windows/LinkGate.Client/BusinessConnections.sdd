@@ -1,0 +1,20 @@
+Spec: Private secure stream SDK
+
+Purpose:
+  Give independent applications a normal duplex stream after authenticated, authorized Agent attachment.
+
+Owns:
+  ./BusinessConnections.cs
+
+References:
+  /contracts/dotnet/LinkGate.Control/BusinessStream.sdd
+
+Must:
+  Pin the data-pipe server to the same trusted Agent before sending any attachment bytes.
+  Keep application-saved mutation IDs and report unknown opens without retrying or replaying payload.
+  Preserve fixed authenticated resource-exhausted connection results as well as authorization failures.
+  Preserve logical HTTP authority and TLS validation in application adapters.
+  Offer explicit experimental relay open only after negotiating secure.stream.relay; validate direct/relay result labels and preserve method-specific operation identity without automatic fallback.
+
+Tasks:
+  [x] #1 Verify independent SDK-only HTTPS, WebSocket and TCP half-close through actual private data attachments.

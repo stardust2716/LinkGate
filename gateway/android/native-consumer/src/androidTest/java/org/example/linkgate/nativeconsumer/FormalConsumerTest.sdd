@@ -1,0 +1,14 @@
+Spec: Independent formal Android connection acceptance
+
+Purpose:
+  Exercise public connection operations, typed status and one-use data streams from an independent application.
+
+Owns:
+  ./FormalConsumerTest.java
+
+Must:
+  Use only the signature-pinned public SDK from the separately installed UID/signer; do not access Agent internals.
+  Verify actual direct and relay file bytes, hashes, directional FIN, zero-byte versus business path, retained operations and exact cumulative counters.
+  Verify duplicate attachment rejection, conflicting operation parameters and network-generation invalidation without replaying writes.
+  Close one of two actual direct streams and prove the second remains open through a live blocked read on the shared carrier.
+  Bound waits and export only aggregate evidence in the consumer's private fixture directory.

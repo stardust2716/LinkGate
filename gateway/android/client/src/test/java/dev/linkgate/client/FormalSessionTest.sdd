@@ -1,0 +1,11 @@
+Spec: Formal SDK control recovery verification
+
+Purpose:
+  Verify formal capability gating, operation correlation and original policy limits without native-device claims.
+
+Owns:
+  ./FormalSessionTest.java
+
+Must:
+  Reject unnegotiated or unapproved experimental calls before transport, preserve known Broker errors and mark lost mutation replies unknown without automatic retries.
+  Parse typed connection/stream operation results and preserve original nested policy bytes through the control envelope.

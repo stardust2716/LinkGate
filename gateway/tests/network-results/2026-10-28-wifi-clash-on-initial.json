@@ -1,0 +1,90 @@
+{
+  "case": "wifi-clash-on",
+  "clientVersion": "0.2.1",
+  "testVersion": 2,
+  "phone": {
+    "testVersion": 2,
+    "scenario": "wifi-clash-on",
+    "startedUtcMs": 1793186156576,
+    "elapsedMs": 62731,
+    "fileBytesVerified": 20971520,
+    "filesCompleted": 20,
+    "fileError": "none",
+    "websocketPayloadBytes": 774144,
+    "websocketFrames": 378,
+    "websocketError": "none",
+    "websocketControlFrames": 4,
+    "uidRxDelta": 43623722,
+    "uidTxDelta": 22517460,
+    "before": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": false,
+      "businessDirectObserved": false,
+      "directTx": 0,
+      "directRx": 0,
+      "relayTx": 0,
+      "relayRx": 0,
+      "activeConnections": 0,
+      "setupMs": 1,
+      "bytesPerSecond": 0,
+      "fallbackReason": "direct_unavailable_relay_failed",
+      "complete": true
+    },
+    "after": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": false,
+      "businessDirectObserved": false,
+      "directTx": 0,
+      "directRx": 0,
+      "relayTx": 391594,
+      "relayRx": 21362927,
+      "activeConnections": 0,
+      "setupMs": 1516,
+      "bytesPerSecond": 485548,
+      "fallbackReason": "direct_tunnel_unavailable",
+      "complete": true
+    }
+  },
+  "windowsDelta": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 21362927,
+    "relayRx": 391594
+  },
+  "phoneDelta": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 391594,
+    "relayRx": 21362927
+  },
+  "pairedByteDifferences": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 0,
+    "relayRx": 0
+  },
+  "bothEndsBytesMatched": true,
+  "applicationPassed": true,
+  "directBusinessObserved": false,
+  "pcTunObserved": "Meta Tunnel Up",
+  "windowsSampling": "Idle snapshots padded by 5 seconds; clocks not assumed identical.",
+  "ecsStatus": "partial-window",
+  "ecsAlignedApprox": {
+    "ingressIpBytes": 8953957,
+    "egressIpBytes": 10494453,
+    "ingressTcpPayloadBytes": 8738941,
+    "egressTcpPayloadBytes": 10240221,
+    "packets": 9700
+  },
+  "ecsCaptureComplete": true,
+  "ecsWindowCoversWholeTest": false,
+  "ecsKernelDroppedPackets": 0,
+  "ecsUnparsedPackets": 0,
+  "vpnScopeObservedAfterTest": {
+    "ownerMatchesClash": true,
+    "includesLinkGate": true,
+    "interpretation": "LinkGate currently falls within Clash VPN coverage; selected proxy rule is not inferred."
+  }
+}

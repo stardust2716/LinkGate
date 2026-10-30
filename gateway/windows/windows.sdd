@@ -1,0 +1,24 @@
+Spec: Windows gateway platform
+
+Purpose:
+  Provide Windows-specific gateway integration while preserving the legacy application.
+
+Structure:
+  ./LinkGate.Broker: Per-user control transport, pending declarations and trusted host review.
+  ./LinkGate.Broker.Tests: Isolated native pipe and protocol verification.
+  ./LinkGate.Client: Process-pinned thin SDK independent from Broker storage.
+  ./LinkGate.Broker.Console: Explicit development host for independent integration samples.
+  ./LinkGate.Review.Console: Interactive host-only declaration review and recovery.
+  ./LinkGate.Agent.Console: Explicit secure direct preview host without service installation.
+  ./LinkGate.Owner.Console: Owner enrollment and versioned service-grant operations.
+  ./LinkGate.Runtime.Tests: Focused ownership and cancellation verification.
+  ./LinkGate.Runtime: Approved-application private bridge to owned backend processes.
+  ./LinkGate.Processes: Verified suspended runtime launch with Job ownership.
+  ./LinkGate.Processes.Tests: Actual owned-child and owner-crash verification.
+
+References:
+  /docs/SPEC.md
+  /docs/SECURITY-SPEC.md
+
+Must:
+  Keep development listeners separate from installed runtime configuration.

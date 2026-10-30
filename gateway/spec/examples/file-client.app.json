@@ -1,0 +1,21 @@
+{
+  "manifestVersion": 1,
+  "applicationId": "org.example.file-client",
+  "displayName": "File client sample",
+  "exports": [],
+  "imports": [
+    {
+      "alias": "remote-files",
+      "protocol": "https",
+      "endpointMode": "brokered",
+      "logicalAuthority": "files.example.invalid",
+      "connectionPolicy": {
+        "mode": "direct-first",
+        "connectTimeoutMs": 15000,
+        "directWaitMs": 8000,
+        "allowRelay": true,
+        "prewarm": false
+      }
+    }
+  ]
+}

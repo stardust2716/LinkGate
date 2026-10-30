@@ -1,0 +1,21 @@
+Spec: Explicit authenticated server command
+
+Purpose:
+  Run the real device-authorized control and FRP listeners using protected persistent Linux state.
+
+Owns:
+  ./main.go
+  ./main_test.go
+
+References:
+  /control-plane/serverhost/serverhost.sdd
+  /backend-frp/overlays/server/linkgate.sdd
+
+Must:
+  Keep initialization separate from serving and require an explicit protected configuration path for either command.
+  An explicit identity-request command requires a protected directory and creates only a host-local key and public CSR; it does not issue trust or modify authority.
+  Never generate an owner key, bootstrap on ordinary startup, reuse fixture grants or open stock FRP admission after an error.
+  Bind only the two configured listeners; no dashboard, public proxy, UDP listener or implicit STUN service is enabled.
+  Stop both listeners and authority on shutdown, storage identity failure or an unexpected listener exit, before closing databases.
+  Emit only fixed aggregate readiness/errors and suppress raw upstream logs that could reflect network candidates or runtime input.
+  Initialization and serving remain local commands without service installation, cloud mutation or deployment side effects.

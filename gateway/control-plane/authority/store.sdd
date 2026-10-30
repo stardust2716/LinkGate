@@ -1,0 +1,17 @@
+Spec: Transactional server authority with external rollback witness
+
+Purpose:
+  Preserve exact owner-approved roles, services and grants without reviving stale generations or restored databases.
+
+Owns:
+  ./store.go
+  ./store_test.go
+
+Must:
+  Accept only a host-protected bbolt database with synchronization enabled and an independent durable witness outside database backups.
+  Compare immutable expected revisions, retain caller/operation/digest results and reserve one operation for revoking each active object.
+  Atomically invalidate dependent grants on device/service generation changes and deny the removal of the last active owner.
+  Prepare the witness before database commit and acknowledge after; ambiguous ahead-of-database or missing witness state fails closed, never resets authority.
+  Finalize a prepared witness only when committed database generation and digest exactly match it.
+  Keep time high-water and bounded object counts, validate stored shapes and expose fixed errors without raw state.
+  Expose current publication snapshots only after active publisher role, matching device generation, and approved service validation.

@@ -1,0 +1,14 @@
+Spec: Bounded duplex business framing
+
+Purpose:
+  Carry independent TCP directions over a private stream without losing partial IO, backpressure or half-close.
+
+Owns:
+  ./BusinessStream.cs
+
+Must:
+  Bound each data frame and retained read buffer to `16384` bytes.
+  Distinguish clean directional FIN from transport loss; complete writes without closing the read direction.
+  Acknowledge received FIN and allow bounded final acknowledgement drain before closing a buffered transport.
+  Serialize each direction without an unbounded request queue and never replay payload.
+  Expose fixed close errors without reflecting peer data.

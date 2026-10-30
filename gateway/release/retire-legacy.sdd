@@ -1,0 +1,11 @@
+Spec: Explicit obsolete LinkGate retirement
+
+Purpose:
+  Remove obsolete gateway programs and service registration after the replacement is installed and healthy.
+
+Must:
+  Retire only com.nebula.linkgate, the verified linkgate-frps.service installation and exact old LinkGate portable/release directories; preserve com.nebula.linkgate.agent and ReDesk/RustDesk.
+  Verify cloud install journal, loaded unit, process and file ownership before stopping and archiving old files; do not stop the shared STUN service or remove its ports.
+  Preserve private recovery material separately from installed programs and leave the new server state/witness unchanged.
+  Resolve and validate every Windows recursive-delete target inside the explicit workspace local or dist root, reject links and embedded repositories, and check no live process uses a target.
+  Record old-service removal and new-service health without exposing credentials; inspect partial failure before retrying a mutation.

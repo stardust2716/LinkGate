@@ -1,0 +1,13 @@
+Spec: Explicit development Broker host
+
+Purpose:
+  Host a pending-registration pipe for locally launched integration experiments.
+
+Owns:
+  ./LinkGate.Broker.Console.csproj
+  ./Program.cs
+
+Must:
+  Require explicit private state directory and test pipe suffix; print only readiness and accept standard-input stop.
+  Stop after parent input closes or a bounded development lifetime and never install services.
+  Enable pending-grant requests only with the explicit `--pending-grants` argument.

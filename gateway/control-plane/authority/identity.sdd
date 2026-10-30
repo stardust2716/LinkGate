@@ -1,0 +1,14 @@
+Spec: Control-plane mutual TLS device identity
+
+Purpose:
+  Bind actual control connections to an owner-approved P-256 device key without accepting self-reported identity.
+
+Owns:
+  ./identity.go
+  ./identity_test.go
+
+Must:
+  Use standard Go TLS/x509 with a sole explicitly supplied owner root, fixed device DNS name, both EKUs, non-CA P-256 leaf and matching private key.
+  Require verified client certificates and recheck current device admission after the actual handshake; disable session tickets and require TLS `1.2` or newer.
+  Validate expected server key and normal chain/name checks together; never use insecure-skip verification or remote key discovery.
+  Keep device-role checks outside untrusted request fields and verify wrong roots, unapproved devices and key substitutions before application delivery.

@@ -1,0 +1,13 @@
+Spec: Java authority verification build bridge
+
+Purpose:
+  Build portable Agent-only lease verification and cross-implementation interoperability fixtures.
+
+Owns:
+  ./build.gradle
+
+References:
+  /control-auth/java/java.sdd
+
+Must:
+  Pin JOSE dependencies and keep Android platform private-key APIs outside the portable verifier.

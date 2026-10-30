@@ -1,0 +1,15 @@
+Spec: Revocation budget verification
+
+Purpose:
+  Exercise reservation admission and revocation at hard operation limits using owned temporary state.
+
+Owns:
+  ./CapacityTests.cs
+
+Must:
+  Remove newer connection journals when constructing older schema fixtures; migration must not invent flows or attachments.
+  Remove newer access tables when constructing historical schema fixtures and verify the current schema version after migration.
+  Verify global and host limits, multiple approved declarations, restart, historical replay and non-approved revocation.
+  Prove failed writes retain the reservation and concurrent writers cannot spend it twice or oversubscribe capacity.
+  Verify schema-two migration preserves decisions/results when reservations fit and rolls back when they do not.
+  Keep native storage failures and untested physical disk exhaustion outside the logical reservation claim.

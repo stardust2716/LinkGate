@@ -1,0 +1,18 @@
+Spec: Actual protected Linux server verification
+
+Purpose:
+  Exercise persistent server lifecycle on an explicitly selected local Linux host without cloud deployment.
+
+Owns:
+  ./verify.ps1
+  ./README.md
+
+References:
+  /control-plane/serverhost/serverhost.sdd
+  /backend-frp/overlays/cmd/linkgate-server/main.sdd
+
+Must:
+  Use only a new ignored artifact directory and a specified WSL distribution; temporary state is created and removed by owned test lifetimes inside Linux.
+  Build from a verified derived pinned backend with the new server command and use native Linux execution for permission/locking checks rather than treating Windows skips as passing host evidence.
+  Bound test execution, preserve aggregate logs and binary hashes, and keep installed services, global networking, physical phones and ECS unchanged.
+  Distinguish local host validation from production deployment, public network traversal and full release readiness.

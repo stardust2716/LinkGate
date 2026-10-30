@@ -1,0 +1,30 @@
+Spec: Authenticated transport control authority
+
+Platform: Go `1.27`
+
+Purpose:
+  Authorize individually authenticated devices and exact published services before transport admission.
+
+Owns:
+  ./go.mod
+  ./go.sum
+  ./README.md
+
+Structure:
+  ./authority: Durable roles, services, grants and standard short-lived leases.
+  ./serverhost: Protected Linux identity and durable authority lifecycle for explicit server commands.
+  ./controlinterop: Independent real mTLS control verification fixture.
+  ./interop: Local public fixture issuer for independent .NET/Java verification.
+
+References:
+  /docs/SECURITY-SPEC.md
+  /docs/adr/0015-authenticated-transport-control.md
+
+Must:
+  Keep new control authority separate from the legacy shared-token deployment.
+  Use mature TLS, JWS and transactional storage; never place device keys or backend credentials in application SDKs.
+  Treat actual backend admission and active direct/relay revocation as release gates, not inferred consequences of library tests.
+
+Tasks:
+  [x] #1 Verify durable device/service authority and standard scoped lease enforcement.
+  [x] #2 Bind real mTLS control identity to FRP backend admission and active sessions.

@@ -1,0 +1,15 @@
+Spec: Actual Windows public SDK connection verification
+
+Purpose:
+  Verify formal RPC and SDK business delivery over owned authenticated FRP routes.
+
+Owns:
+  ./FormalWindowsFixture.cs
+
+Must:
+  In dynamic mode observe same-scope runtime reuse and owned cleanup after network invalidation and grant loss without static visitor configuration.
+  Query an original successful open through the typed SDK on a declaration-only control host without formal capability, using the same actual OS caller.
+  Run only in the explicit Windows fixture, retaining the existing isolated Android fixture scope and backend counts.
+  Require independently approved exact local visitor grants and current publisher/server authority before any formal business.
+  Verify three 64 MiB transfers, exact path counters, retained open/attach operations, single-use pipes, independent cancellation, injected generation change and active local access revocation.
+  Record simulated generation changes separately from physical network observation and keep this same-process SDK fixture distinct from independent Windows application acceptance.

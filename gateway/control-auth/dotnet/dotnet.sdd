@@ -1,0 +1,11 @@
+Spec: Portable .NET server lease boundary
+
+Purpose:
+  Verify standard signed authority independently from Windows IPC and backend transport implementation.
+
+Structure:
+  ./LinkGate.Authority: Agent-only typed authority and JWS verification.
+  ./LinkGate.Authority.Tests: Independent verifier and owned cross-language orchestration.
+
+Must:
+  Production libraries depend on bounded public decoding and mature HTTP/TLS/JWS, never on Broker state or a transport executable; tests own source-built fixtures.

@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkgate.example.invalid/spec/v1/connection-policy.schema.json",
+  "title": "Planned LinkGate API1 connection policy",
+  "type": "object",
+  "properties": {
+    "mode": {
+      "enum": [
+        "fast-connect",
+        "direct-first",
+        "direct-only"
+      ]
+    },
+    "connectTimeoutMs": {
+      "type": "integer",
+      "minimum": 1000,
+      "maximum": 60000,
+      "default": 15000
+    },
+    "directWaitMs": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 60000
+    },
+    "allowRelay": {
+      "type": "boolean"
+    },
+    "prewarm": {
+      "type": "boolean",
+      "default": false
+    },
+    "prewarmTimeoutMs": {
+      "type": "integer",
+      "minimum": 1000,
+      "maximum": 60000,
+      "default": 8000
+    },
+    "prewarmIdleTimeoutMs": {
+      "type": "integer",
+      "minimum": 1000,
+      "maximum": 600000,
+      "default": 60000
+    },
+    "relayBudgetBytes": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 20,
+          "pattern": "^(0|[1-9][0-9]*)$"
+        }
+      ]
+    },
+    "relayWarningBytes": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 20,
+          "pattern": "^(0|[1-9][0-9]*)$"
+        }
+      ]
+    },
+    "relayBudgetAction": {
+      "enum": [
+        "stop-relay"
+      ]
+    }
+  },
+  "required": [
+    "mode"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "mode": {
+            "const": "direct-only"
+          }
+        },
+        "required": [
+          "mode"
+        ]
+      },
+      "then": {
+        "properties": {
+          "allowRelay": {
+            "const": false
+          }
+        },
+        "required": [
+          "allowRelay"
+        ]
+      }
+    }
+  ],
+  "$comment": "Design draft, not runtime support. Semantic checks: directWait<=connectTimeout; direct-only wait==total; uint64 decimal bounds; finite relay budget requires stop-relay and explicit user approval. Defaults depend on mode per SPEC.md."
+}

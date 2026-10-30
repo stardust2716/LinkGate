@@ -1,0 +1,22 @@
+Spec: Public contract shapes and examples
+
+Purpose:
+  Maintain published application JSON shapes and executable documentation checks.
+
+Owns:
+  ./README.md
+  ./app-manifest.schema.json
+  ./connection-policy.schema.json
+  ./rpc-envelope.schema.json
+  ./check_contracts.py
+  ./requirements-validation.txt
+
+Structure:
+  ./examples: Nonsecret representative declarations and messages.
+
+References:
+  /docs/SPEC.md
+  /docs/adr/0001-public-contract-normalization.md
+
+Must:
+  Keep shape validation distinct from runtime semantic validation and caller authorization.

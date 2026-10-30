@@ -1,0 +1,14 @@
+Spec: Independent .NET server lease verification
+
+Purpose:
+  Verify actual Go-issued standard tokens and bounded authorization lifetime without Agent storage or cloud services.
+
+Owns:
+  ./LinkGate.Authority.Tests.csproj
+  ./Program.cs
+
+Must:
+  Run source-built issuer and JVM fixtures only as held Job children in protected artifact directories.
+  Verify signatures, exact scope and signed malformed inputs; never print token contents.
+  Exercise stalled UTC, monotonic rollback, replay, late higher sequences and permanently closed control generations.
+  Keep interoperability proof distinct from installed runtime, FRP and physical device acceptance.

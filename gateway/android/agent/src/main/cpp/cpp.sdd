@@ -1,0 +1,10 @@
+Spec: Android child lifetime guard
+
+Purpose:
+  Start only the Agent-selected runtime while preserving direct parent ownership across exec.
+
+Owns:
+  ./launcher.c
+
+Must:
+  Set an uncatchable parent-death signal, verify the expected parent before exec, report the actual child PID through its inherited private stdout and execute only an absolute explicitly supplied path without a shell.

@@ -1,0 +1,25 @@
+Spec: Android owned direct and relay routes
+
+Purpose:
+  Compose exact authorized service scopes with private packaged FRP visitors.
+
+Owns:
+  ./FrpRoutes.java
+
+References:
+  ./FrpRuntimeBridge.sdd
+  ./ServerSettings.sdd
+
+Must:
+  Match the fifteen-second transport heartbeat response timeout used by Windows; retain explicit authorization expiry and network-generation invalidation.
+  Invalidate all owned cached sessions on a changed default-network generation, preserving the pool's capacity and late-creation cleanup rules.
+  Share one runtime only across completely equal local authority snapshots; release each stream independently, retain used idle sessions at most sixty seconds and revoke pooled resources when their exact authority changes.
+  Generate each private visitor from approved Agent scope and deterministic public service names; application SDKs cannot supply backend configuration or ports.
+  Use an independent canonical runtime instance ID within the authenticated application namespace and cap creating, running and closing owned runtimes at sixteen.
+  Bind loopback only, disable proxy environment use and keep inner peer mTLS and current server leases necessary for business bytes.
+  Bound each waiter by its original open deadline, close late shared starts after their last waiter leaves, and remove only generated private profiles.
+
+  Keep failed cleanup counted against capacity; bound post-stop cleanup retries to three seconds and never readmit retired resources.
+
+  Build direct and relay visitors inside the same exact-scope child, enable XTCP only with explicit STUN destinations and never configure implicit visitor fallback.
+  A direct-only import has no STCP visitor; route leases expose only their selected private loopback port.

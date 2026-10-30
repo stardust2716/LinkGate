@@ -1,0 +1,13 @@
+Spec: Owner-confirmed mobile server configuration
+
+Purpose:
+  Bind the foreground Agent to a public server identity and fixed control/backend endpoints.
+
+Owns:
+  ./ServerSettings.java
+
+Must:
+  Accept only a bounded versioned public document containing a specific IPv4 address, distinct control/backend ports and an owner-root-validated server certificate.
+  Store atomically in the private no-backup directory after owner confirmation; reject links, malformed or partially present state without falling back to preview.
+  Keep configuration immutable during an enabled or starting runtime and expose no Binder configuration method.
+  Accept an optional explicitly confirmed STUN endpoint array, defaulting to disabled for existing documents; never add a public fallback implicitly.

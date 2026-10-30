@@ -1,0 +1,10 @@
+Spec: Remaining peer opening deadline verification
+
+Purpose:
+  Preserve the original open budget across server authorization and route setup.
+
+Owns:
+  ./PeerOpeningTest.java
+
+Must:
+  Pass a sub-second remainder unchanged to the connector and close cancellation on failed setup; reject exhausted budgets before any connector call.

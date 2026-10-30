@@ -1,0 +1,17 @@
+Spec: Actual hole-punch authority binding
+
+Purpose:
+  Keep every pending hole-punch session bound to its approved visitor, publisher and current service authority.
+
+Owns:
+  ./linkgate.go
+  ./linkgate_test.go
+
+References:
+  /control-plane/authority/transport_gate.sdd
+
+Must:
+  Secure controllers require an actual proxy/kind-bound authority handle on precheck and actual visitor requests; bypassing precheck never bypasses authorization.
+  Accept client replies only for the exact pending proxy and authenticated publisher namespace, and reports only from the authorized session sides.
+  Stop pending waits and suppress candidate responses when the authority closes; delayed replies cannot revive a removed or revoked session.
+  Accept a publisher reply only once and bound reports to one per authorized side after analysis is ready.

@@ -1,0 +1,29 @@
+Spec: Authenticated backend transport authority
+
+Purpose:
+  Carry actual device and Agent application identity through backend control, publication and visitor admission.
+
+Owns:
+  ./transport_gate.go
+  ./transport_gate_test.go
+
+References:
+  ./identity.sdd
+  ./store.sdd
+
+Must:
+  Obtain identity only from actual standard server-side device mTLS under the configured owner root and fixed ALPN, followed by an exact bounded Agent scope preface.
+  Keep peer, control and service authorization objects privately bound to one gate; request fields cannot construct proof.
+  Bind every control RunID to device revision, application and publish/access role; reject empty or borrowed RunIDs.
+  Publish only owner-approved fixed service scopes with deterministic opaque proxy names and current device/service generations.
+  Admit visitors only with a fresh exact-scope grant and retain an active authorization cancellation handle for both relay and actual hole-punching.
+  Reserve separate bounded query lanes for waiting hole-punch visitors and their control/publisher replies, with at most eight calls per control per lane.
+  Bound peers, controls, publications and active authorizations; expire pending peers and stopped or stale controls without blocking on storage.
+  Recheck current authority every five hundred milliseconds and cancel affected operations on revocation or storage failure; keep a separate monotonic expiry path while storage is blocked.
+  Use fixed errors without logging inputs, scopes, certificates or addresses; close owned sockets on failure and stop.
+  Stop owned network resources immediately and expose a separate context-bounded worker-drain wait so blocked storage cannot hang socket shutdown.
+  Expose only aggregate in-process counts for owned runtime readiness checks, without a new unauthenticated metrics listener.
+  Bind each active authorization handle to its exact publication name and transport kind.
+
+Tasks:
+  [x] #1 Verify actual device-authenticated backend authority and current scoped cancellation.

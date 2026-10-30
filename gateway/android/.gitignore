@@ -1,0 +1,4 @@
+/local.properties
+/app/src/main/jniLibs/
+/.gradle/
+**/build/

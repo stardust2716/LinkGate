@@ -1,0 +1,13 @@
+Spec: Explicit authenticated Windows Agent entry
+
+Purpose:
+  Run the authenticated control/data composition with owner-managed configuration rather than fixture code.
+
+Owns:
+  ./AuthenticatedHost.cs
+
+Must:
+  Write a public bootstrap descriptor inside the private state directory after the local control pipe is reserved, recording current process identity and executable digest for explicitly trusted sample launch.
+  Require explicit state, identity, public server settings, independently confirmed server key, verified runtime hash and IPv4 bind.
+  Compose server leases, local SDK control, inner data TLS and dynamic publisher/visitor runtimes under one lifetime.
+  Support owner stop and cancellation, keep redirected EOF passive, print public local references only and dispose owned components in dependency order.

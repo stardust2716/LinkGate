@@ -1,0 +1,24 @@
+Spec: Android pending registration client SDK
+
+Purpose:
+  Bind a signature-pinned Broker and expose bounded negotiation, pending registration and explicit operation lookup.
+
+Owns:
+  ./build.gradle
+  ./README.md
+  ./src/main/AndroidManifest.xml
+
+References:
+  /docs/adr/0006-android-client.md
+  /docs/adr/0008-android-pending-sdk.md
+  /contracts/java/src/main/java/dev/linkgate/contracts/SecureReply.sdd
+
+Must not:
+  Depend on the Broker application, registration-core, platform database implementations, FRP, pairing files or network permissions.
+
+Tasks:
+  [x] #1 Build signature-pinned Binder negotiation and verify portable policy and resource bounds.
+  [x] #2 Verify pending registration, operation lookup and uncertain-outcome handling without automatic replay.
+
+Done when:
+  AAR and JVM checks pass; evidence distinguishes native Agent acceptance from unexecuted signing-rotation, reinstall and work-profile scenarios.

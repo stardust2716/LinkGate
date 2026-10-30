@@ -1,0 +1,7 @@
+Spec: Client runtime JVM checks
+
+Purpose:
+  Verify blocked-worker and lease bounds without claiming native Binder behavior.
+
+Owns:
+  ./ClientRuntimeTest.java

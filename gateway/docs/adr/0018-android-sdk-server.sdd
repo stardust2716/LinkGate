@@ -1,0 +1,10 @@
+Spec: Android server-configured SDK composition decision
+
+Purpose:
+  Explain how owner configuration and public SDK streams compose existing device and service authority.
+
+Owns:
+  ./0018-android-sdk-server.md
+
+Must:
+  Distinguish explicit experimental relay from automatic connection policies, isolate native fixture evidence and describe retained-path compatibility and remaining resource limits.

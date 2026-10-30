@@ -1,0 +1,24 @@
+Spec: Cross-platform conformance vectors
+
+Purpose:
+  Preserve exact public-contract input bytes and expected outcomes for independent parsers.
+
+Owns:
+  ./cases.json
+  ./generate.py
+
+References:
+  /docs/adr/0001-public-contract-normalization.md
+
+Must:
+  Include independently specified status and operation cases covering lifecycle, uint64, timestamp and fixed-error boundaries.
+  Encode input bytes as `inputUtf8Base64` so malformed encoding and duplicate keys remain representable.
+  Specify `kind`, `id`, `accepted` and either `normalized` or `errorCode` per case.
+  Include explicit cases for budgets, lexical integers, duplicate keys, malformed Unicode and authority boundaries.
+  Connection request cases may carry a separate `approvedPolicyUtf8Base64`; expected normalized output includes the request and `withinApproved` without treating comparison as actual authorization.
+
+Tasks:
+  [x] #1 Publish reviewed valid and invalid manifest and standalone-policy cases.
+
+Done when:
+  Both language runners consume this same corpus and agree with its expected outcomes.

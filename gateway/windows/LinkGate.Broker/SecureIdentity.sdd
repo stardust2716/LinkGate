@@ -1,0 +1,19 @@
+Spec: Owner-approved mutual TLS device identity
+
+Purpose:
+  Authenticate device possession of approved P-256 keys through standard TLS and a private owner trust root.
+
+Owns:
+  ./SecureIdentity.cs
+
+References:
+  /docs/adr/0013-secure-direct-streams.md
+
+Must:
+  Validate chain, time, EKU and server name before accepting an explicitly approved peer SPKI fingerprint.
+  Generate device keys locally and sign only validated CSRs with fixed non-CA device extensions.
+  Keep private keys in protected owner state without modifying system certificate trust or returning keys to applications.
+  Use TLS `1.2` or `1.3`; reject unknown, revoked, expired, wrong-root or wrong-pin devices without insecure fallback.
+
+Tasks:
+  [x] #1 Verify local CSR issuance, actual mutual TLS and owner CLI enrollment without exposing device keys.

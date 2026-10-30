@@ -1,0 +1,28 @@
+Spec: Native Windows owned-runtime test host
+
+Purpose:
+  Prove actual frpc process and private IPC identity without exporting device keys or altering installed services.
+
+Owns:
+  ./FrpAuthority.Tests.csproj
+  ./Program.cs
+
+Structure:
+  ./AndroidFixture.cs: Optional isolated emulator Keystore and actual private runtime coordination.
+
+Must:
+  In scoped-only mode discover approved publishers automatically and verify publisher revocation cleanup without launching static publisher or visitor profiles.
+  Provide a scoped-runtime-only mode that reuses the actual SDK fixture without rerunning static-route or Android suites; derive its visitor configuration on demand.
+  On failure retain only exception type and bounded method names for local debugging, never messages, arguments or raw stack paths.
+  Include the Windows formal SDK fixture only in Windows-only runs and account for its additional business sockets; preserve separate Android evidence.
+  Derive runtime namespace and configuration from explicitly approved fixture applications and fixed loopback targets.
+  Test real file bytes, blocked relay revocation and local approval lifecycle with bounded cleanup of only owned processes, sockets, files and CNG keys.
+  Emit fixed aggregate results only, without raw diagnostics, private keys or credentials.
+  Mark each run pending before starting and preserve a separate aggregate result for success or failure so stale passing output cannot stand in for a failed retry.
+  Compose the real SDK, inner Agent data mTLS and exact local/server service grants through actual FRP relay; verify missing local authority and scope recombination fail before backend delivery.
+  Exercise an XTCP-only visitor with relay fallback disabled and real loopback STUN observations; verify actual SDK business bytes and active direct revocation separately from physical NAT acceptance.
+
+  Count actual Android SDK backend connections separately from internal bridge proof and retain both results.
+
+  Explicitly configure both loopback STUN destinations and reject malformed endpoint lists before launching any child.
+  Include formal Android connection fixture business sockets in the actual backend count and keep simulated generation changes separate from physical network acceptance.

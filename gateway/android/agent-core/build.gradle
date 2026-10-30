@@ -1,0 +1,12 @@
+plugins { id 'java-library' }
+java { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
+sourceSets { main { java.srcDirs = ['../../agent-core/src/main/java'] } }
+dependencies {
+    api project(':public-contracts')
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.xerial:sqlite-jdbc:3.53.4.0'
+}
+test {
+    systemProperty 'org.sqlite.tmpdir', file('build/sqlite-native').absolutePath
+    doFirst { file('build/sqlite-native').mkdirs() }
+}

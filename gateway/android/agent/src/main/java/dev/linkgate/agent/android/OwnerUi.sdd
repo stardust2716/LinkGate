@@ -1,0 +1,12 @@
+Spec: LinkGate native owner presentation
+
+Purpose:
+  Render a consistent accessible mobile interface without transport or authority decisions.
+
+Owns:
+  ./OwnerUi.java
+
+Must:
+  Provide native rounded cards, semantic icons, typography and button states using a restrained teal and navy palette.
+  Keep at least forty-eight density-independent pixels for touch targets, support font scaling and constrain reading width on wide devices.
+  Accept action callbacks only; never read identity storage, start networking, approve permissions or mutate gateway state.

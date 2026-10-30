@@ -1,0 +1,12 @@
+Spec: Shared control frame codec
+
+Purpose:
+  Encode and decode exact bounded control payloads over caller-owned streams.
+
+Owns:
+  ./FrameCodec.cs
+
+Must:
+  Use a four-byte unsigned little-endian length, accepting `1` to `65536` payload bytes.
+  Return clean EOF only before a header and reject truncated headers/bodies without over-limit allocation.
+  Preserve cancellation on reads, writes and flushes.

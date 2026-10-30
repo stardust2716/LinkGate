@@ -1,0 +1,23 @@
+Spec: Windows pending declaration and permission SDK
+
+Purpose:
+  Offer process-pinned declaration requests, explicit outcome lookup and opt-in private secure business streams.
+
+Owns:
+  ./LinkGate.Client.csproj
+  ./ClientExceptions.cs
+  ./README.md
+
+References:
+  /contracts/dotnet/LinkGate.Control/LinkGate.Control.sdd
+  /contracts/dotnet/LinkGate.Contracts/LinkGate.Contracts.sdd
+  /docs/adr/0004-pending-sdk.md
+  /docs/adr/0012-pending-grant-requests.md
+  ./BusinessConnections.sdd
+
+Must not:
+  Depend on Broker storage, FRP, pairing credentials or transport retry loops.
+
+Tasks:
+  [x] #1 Verify independent pending registration and unknown-outcome recovery without automatic mutation retry.
+  [x] #2 Verify pending permission requests and separate operation/request status without active grants.

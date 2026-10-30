@@ -1,0 +1,10 @@
+Spec: Authenticated candidate planning decision
+
+Purpose:
+  Describe original admission budgets and selected business candidate evidence on both platforms.
+
+Owns:
+  ./0021-authenticated-connection-planning.md
+
+Must:
+  Distinguish portable planning, actual platform integration, experimental explicit path APIs and the still-unimplemented full public connection contract.

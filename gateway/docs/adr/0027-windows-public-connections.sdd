@@ -1,0 +1,10 @@
+Spec: Windows public connection composition decision
+
+Purpose:
+  Explain the experimentally usable Windows SDK path, its static owner-endpoint boundary and verified cancellation fix.
+
+Owns:
+  ./0027-windows-public-connections.md
+
+Must:
+  Distinguish actual SDK/FRP business evidence from independent Windows process, dynamic endpoint discovery, physical network and release acceptance still outstanding.

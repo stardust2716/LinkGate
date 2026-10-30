@@ -1,0 +1,12 @@
+Spec: Reliable descriptor stream ownership
+
+Purpose:
+  Own a Binder-delivered socket descriptor with explicit directional shutdown and fixed attachment framing.
+
+Owns:
+  ./DescriptorDuplex.java
+
+Must:
+  Perform the bounded one-use attachment handshake before exposing application bytes.
+  Use kernel shutdown to interrupt blocked reads/writes and preserve output-only FIN without closing input.
+  Close every duplicated descriptor once and keep stream errors free of reflected peer data.

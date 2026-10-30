@@ -1,0 +1,176 @@
+{
+  "date": "2026-10-30",
+  "milestone": "Windows durable connection journal and business meter",
+  "passed": true,
+  "windowsRegression": {
+    "checks": 537,
+    "newChecks": 37,
+    "actualLocalPipe": true
+  },
+  "nativeRegression": {
+    "passed": true,
+    "runId": "1f77294225c34e2dae401b0d628bbf12",
+    "checks": 47,
+    "actualSourceBuiltFrpc": true,
+    "actualProtectedNamedPipes": true,
+    "actualParentPidVerified": true,
+    "unrelatedPipeClientDenied": true,
+    "clientKeysExported": false,
+    "actualMutualTlsBackend": true,
+    "actualWireV2": true,
+    "actualTcpMux": true,
+    "actualRelayBytes": 67108864,
+    "actualXtcpOnlyBytes": 67108864,
+    "xtcpFallbackEnabled": false,
+    "loopbackStunTested": true,
+    "integrity": true,
+    "requestHalfClose": true,
+    "actualReportedPaths": [
+      "relay",
+      "direct"
+    ],
+    "missingLocalGrantRejected": true,
+    "scopePolicyRejected": true,
+    "activeRelayRevokeMs": 82,
+    "activeDirectRevokeMs": 82,
+    "localGrantRevokeMs": 413,
+    "localRuntimeRevokeMs": 679,
+    "pendingDenialPreservesRuntime": true,
+    "unrelatedRuntimePreserved": true,
+    "agentDataMtlsInRelayTested": true,
+    "businessSdkInRelayTested": true,
+    "androidNativeBridgeTested": true,
+    "androidNativeBridge": {
+      "passed": true,
+      "actualPackagedFrpc": true,
+      "keystoreKeyExported": false,
+      "actualUnixCredentials": true,
+      "unrelatedClientRefused": true,
+      "agentControlMtls": true,
+      "agentDataMtls": true,
+      "serverLease": true,
+      "relayBytes": 67108864,
+      "integrity": true,
+      "requestFin": true,
+      "pendingDenialPreservesRuntime": true,
+      "localRuntimeRevokeMs": 261,
+      "serverRevokeObservedMs": 393,
+      "businessSdkTested": false,
+      "physicalDeviceTested": false,
+      "serverTriggerToCompletionMs": 726
+    },
+    "androidPublicSdk": {
+      "passed": true,
+      "businessSdkTested": true,
+      "independentAndroidUid": 10251,
+      "agentUid": 10249,
+      "differentSigner": true,
+      "relayBytes": 67108864,
+      "directLanBytes": 0,
+      "directXtcpBytes": 67108864,
+      "androidXtcpBusinessTested": true,
+      "formalConnections": {
+        "direct": {
+          "passed": true,
+          "bytes": 67108864,
+          "path": "direct",
+          "exactTx": "33",
+          "exactRx": "67108864",
+          "complete": true,
+          "integrity": true,
+          "retainedOpen": true,
+          "oneUseAttachment": true
+        },
+        "relay": {
+          "passed": true,
+          "bytes": 67108864,
+          "path": "relay",
+          "exactTx": "33",
+          "exactRx": "67108864",
+          "complete": true,
+          "integrity": true,
+          "retainedOpen": true,
+          "oneUseAttachment": true
+        },
+        "automatic": {
+          "passed": true,
+          "bytes": 67108864,
+          "path": "direct",
+          "exactTx": "33",
+          "exactRx": "67108864",
+          "complete": true,
+          "integrity": true,
+          "retainedOpen": true,
+          "oneUseAttachment": true
+        },
+        "network": {
+          "passed": true,
+          "oldStreamsClosed": true,
+          "newGeneration": true,
+          "payloadReplayed": false,
+          "incompleteTail": true
+        },
+        "cancellation": {
+          "passed": true,
+          "twoDirectStreams": true,
+          "unrelatedStreamPreserved": true
+        },
+        "selectedXtcpCount": 1,
+        "physicalNetworkChanged": false
+      },
+      "integrity": true,
+      "requestFin": true,
+      "oneUseAttachment": true,
+      "concurrentSameApplicationStreams": 2,
+      "ownedRuntimesForSameScope": 1,
+      "independentStreamCancellation": true,
+      "serverDenialBeforeBusiness": true,
+      "localRevokeMs": 788,
+      "serverRevokeMs": 184,
+      "recordedPath": "relay",
+      "corruptConfigFailsClosed": true,
+      "ownerStopPreventsLateStartup": true,
+      "physicalDeviceTested": false
+    },
+    "physicalNatTested": false,
+    "cloudAccessed": false,
+    "installedRuntimeChanged": false,
+    "nativeBuild": {
+      "buildId": "a911100de79346558a19a45b2afe3a77",
+      "builtUtc": "2026-10-30T07:01:17.6668024Z",
+      "authenticatedRuntimeSelected": true,
+      "apks": {
+        "agent/build/outputs/apk/debug/agent-debug.apk": "d1135cc904d7a77ec7e3f615a1ae60d246d8476190c66675b564167589b09259",
+        "agent/build/outputs/apk/androidTest/debug/agent-debug-androidTest.apk": "de32898aee3bc8e2551215b78a2b8d056b7a75f42b1330a3c1fc8b0c5bdefd88",
+        "native-consumer/build/outputs/apk/debug/native-consumer-debug.apk": "748a835963a9660101ac2560317da1e6ba52c77567184bd812f321756cb0ad24",
+        "native-consumer/build/outputs/apk/androidTest/debug/native-consumer-debug-androidTest.apk": "531b81b055ceddd8d0ebc23706c2980e3103194b23a37763e2ec3de42005d739"
+      }
+    }
+  },
+  "sharedContracts": {
+    "contractVersion": 1,
+    "corpusVersion": 1,
+    "cases": 400,
+    "valid": 87,
+    "invalid": 313,
+    "dotnetPassed": true,
+    "javaPassed": true,
+    "normalizedResultsEqual": true,
+    "networkOrDeviceTestsPerformed": false
+  },
+  "androidJournalRegression": {
+    "passed": true,
+    "registryTests": 18,
+    "meterTests": 6,
+    "subjectTests": 3
+  },
+  "schema": {
+    "windows": 8,
+    "android": 2
+  },
+  "coalescedHalfCloseCheckpoint": true,
+  "formalWindowsRpcImplemented": false,
+  "fullReleaseReady": false,
+  "installedRuntimeChanged": false,
+  "cloudChanged": false
+}

@@ -1,0 +1,14 @@
+Spec: Bounded scoped Windows runtime ownership
+
+Purpose:
+  Share one owned runtime per exact authority scope while independently bounding callers and creation.
+
+Owns:
+  ./OwnedRuntimePool.cs
+
+Must:
+  Retain capacity for creating, live and retired-but-not-disposed resources, with at most sixteen resources and four creations.
+  Register a resource before blocking startup, abort it on retirement and dispose it only after creation has finished.
+  Give waiters independent original deadlines/cancellation; cancel shared creation only when no waiter remains, without stopping another live lease.
+  Retire scope-invalid, dead, network-invalidated and idle sixty-second sessions; retry failed cleanup without prematurely releasing capacity.
+  Reject new admission after close and abort late startup/results; monotonic clock rollback closes the pool.

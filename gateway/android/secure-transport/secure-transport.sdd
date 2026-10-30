@@ -1,0 +1,14 @@
+Spec: Java secure transport build bridge
+
+Purpose:
+  Build Android-compatible authenticated peer transport and JVM interoperability checks.
+
+Owns:
+  ./build.gradle
+
+References:
+  /transport-core/transport-core.sdd
+
+Must:
+  Keep platform-specific Keystore and Binder APIs outside portable sources.
+  Pin PKIX dependency versions and expose no device secrets to client SDK artifacts.

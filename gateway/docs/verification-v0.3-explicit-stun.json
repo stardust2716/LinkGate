@@ -1,0 +1,131 @@
+{
+  "recordedUtc": "2026-10-30",
+  "installedBaseline": "0.2.3",
+  "native": {
+    "passed": true,
+    "runId": "53cf557407504abc907c4dd860cdb4dd",
+    "checks": 47,
+    "actualSourceBuiltFrpc": true,
+    "actualProtectedNamedPipes": true,
+    "actualParentPidVerified": true,
+    "unrelatedPipeClientDenied": true,
+    "clientKeysExported": false,
+    "actualMutualTlsBackend": true,
+    "actualWireV2": true,
+    "actualTcpMux": true,
+    "actualRelayBytes": 67108864,
+    "actualXtcpOnlyBytes": 67108864,
+    "xtcpFallbackEnabled": false,
+    "loopbackStunTested": true,
+    "integrity": true,
+    "requestHalfClose": true,
+    "actualReportedPaths": [
+      "relay",
+      "direct"
+    ],
+    "missingLocalGrantRejected": true,
+    "scopePolicyRejected": true,
+    "activeRelayRevokeMs": 71,
+    "activeDirectRevokeMs": 222,
+    "localGrantRevokeMs": 374,
+    "localRuntimeRevokeMs": 244,
+    "pendingDenialPreservesRuntime": true,
+    "unrelatedRuntimePreserved": true,
+    "agentDataMtlsInRelayTested": true,
+    "businessSdkInRelayTested": true,
+    "androidNativeBridgeTested": true,
+    "androidNativeBridge": {
+      "passed": true,
+      "actualPackagedFrpc": true,
+      "keystoreKeyExported": false,
+      "actualUnixCredentials": true,
+      "unrelatedClientRefused": true,
+      "agentControlMtls": true,
+      "agentDataMtls": true,
+      "serverLease": true,
+      "relayBytes": 67108864,
+      "integrity": true,
+      "requestFin": true,
+      "pendingDenialPreservesRuntime": true,
+      "localRuntimeRevokeMs": 258,
+      "serverRevokeObservedMs": 313,
+      "businessSdkTested": false,
+      "physicalDeviceTested": false,
+      "serverTriggerToCompletionMs": 791
+    },
+    "androidPublicSdk": {
+      "passed": true,
+      "businessSdkTested": true,
+      "independentAndroidUid": 10195,
+      "agentUid": 10197,
+      "differentSigner": true,
+      "relayBytes": 67108864,
+      "integrity": true,
+      "requestFin": true,
+      "oneUseAttachment": true,
+      "concurrentSameApplicationStreams": 2,
+      "ownedRuntimesForSameScope": 1,
+      "independentStreamCancellation": true,
+      "serverDenialBeforeBusiness": true,
+      "localRevokeMs": 1288,
+      "serverRevokeMs": 343,
+      "recordedPath": "relay",
+      "corruptConfigFailsClosed": true,
+      "ownerStopPreventsLateStartup": true,
+      "physicalDeviceTested": false
+    },
+    "physicalNatTested": false,
+    "cloudAccessed": false,
+    "installedRuntimeChanged": false,
+    "nativeBuild": {
+      "buildId": "84af4f2f43214380813d0cd533cf8db8",
+      "builtUtc": "2026-10-30T02:41:35.4866556Z",
+      "authenticatedRuntimeSelected": true,
+      "apks": {
+        "agent/build/outputs/apk/debug/agent-debug.apk": "ce3504952f43702f3f090726249e8dd48b0544b273220d0bc61ded07f261b8a1",
+        "agent/build/outputs/apk/androidTest/debug/agent-debug-androidTest.apk": "4286b65de07e451d85c4c21c532dd9fdcdd9652582ea7094677108bf6b377496",
+        "native-consumer/build/outputs/apk/debug/native-consumer-debug.apk": "db620708942f2ba7a67c554ce45ddae45078e125ef7a115b18281b3a9bbfaed7",
+        "native-consumer/build/outputs/apk/androidTest/debug/native-consumer-debug-androidTest.apk": "202df85e71d000cfb1c86ec7b429c357aae19d00a572296d6da939f2832ba9e2"
+      }
+    }
+  },
+  "backend": {
+    "passed": true,
+    "sourceCommit": "d8cf1800dc1abd7fda1828cab105d7a6b5a50eb1",
+    "topLevelTests": 161,
+    "linkgateTopLevelTests": 19,
+    "vet": true,
+    "moduleChecksums": true,
+    "go": "go version go1.27.3 windows/amd64",
+    "patchSha256": "98980F60A0EC3E0D5C2E1361EC18E8C6E9B9C3A88BD3E5A23F2A779524F49515",
+    "moduleSha256": "FF64ABA02B00C1F0E8D08B8E6C535AE9373C5905AE93B56E644CCCBD065BA520",
+    "sumSha256": "273DF854A1CB96C78F227A189EF84600C1A8A917F701A3A555A4CB11400493DB",
+    "frpcSha256": "A1FFE7231AB99A00B5EA93613143061F5B116817E216F79ECEEC478DFFF3D235",
+    "fixtureSha256": "AF6CEAF61513835CF6B06E7859F10B649A8431C8D9FFC59815EC7AFAB58D2353",
+    "physicalNatTested": false,
+    "installedRuntimeChanged": false
+  },
+  "javaEndpointUnitTests": 3,
+  "javaEndpointUnitFailures": 0,
+  "runtimeLock": {
+    "schema": 1,
+    "sourceCommit": "d8cf1800dc1abd7fda1828cab105d7a6b5a50eb1",
+    "goVersion": "go version go1.27.3 windows/amd64",
+    "abis": {
+      "arm64-v8a": {
+        "frpcSha256": "0936f1c207d651c68539efb0a84e1db051b8058b23f84c597fe56a62a23b771b",
+        "launcherSha256": "25a371d964e8dd1a77a1a3f0ee5bb2087456555a47d0cb6074b1acda68ca16ac"
+      },
+      "x86_64": {
+        "frpcSha256": "b047e2364b476b605f6dd61e62082d900d89333b6bdeb7fda38ee09307ec2741",
+        "launcherSha256": "f1172ab5031e0ccfb10174b55ab3f43eb99339c1552b99b09c9f5f5dd668e3fd"
+      }
+    }
+  },
+  "explicitWindowsStunEndpoints": 2,
+  "unconfiguredOtherAddressContactRejected": true,
+  "implicitPublicFallback": false,
+  "androidXtcpBusinessTested": false,
+  "physicalNetworksTested": false,
+  "installedRuntimeChanged": false
+}

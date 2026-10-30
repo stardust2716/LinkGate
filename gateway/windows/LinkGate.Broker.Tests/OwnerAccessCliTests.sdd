@@ -1,0 +1,11 @@
+Spec: Local visitor permission command verification
+
+Purpose:
+  Verify owners can inspect, approve, recover and retire exact visitor permissions with the actual console program.
+
+Owns:
+  ./OwnerAccessCliTests.cs
+
+Must:
+  Use a private owned fixture and actual argument-list subprocess execution without changing installed services.
+  Cover bounded request/grant listing, proposal-before-approval, retained results, stale permission inspection/revocation and rejection of unknown proposal fields.

@@ -1,0 +1,26 @@
+Spec: Owner-approved Windows visitor access
+
+Purpose:
+  Keep an approved import distinct from permission to visit one specific remote service.
+
+Owns:
+  ./LocalAccess.cs
+
+References:
+  ./PendingGrants.sdd
+  ./SecureAuthority.sdd
+  ./JournalCapacity.sdd
+
+Must:
+  Provide host-only keyset-paged grant references and complete snapshots, including inactive or generation-stale grants, so owners can revoke them without knowing old operation IDs.
+  Expose trusted-host scope minting/current checks and use one canonical authority stamp for route pooling and connection journals.
+  Expose proposal, approval and revocation only as trusted host methods; never dispatch them through application RPC.
+  Build approval from a retained caller-owned pending request, current approved import and trusted peer; bind all scope fields, review decision, authority epoch and peer revision.
+  Commit exact caller/application/import/device/publisher/service grants and original administrator outcomes atomically; reject stale snapshots and changed-operation replay.
+  Require current explicit access for the new formal visitor path, without treating pending requests or legacy preview declarations as access.
+  Preserve current grants across denial-only pending reviews, but invalidate on declaration approval/revocation, peer revision, grant revocation or changed scope.
+  Retain at most 4096 combined publisher/visitor grant rows; reserve one revoke slot for each active row, including invalidated rows until explicit retirement.
+  Replay prior results before capacity checks without restoring authority; provide batch current-scope checks and fail closed on corrupt records.
+
+Tasks:
+  [x] #1 Verify exact scope, stale approval, persistence/replay, atomic rollback, revocation reservations and schema-six migration.

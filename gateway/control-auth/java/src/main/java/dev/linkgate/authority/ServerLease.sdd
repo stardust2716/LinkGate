@@ -1,0 +1,14 @@
+Spec: Java independent standard server lease verifier
+
+Purpose:
+  Verify the server lease again at an Agent using current authenticated authority and a shared time fence.
+
+Owns:
+  ./ServerLease.java
+
+Must:
+  Use pinned Nimbus ES256 JWS/JWT validation plus strict header/claim fields, canonical base64url and exact scope/generations.
+  Verify the device certificate chain/profile and expected issuer SPKI against the supplied owner root.
+  Bound receipt lifetime by signed and certificate expiry, include validation elapsed time and never echo token/parser details.
+  Reject old sequences, retain original replay deadlines and permanently close stopped control generations.
+  Attach only a fixed verification-stage label to Agent-local rejection diagnostics; no raw token, parser message or nested cause crosses this boundary.

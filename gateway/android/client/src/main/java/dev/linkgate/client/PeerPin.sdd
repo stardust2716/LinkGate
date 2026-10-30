@@ -1,0 +1,12 @@
+Spec: Android target identity pin
+
+Purpose:
+  Match an explicitly trusted component and complete current signer set to a stable package snapshot.
+
+Owns:
+  ./PeerPin.java
+
+Must:
+  Require exact current SHA-256 signer set equality, canonical component names and enabled exported service state.
+  Reject shared UID and changes to UID, first-install time, update time or signer set during a binding.
+  Copy signer collections and return fixed errors without package or certificate reflection.

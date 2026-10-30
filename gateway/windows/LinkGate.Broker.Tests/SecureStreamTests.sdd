@@ -1,0 +1,19 @@
+Spec: Secure usable stream verification
+
+Purpose:
+  Verify device identity, publisher-enforced grants and actual independent application data transfer.
+
+Owns:
+  ./SecureStreamTests.cs
+
+References:
+  /examples/secure-direct/secure-direct.sdd
+
+Must:
+  Reject wrong roots, keys, devices, applications, services and absent/revoked grants before business delivery.
+  Cover partial IO, one-use tickets, blocked-IO revocation, identity binding, retained opens and restart recovery locally.
+  Use the referenced independent application verifier for large authenticated HTTPS, WebSocket, half-close and consumer dependency checks.
+  Distinguish local two-Agent verification from unexecuted physical multi-device or NAT traversal tests.
+  Verify an explicit per-service peer listener refuses a different otherwise authorized service and that retained relay outcomes survive restart without path relabeling.
+
+  An experimental open with unsupported declared relay limits fails before any peer connection.

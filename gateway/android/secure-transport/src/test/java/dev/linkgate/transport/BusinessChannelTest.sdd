@@ -1,0 +1,10 @@
+Spec: Java business framing verification
+
+Purpose:
+  Verify bounded framing, clean half-close and malformed input rejection independently of TLS providers.
+
+Owns:
+  ./BusinessChannelTest.java
+
+Must:
+  Cover fragmented reads, oversized headers, missing FIN and acknowledgement ordering without network or private fixtures.

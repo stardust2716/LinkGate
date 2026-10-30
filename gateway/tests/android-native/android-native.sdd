@@ -1,0 +1,20 @@
+Spec: Isolated Android native gateway verification
+
+Purpose:
+  Verify Keystore, Binder UID and private stream behavior on an explicitly owned headless emulator.
+
+Structure:
+  ./EmulatorHarness: Kernel-owned emulator and isolated ADB server lifetime.
+  ./NativeHarness: Windows publisher and independent Android SDK acceptance orchestration.
+
+Owns:
+  ./README.md
+  ./verify.ps1
+
+Must:
+  Use an isolated ADB port with physical USB discovery disabled and explicit emulator serial for every device command.
+  Verify the guest emulator and architecture before installing test packages.
+  Keep emulator results distinct from ARM64 phone and real-network acceptance.
+  Allow an explicit generated runtime and authenticated backend fixture selection for native FRP verification while preserving the default direct-preview acceptance path.
+
+  Freeze the hashes of all four built APKs before installation in a unique run manifest, then attach that exact manifest to the acceptance summary; later builds cannot substitute their artifacts for tested binaries.

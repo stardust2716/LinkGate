@@ -1,0 +1,17 @@
+Spec: Explicit first-trial deployment
+
+Purpose:
+  Deploy the frozen trial to the operator's existing ECS, Windows and connected Android without migrating legacy applications.
+
+Owns:
+  ./DEPLOYMENT.md
+
+Must:
+  Treat the operator's deployment request as explicit operational authority, distinct from prior local-only development.
+  Verify the configured ECS identity, existing services, SSH host identity and exact package hashes before changing the host.
+  Preserve the new trial identity/service, ReDesk and shared STUN; retire only the operator-authorized obsolete LinkGate installation after verifying its ownership and preserving a private recovery archive.
+  Keep all generated identities, cloud command receipts, temporary transfer credentials and local process ownership records under ignored private deployment directories.
+  Use stable saved cloud operation receipts and inspect unknown outcomes before retrying; remove only the exact temporary transfer authorization created for this deployment.
+  Leave device private keys on their originating device and require explicit local and server application grants.
+  Verify one bounded real cloud data transfer and normal stop/restart; do not repeat long stability or physical network matrices.
+  Install Android through authorized ADB only; leave phone screen and owner confirmation to the user.

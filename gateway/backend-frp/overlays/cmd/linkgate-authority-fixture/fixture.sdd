@@ -1,0 +1,19 @@
+Spec: Native owned-runtime authority fixture
+
+Purpose:
+  Exercise actual platform-owned frpc processes against the authenticated backend with independent nonexportable client keys.
+
+Owns:
+  ./main.go
+
+Structure:
+  ./stun.go: Loopback-only bounded two-observation UDP fixture for actual XTCP transport verification.
+
+Must:
+  Read only public client CSRs from a protected test directory, generate CA/server private keys in process and publish only public certificates and loopback listener metadata.
+  Approve exact fixture device/application/service scopes and use explicit authenticated backend construction without legacy listeners.
+  Bound lifetime and permit fixture revocation through an owned marker only; close every owned listener, gate and database on exit.
+  Never install, deploy, print credentials or expose fixture administration over the network.
+  Optionally enroll a public Android CSR with a separate exact access grant and independent owner marker revocation, preserving Windows fixture scopes.
+
+  Keep the independent Android SDK consumer grant separate from the private-bridge fixture grant, with its own revocation marker.

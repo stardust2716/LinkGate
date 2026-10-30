@@ -1,0 +1,10 @@
+Spec: Bounded review terminal port
+
+Purpose:
+  Bound a single command before allocating unbounded terminal input.
+
+Owns:
+  ./ReviewTerminal.cs
+
+Must:
+  Reject command lines over `128` characters and control characters; EOF never confirms an action.

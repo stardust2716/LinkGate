@@ -1,0 +1,17 @@
+Spec: Actual server-authorized business fixture
+
+Purpose:
+  Exercise signed server authority and local grants at real Windows publishing and consuming Agents.
+
+Owns:
+  ./DataFixture.cs
+
+References:
+  /windows/LinkGate.Broker/SecurePeerServer.sdd
+  /windows/LinkGate.Broker/SecureConnections.sdd
+
+Must:
+  Register and consume through actual held-process-verified SDK pipes, then explicitly approve only the fixture application's fixed loopback service.
+  Use the same owner-issued nonexportable test identities as the actual Go control clients and require both server leases and local grants.
+  Deliver deterministic sixty-four MiB responses with application challenge and request FIN, then hold real blocked streams for server revocation.
+  Own and cancel all listeners, hosts and backend sockets; never export private identity keys or publish arbitrary targets.

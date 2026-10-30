@@ -1,0 +1,14 @@
+Spec: Pending permission request verification
+
+Purpose:
+  Verify the request boundary through private SQLite, actual pipes and the independent SDK.
+
+Owns:
+  ./PendingGrantTests.cs
+
+Must:
+  Remove newer connection journals when constructing older schema fixtures; migration must not invent flows or attachments.
+  Remove newer access tables when constructing historical schema fixtures and verify the current schema version after migration.
+  Cover strict values, explicit opt-in, approved-import requirements, foreign application/request rejection and policy injection.
+  Verify approval-version binding, supersession, old-result replay, migration, quotas, rollback and concurrent same-operation submission.
+  Exercise SDK unknown-outcome recovery and host inspection without enabling any transport or active grant.

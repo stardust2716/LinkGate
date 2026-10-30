@@ -1,0 +1,16 @@
+Spec: Interoperable duplex business framing
+
+Purpose:
+  Preserve independent TCP directions and final acknowledgement over authenticated Java transports.
+
+Owns:
+  ./BusinessChannel.java
+
+References:
+  /contracts/dotnet/LinkGate.Control/BusinessStream.sdd
+
+Must:
+  Match the Windows length prefix, DATA, FIN, CLOSE and FIN acknowledgement frames.
+  Reject oversized frames before payload allocation and bound each payload to `16384` bytes.
+  Allow one application reader and writer while serializing internal acknowledgements without unbounded queues.
+  Distinguish clean FIN from transport loss and never replay data after failure.

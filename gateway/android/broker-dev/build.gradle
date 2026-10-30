@@ -1,0 +1,30 @@
+plugins { id 'com.android.application' }
+
+def pendingRegistration = providers.gradleProperty('linkgatePendingRegistration').orElse('false').get()
+if (!(pendingRegistration in ['true', 'false'])) throw new GradleException('linkgatePendingRegistration must be true or false')
+
+android {
+    namespace 'com.nebula.linkgate.brokerdev'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'com.nebula.linkgate.brokerdev'
+        minSdk 26
+        targetSdk 36
+        versionCode 1
+        versionName '0.3.0-dev'
+        buildConfigField 'boolean', 'ENABLE_PENDING_REGISTRATION', pendingRegistration
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    buildTypes { release { minifyEnabled false } }
+    buildFeatures { buildConfig true }
+}
+
+dependencies {
+    implementation project(':control-ipc')
+    implementation project(':public-contracts')
+    implementation project(':registration-core')
+    testImplementation 'junit:junit:4.13.2'
+}

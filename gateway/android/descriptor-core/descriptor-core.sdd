@@ -1,0 +1,14 @@
+Spec: Android duplex descriptor primitives
+
+Purpose:
+  Share bounded descriptor framing and deterministic native shutdown between Agent and thin client SDK.
+
+Owns:
+  ./build.gradle
+  ./src/main/AndroidManifest.xml
+  ./src/main/java/dev/linkgate/descriptors/DescriptorWire.java
+
+Must:
+  Carry no network, identity or authority dependencies beyond public JSON contracts.
+  Preserve output-only FIN and use kernel full shutdown to interrupt blocked IO on disposal.
+  Retain descriptor ownership and close all duplicate handles exactly once.

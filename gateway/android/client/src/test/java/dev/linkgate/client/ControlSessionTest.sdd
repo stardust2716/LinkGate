@@ -1,0 +1,11 @@
+Spec: SDK uncertainty and explicit recovery JVM checks
+
+Purpose:
+  Verify the production session engine through controlled transport fixtures without claiming native Binder coverage.
+
+Owns:
+  ./ControlSessionTest.java
+
+Must:
+  Cover opt-in, correlation, known errors, lost/late replies, timeout, cancellation before/after entry and explicit operation lookup.
+  Count mutations to prove that uncertainty never triggers an automatic replay.

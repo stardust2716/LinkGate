@@ -1,0 +1,12 @@
+Spec: Reliable duplex descriptor lifetime
+
+Purpose:
+  Preserve directional FIN and distinguish remote abort from clean EOF while owning duplicated native handles.
+
+Owns:
+  ./DescriptorStream.java
+
+Must:
+  Retain the original reliable descriptor and check its error channel on read EOF; duplicated raw handles must not hide remote abort.
+  Send only a fixed error before shutting down duplicated IO during explicit abort, while clean close retains normal directional FIN.
+  Close all handles exactly once and interrupt blocked IO through kernel shutdown without exposing private content in errors.

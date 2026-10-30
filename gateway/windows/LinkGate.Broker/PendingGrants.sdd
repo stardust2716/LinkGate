@@ -1,0 +1,24 @@
+Spec: Caller-bound pending permission requests
+
+Purpose:
+  Persist minimal permission requests against previously reviewed imports while leaving network authority unavailable.
+
+Owns:
+  ./PendingGrants.cs
+
+References:
+  ./RegistrationReview.sdd
+  ./JournalCapacity.sdd
+  /contracts/dotnet/LinkGate.Contracts/PendingGrantRequest.sdd
+  /docs/adr/0012-pending-grant-requests.md
+
+Must:
+  Require actual caller ownership of the explicit application reference and an approved import alias; use uniform authorization errors.
+  Capture the approved revision, decision version and normalized import without accepting policy overrides.
+  Atomically commit each request and its caller-scoped operation result; replay original results before quota or current-approval checks.
+  Retain requests and results without eviction, cap requests per caller at `1024` and globally at `16384`, and preserve revocation reservations.
+  Report a request superseded when its captured approval no longer matches, without creating grants, credentials or data flows.
+  Keep host enumeration separate from caller-filtered status and reject corrupt stored records with fixed errors.
+
+Tasks:
+  [x] #1 Verify authorization, binding, persistence, quotas, rollback, concurrency and RPC/SDK recovery.

@@ -1,0 +1,34 @@
+Spec: Public application contracts
+
+Purpose:
+  Define the same secret-free application declaration and normalized connection policy across supported languages.
+
+Structure:
+  ./dotnet: Portable .NET contract implementation and conformance runner.
+  ./java: Portable Java contract implementation and conformance runner.
+  ./vectors: Shared encoded inputs and expected normalized results.
+
+Owns:
+  ./README.md
+  ./verify.ps1
+  ./compare.py
+
+References:
+  /docs/SPEC.md
+  /spec/app-manifest.schema.json
+  /spec/connection-policy.schema.json
+  /contracts/vectors/vectors.sdd
+
+Must:
+  Reject malformed or ambiguous input before exposing a normalized application declaration.
+  Report `INVALID_REQUEST` without reflecting supplied values on every validation failure.
+  Use the same checked-in vectors for cross-platform acceptance and normalized output comparison.
+
+Must not:
+  Read device credentials, create sockets or alter transport configuration during contract validation.
+
+Tasks:
+  [x] #1 Verify strict parsing and default normalization on .NET and Java using the shared corpus.
+
+Done when:
+  Shared conformance checks and existing gateway regressions pass without changing installed runtime versions.

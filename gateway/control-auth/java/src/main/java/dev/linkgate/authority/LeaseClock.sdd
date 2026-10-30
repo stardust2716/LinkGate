@@ -1,0 +1,14 @@
+Spec: Java monotonic lease time fence
+
+Purpose:
+  Share effective UTC that cannot stall or move backward while monotonic time advances.
+
+Owns:
+  ./LeaseClock.java
+
+Must:
+  Preserve fractional monotonic milliseconds and forward wall-clock observations without extending signed expiry.
+  Reject monotonic rollback permanently and share the fence throughout an Agent authority generation.
+  Permit Android elapsed-realtime injection without Android framework dependencies in portable sources.
+  Permit only forward authenticated server-Date observations from the pinned control client; never reset elapsed time, move a shared fence backward or extend an issued receipt.
+  Advance conservatively by the HTTP Date quantization bound plus the complete measured request duration; a delayed response must not overestimate remaining signed validity.

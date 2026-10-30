@@ -1,0 +1,49 @@
+Spec: LinkGate application gateway
+
+Purpose:
+  Provide application-scoped private TCP connectivity through a separately managed gateway.
+
+Structure:
+  ./contracts: Cross-platform public application contracts and canonical conformance data.
+  ./transport-core: Portable Java device transport interoperable with the Windows Agent.
+  ./agent-core: Portable mobile application authority and durable connection state.
+  ./control-plane: Independently authenticated server authority and short-lived scoped leases.
+  ./backend-frp: Pinned device-authorized backend source and verification.
+  ./control-auth: Agent-only cross-platform verification of server authorization leases.
+  ./examples: Independent application consumers and explicit development launch samples.
+  ./docs: Product requirements, security boundaries, architecture decisions and delivery evidence.
+  ./spec: Published JSON shapes and illustrative payloads.
+  ./windows: Windows gateway and platform integration.
+  ./android: Android gateway and platform integration.
+  ./release: Frozen first installable trial packaging and acceptance.
+  ./tests: Gateway acceptance evidence and integration tools.
+  ./frp-diagnostics: Pinned transport instrumentation and build inputs.
+  ./server: Existing transport server deployment materials.
+
+Owns:
+  ./README.md
+
+References:
+  ./docs/SPEC.md
+  ./docs/SECURITY-SPEC.md
+  ./docs/PRODUCT-PLAN.md
+  ./docs/ACCEPTANCE.md
+
+Must:
+  Implement reviewed local contracts incrementally and record verification before marking work complete.
+  Preserve existing pairing and transport during integration unless the operator explicitly retires a verified legacy installation with recovery material retained.
+  Keep specification versions distinct from installed application versions.
+
+Must not:
+  Treat future Broker, identity or SDK capabilities as implemented because their design is documented.
+  Alter running services, phone UI or ReDesk integration as a side effect of contract development.
+
+Tasks:
+  [x] #1 Deliver the public contract foundation with shared cross-platform conformance evidence.
+  [ ] #2 Deliver authorized local Broker integration and independent application samples.
+  [ ] #3 Deliver reliable connection policy and network recovery.
+  [ ] #4 Deliver independent device authorization, revocation and release readiness.
+  [x] #5 Deliver the explicitly scoped first installable trial; defer remaining mature-release requirements to docs/mature-release.sdd.
+
+Done when:
+  Completed local tasks link to implementation and verification evidence, while remaining roadmap work stays open.

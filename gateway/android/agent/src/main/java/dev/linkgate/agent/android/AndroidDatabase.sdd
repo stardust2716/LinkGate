@@ -1,0 +1,12 @@
+Spec: Private mobile authority database adapter
+
+Purpose:
+  Host portable authority transactions in Android private SQLite storage without destructive recovery.
+
+Owns:
+  ./AndroidDatabase.java
+
+Must:
+  Use a canonical non-backup private directory, bounded size, full synchronization and parameterized SQL.
+  Reject linked paths and corruption; never invoke delete-and-recreate recovery.
+  Bound query rows and close cursors, transactions and databases on all exits.

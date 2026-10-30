@@ -1,0 +1,31 @@
+Spec: Android gateway platform
+
+Purpose:
+  Develop Android application integration separately from the installed legacy gateway.
+
+Owns:
+  ./settings.gradle
+  ./build.gradle
+
+Structure:
+  ./app: Existing paired transport application.
+  ./broker-dev: Isolated development-only Binder negotiation application.
+  ./control-ipc: Shared generated AIDL contract.
+  ./public-contracts: Portable Java contracts build bridge.
+  ./registration-core: Portable pending transaction core and desktop SQLite verification.
+  ./client: Signature-pinned Android pending registration client SDK.
+  ./secure-transport: Portable Java device transport and interoperability build bridge.
+  ./agent-core: Mobile authority and real SQLite conformance build bridge.
+  ./agent: Keystore-backed authenticated access Agent with private foreground ownership.
+  ./client-streams: Thin private descriptor and Java socket SDK without Agent secrets.
+  ./descriptor-core: Shared descriptor ownership and bounded framing without authority dependencies.
+  ./native-consumer: Independently signed SDK-only native integration fixture.
+  ./control-authority: Agent-only standard server lease verification build bridge.
+
+References:
+  /docs/SPEC.md
+  /docs/SECURITY-SPEC.md
+
+Must:
+  Keep legacy package identity, version and transport components unchanged during Binder development.
+  Use AGP9.1.1 and Gradle9.3.1 with JDK17 for the authenticated Agent's API37 HTTP dependency; compile platform updates must not silently raise minSdk or targetSdk.

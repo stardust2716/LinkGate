@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application android:label="LinkGate Broker 开发版" android:allowBackup="false"
+        android:fullBackupContent="false" android:usesCleartextTraffic="false">
+        <service android:name="dev.linkgate.broker.ControlService" android:exported="true" />
+    </application>
+</manifest>

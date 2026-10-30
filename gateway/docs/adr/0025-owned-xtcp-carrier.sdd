@@ -1,0 +1,10 @@
+Spec: Owned XTCP carrier generation decision
+
+Purpose:
+  Record the observed truncated transfer, bounded carrier fix and limits of verification.
+
+Owns:
+  ./0025-owned-xtcp-carrier.md
+
+Must:
+  Distinguish deterministic shared-carrier race tests from physical NAT and long-running reliability evidence.

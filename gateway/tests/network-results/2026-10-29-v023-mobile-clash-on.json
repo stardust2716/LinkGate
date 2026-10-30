@@ -1,0 +1,246 @@
+{
+  "clientVersion": "0.2.3",
+  "case": "mobile-clash-on",
+  "testVersion": 2,
+  "phone": {
+    "testVersion": 2,
+    "scenario": "mobile-clash-on",
+    "startedUtcMs": 1793205261790,
+    "elapsedMs": 61468,
+    "fileBytesVerified": 27262976,
+    "filesCompleted": 26,
+    "fileError": "none",
+    "websocketPayloadBytes": 1005568,
+    "websocketFrames": 491,
+    "websocketError": "none",
+    "websocketControlFrames": 4,
+    "uidRxDelta": 57682797,
+    "uidTxDelta": 29542410,
+    "before": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": false,
+      "businessDirectObserved": false,
+      "directTx": 0,
+      "directRx": 0,
+      "relayTx": 0,
+      "relayRx": 0,
+      "activeConnections": 0,
+      "setupMs": 0,
+      "bytesPerSecond": 0,
+      "fallbackReason": "none",
+      "complete": true,
+      "natPreparationFailure": "none",
+      "stunStatus": "ready",
+      "stunObservations": 2,
+      "stunAttemptedEndpoints": 2,
+      "stunFallbackUsed": true
+    },
+    "after": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": true,
+      "businessDirectObserved": true,
+      "directTx": 508612,
+      "directRx": 27771351,
+      "relayTx": 0,
+      "relayRx": 0,
+      "activeConnections": 0,
+      "setupMs": 0,
+      "bytesPerSecond": 285199,
+      "fallbackReason": "none",
+      "complete": true,
+      "natPreparationFailure": "none",
+      "stunStatus": "ready",
+      "stunObservations": 2,
+      "stunAttemptedEndpoints": 2,
+      "stunFallbackUsed": true
+    }
+  },
+  "windowsDelta": {
+    "directTx": 27771351,
+    "directRx": 508612,
+    "relayTx": 0,
+    "relayRx": 0
+  },
+  "phoneDelta": {
+    "directTx": 508612,
+    "directRx": 27771351,
+    "relayTx": 0,
+    "relayRx": 0
+  },
+  "pairedByteDifferences": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 0,
+    "relayRx": 0
+  },
+  "bothEndsBytesMatched": true,
+  "applicationPassed": true,
+  "directBusinessObserved": true,
+  "ecsStatus": "captured",
+  "phoneUiOperated": false,
+  "windowsSampling": "Idle snapshots padded by 5 seconds; wall clocks not assumed identical.",
+  "windowsBoundaryIdle": true,
+  "windowsSampleBeforeUtc": "2026-10-28T16:34:16.0974131+00:00",
+  "windowsSampleAfterUtc": "2026-10-28T16:35:29.0999124+00:00",
+  "phoneReportedScenarioNotIndependentlyVerified": true,
+  "ecsWindowCoversWholeTest": true,
+  "ecsCaptureComplete": true,
+  "ecsKernelDroppedPackets": 0,
+  "ecsUnparsedPackets": 0,
+  "ecsAlignedApprox": {
+    "ingressIpBytes": 1349,
+    "egressIpBytes": 1754,
+    "ingressTcpPayloadBytes": 557,
+    "egressTcpPayloadBytes": 650,
+    "packets": 42
+  },
+  "ecsPaddedAlignedApprox": {
+    "ingressIpBytes": 6289,
+    "egressIpBytes": 8690,
+    "ingressTcpPayloadBytes": 3849,
+    "egressTcpPayloadBytes": 5494,
+    "packets": 121
+  },
+  "ecsAlignment": "UTC-second buckets using phone timestamps; also retain +/-5s padded window; network/control/TLS/retransmission included, no exact wire/application equality implied.",
+  "ecsCapture": {
+    "startedUtcMs": 1793205115866,
+    "elapsedMs": 221892,
+    "scope": "interface-tcp-17400",
+    "stoppedByRequest": true,
+    "selectedBuckets": [
+      [
+        1793205256,
+        458,
+        288,
+        286,
+        92,
+        8
+      ],
+      [
+        1793205257,
+        3836,
+        5469,
+        2652,
+        3929,
+        56
+      ],
+      [
+        1793205258,
+        418,
+        493,
+        286,
+        349,
+        6
+      ],
+      [
+        1793205259,
+        228,
+        566,
+        68,
+        406,
+        8
+      ],
+      [
+        1793205260,
+        0,
+        120,
+        0,
+        68,
+        1
+      ],
+      [
+        1793205262,
+        196,
+        40,
+        116,
+        0,
+        3
+      ],
+      [
+        1793205267,
+        0,
+        120,
+        0,
+        68,
+        1
+      ],
+      [
+        1793205278,
+        0,
+        110,
+        0,
+        58,
+        1
+      ],
+      [
+        1793205280,
+        0,
+        178,
+        0,
+        126,
+        1
+      ],
+      [
+        1793205287,
+        224,
+        224,
+        68,
+        68,
+        6
+      ],
+      [
+        1793205289,
+        262,
+        228,
+        102,
+        68,
+        8
+      ],
+      [
+        1793205295,
+        255,
+        120,
+        135,
+        0,
+        6
+      ],
+      [
+        1793205308,
+        0,
+        178,
+        0,
+        126,
+        1
+      ],
+      [
+        1793205317,
+        224,
+        328,
+        68,
+        68,
+        8
+      ],
+      [
+        1793205319,
+        188,
+        228,
+        68,
+        68,
+        7
+      ]
+    ]
+  },
+  "postTestVpnScope": {
+    "phoneUiOperated": false,
+    "scope": "Post-test read-only VPN UID membership; does not prove configuration throughout test",
+    "activeVpnScopes": [
+      {
+        "includesLinkGate": false,
+        "ownerMatchesClash": true
+      }
+    ]
+  },
+  "directBusinessBytePercent": 100.0
+}

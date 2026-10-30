@@ -1,0 +1,21 @@
+{
+  "manifestVersion": 1,
+  "applicationId": "org.example.file-service",
+  "displayName": "File service sample",
+  "exports": [
+    {
+      "serviceId": "files",
+      "label": "Private files",
+      "protocol": "https",
+      "localTarget": {
+        "host": "127.0.0.1",
+        "port": 18480
+      },
+      "logicalAuthority": "files.example.invalid",
+      "healthCheck": {
+        "type": "tcp"
+      }
+    }
+  ],
+  "imports": []
+}

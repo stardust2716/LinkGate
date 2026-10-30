@@ -1,0 +1,13 @@
+Spec: Loopback two-observation STUN fixture
+
+Purpose:
+  Drive actual source-built XTCP discovery and UDP business transport without accessing public endpoints.
+
+Owns:
+  ./stun.go
+
+Must:
+  Listen only on two owned IPv4 loopback UDP sockets, accept bounded standard Binding requests, echo the exact transaction and return observed source plus the alternate owned endpoint.
+  Bound packets and lifetime, close owned sockets on stop and never claim loopback observations classify physical NAT or prove mobile connectivity.
+
+  Export both owned public port numbers so Agent discovery can explicitly authorize two destinations without following an unconfigured alternate.

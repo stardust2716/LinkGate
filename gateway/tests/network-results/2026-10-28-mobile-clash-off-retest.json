@@ -1,0 +1,88 @@
+{
+  "case": "mobile-clash-off",
+  "clientVersion": "0.2.1",
+  "testVersion": 2,
+  "phone": {
+    "testVersion": 2,
+    "scenario": "mobile-clash-on",
+    "startedUtcMs": 1793189141949,
+    "elapsedMs": 63266,
+    "fileBytesVerified": 19922944,
+    "filesCompleted": 19,
+    "fileError": "none",
+    "websocketPayloadBytes": 673792,
+    "websocketFrames": 329,
+    "websocketError": "none",
+    "websocketControlFrames": 4,
+    "uidRxDelta": 41979083,
+    "uidTxDelta": 21359029,
+    "before": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": false,
+      "businessDirectObserved": false,
+      "directTx": 0,
+      "directRx": 0,
+      "relayTx": 0,
+      "relayRx": 0,
+      "activeConnections": 0,
+      "setupMs": 0,
+      "bytesPerSecond": 0,
+      "fallbackReason": "none",
+      "complete": true
+    },
+    "after": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": false,
+      "businessDirectObserved": false,
+      "directTx": 0,
+      "directRx": 0,
+      "relayTx": 340959,
+      "relayRx": 20263845,
+      "activeConnections": 0,
+      "setupMs": 1547,
+      "bytesPerSecond": 352293,
+      "fallbackReason": "direct_tunnel_unavailable",
+      "complete": true
+    }
+  },
+  "windowsDelta": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 20263845,
+    "relayRx": 340959
+  },
+  "phoneDelta": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 340959,
+    "relayRx": 20263845
+  },
+  "pairedByteDifferences": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 0,
+    "relayRx": 0
+  },
+  "bothEndsBytesMatched": true,
+  "applicationPassed": true,
+  "directBusinessObserved": false,
+  "pcTunObserved": "Meta Tunnel Up",
+  "windowsSampling": "Idle snapshots padded by 5 seconds; clocks not assumed identical.",
+  "ecsStatus": "captured",
+  "selectedScenario": "mobile-clash-on",
+  "actualScenario": "mobile-clash-off",
+  "scenarioCorrection": "User confirmed Clash was OFF during the run; selected ON label was mistaken. Original phone report is preserved.",
+  "ecsAlignedApprox": {
+    "ingressIpBytes": 21174434,
+    "egressIpBytes": 22528242,
+    "ingressTcpPayloadBytes": 20726882,
+    "egressTcpPayloadBytes": 21928034,
+    "packets": 22246
+  },
+  "ecsCaptureComplete": true,
+  "ecsWindowCoversWholeTest": true,
+  "ecsKernelDroppedPackets": 0,
+  "ecsUnparsedPackets": 0
+}

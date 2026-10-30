@@ -1,0 +1,174 @@
+{
+  "clientVersion": "0.2.3",
+  "case": "wifi-clash-on",
+  "testVersion": 2,
+  "phone": {
+    "testVersion": 2,
+    "scenario": "wifi-clash-on",
+    "startedUtcMs": 1793205551240,
+    "elapsedMs": 61225,
+    "fileBytesVerified": 1119879168,
+    "filesCompleted": 1068,
+    "fileError": "none",
+    "websocketPayloadBytes": 2091008,
+    "websocketFrames": 1021,
+    "websocketError": "none",
+    "websocketControlFrames": 4,
+    "uidRxDelta": 2300532724,
+    "uidTxDelta": 1143425628,
+    "before": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": true,
+      "businessDirectObserved": false,
+      "directTx": 0,
+      "directRx": 0,
+      "relayTx": 0,
+      "relayRx": 0,
+      "activeConnections": 0,
+      "setupMs": 0,
+      "bytesPerSecond": 0,
+      "fallbackReason": "none",
+      "complete": true,
+      "natPreparationFailure": "none",
+      "stunStatus": "ready",
+      "stunObservations": 2,
+      "stunAttemptedEndpoints": 2,
+      "stunFallbackUsed": true
+    },
+    "after": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": true,
+      "businessDirectObserved": true,
+      "directTx": 1125386,
+      "directRx": 1121072011,
+      "relayTx": 0,
+      "relayRx": 0,
+      "activeConnections": 0,
+      "setupMs": 0,
+      "bytesPerSecond": 12265181,
+      "fallbackReason": "none",
+      "complete": true,
+      "natPreparationFailure": "none",
+      "stunStatus": "ready",
+      "stunObservations": 2,
+      "stunAttemptedEndpoints": 2,
+      "stunFallbackUsed": true
+    }
+  },
+  "windowsDelta": {
+    "directTx": 1121072011,
+    "directRx": 1125386,
+    "relayTx": 0,
+    "relayRx": 0
+  },
+  "phoneDelta": {
+    "directTx": 1125386,
+    "directRx": 1121072011,
+    "relayTx": 0,
+    "relayRx": 0
+  },
+  "pairedByteDifferences": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 0,
+    "relayRx": 0
+  },
+  "bothEndsBytesMatched": true,
+  "applicationPassed": true,
+  "directBusinessObserved": true,
+  "ecsStatus": "captured",
+  "phoneUiOperated": false,
+  "windowsSampling": "Idle snapshots padded by 5 seconds; wall clocks not assumed identical.",
+  "windowsBoundaryIdle": true,
+  "windowsSampleBeforeUtc": "2026-10-28T16:39:06.1273341+00:00",
+  "windowsSampleAfterUtc": "2026-10-28T16:40:18.1356448+00:00",
+  "phoneReportedScenarioNotIndependentlyVerified": true,
+  "ecsWindowCoversWholeTest": true,
+  "ecsCaptureComplete": true,
+  "ecsKernelDroppedPackets": 0,
+  "ecsUnparsedPackets": 0,
+  "ecsAlignedApprox": {
+    "ingressIpBytes": 950,
+    "egressIpBytes": 996,
+    "ingressTcpPayloadBytes": 306,
+    "egressTcpPayloadBytes": 272,
+    "packets": 30
+  },
+  "ecsPaddedAlignedApprox": {
+    "ingressIpBytes": 1210,
+    "egressIpBytes": 1804,
+    "ingressTcpPayloadBytes": 422,
+    "egressTcpPayloadBytes": 844,
+    "packets": 38
+  },
+  "ecsAlignment": "UTC-second buckets using phone timestamps; also retain +/-5s padded window; network/control/TLS/retransmission included, no exact wire/application equality implied.",
+  "ecsCapture": {
+    "startedUtcMs": 1793205483079,
+    "elapsedMs": 158702,
+    "scope": "interface-tcp-17400",
+    "stoppedByRequest": true,
+    "selectedBuckets": [
+      [
+        1793205546,
+        260,
+        808,
+        116,
+        572,
+        8
+      ],
+      [
+        1793205559,
+        188,
+        228,
+        68,
+        68,
+        7
+      ],
+      [
+        1793205575,
+        276,
+        224,
+        68,
+        68,
+        7
+      ],
+      [
+        1793205577,
+        74,
+        40,
+        34,
+        0,
+        2
+      ],
+      [
+        1793205589,
+        188,
+        228,
+        68,
+        68,
+        7
+      ],
+      [
+        1793205605,
+        224,
+        276,
+        68,
+        68,
+        7
+      ]
+    ]
+  },
+  "postTestVpnScope": {
+    "phoneUiOperated": false,
+    "scope": "Post-test read-only VPN UID membership; does not prove configuration throughout test",
+    "activeVpnScopes": [
+      {
+        "includesLinkGate": false,
+        "ownerMatchesClash": true
+      }
+    ]
+  },
+  "directBusinessBytePercent": 100.0
+}

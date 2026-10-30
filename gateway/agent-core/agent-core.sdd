@@ -1,0 +1,12 @@
+Spec: Portable Android Agent state authority
+
+Purpose:
+  Preserve actual-caller declarations, owner decisions and scoped connection journals outside application SDKs.
+
+Structure:
+  ./src: Transactional state authority and its platform database ports.
+
+Must:
+  Keep owner approval separate from application requests and make retained operations caller scoped.
+  Preserve active approved authority when a newer pending declaration is denied.
+  Bind local access to the actual caller generation, approved import, trusted peer and exact remote service.

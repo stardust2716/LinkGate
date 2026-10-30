@@ -1,0 +1,10 @@
+Spec: Owner STUN destination validation checks
+
+Purpose:
+  Verify cross-boundary input cannot create an unreviewed discovery target.
+
+Owns:
+  ./StunEndpointsTest.java
+
+Must:
+  Cover canonical numeric endpoints, empty mode, defensive copies, invalid address classes, duplicates, malformed ports and oversize lists without networking.

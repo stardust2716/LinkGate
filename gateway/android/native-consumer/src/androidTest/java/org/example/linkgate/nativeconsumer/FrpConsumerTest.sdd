@@ -1,0 +1,20 @@
+Spec: Independent Android SDK relay acceptance
+
+Purpose:
+  Verify real private Binder descriptors and application bytes through the server-authorized FRP backend.
+
+Owns:
+  ./FrpConsumerTest.java
+
+Must:
+  Use only the public signature-pinned SDK from a distinct installed UID and signer; never invoke Agent internals.
+  Negotiate relay separately, require local owner approval and preserve exact retained path across polling and close.
+  Verify a sixty-four MiB hash, request half-close and one-use attachment, and keep two simultaneous same-application streams during active local and server revocation.
+  Bound every wait and expose only aggregate test results in target-private files.
+
+  Close one of two shared-runtime streams through the public SDK and prove the other remains ready with a live blocked read.
+
+  A new open after server grant revocation returns a fixed authorization failure without reaching the business server.
+
+  Exercise the admitted-budget planner through the public direct-only SDK method over an authenticated reachable IPv4 candidate and record LAN evidence separately from XTCP.
+  Declare the fixture relay import with an explicit zero direct window so formal relay acceptance is deterministic while preserving the experimental relay scenario.

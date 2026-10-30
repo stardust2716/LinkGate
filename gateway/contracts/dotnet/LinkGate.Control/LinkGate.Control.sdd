@@ -1,0 +1,13 @@
+Spec: Portable control wire primitives
+
+Purpose:
+  Preserve bounded byte framing and strict JSON semantics independently of platform and storage.
+
+Owns:
+  ./LinkGate.Control.csproj
+
+References:
+  ./BusinessStream.sdd
+
+Must not:
+  Depend on Windows identity, Broker storage or network transports.

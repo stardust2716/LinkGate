@@ -1,0 +1,15 @@
+Spec: Suspended owned Windows runtime processes
+
+Purpose:
+  Launch verified noninteractive runtimes inside a kill-on-close Job before any child code executes.
+
+Owns:
+  ./LinkGate.Processes.csproj
+  ./OwnedProcess.cs
+
+Must:
+  Hold and hash the selected executable, create suspended and assign the Job before resuming.
+  Inherit only explicit standard handles, use direct Win32 argument quoting and keep private output in a new protected directory.
+  Optional standard input comes from an explicitly selected non-linked file, never secret command-line interpolation.
+  Hold actual process and Job handles through lifetime; stop only this Job and never enumerate or kill by name or port.
+  Close failed suspended processes, threads, attributes, handles and locks on every startup failure.

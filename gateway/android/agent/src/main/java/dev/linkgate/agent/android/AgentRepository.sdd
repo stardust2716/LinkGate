@@ -1,0 +1,10 @@
+Spec: Android per-process authority repository
+
+Purpose:
+  Share one private registry and Keystore boundary across owner UI and Binder without starting networking.
+
+Owns:
+  ./AgentRepository.java
+
+Must:
+  Initialize only private state and keep business runtime lifetime separate from binding or pending registration.

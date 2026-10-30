@@ -1,0 +1,16 @@
+Spec: Android read-only Binder entry
+
+Purpose:
+  Capture real Binder caller context before invoking bounded portable negotiation.
+
+Owns:
+  ./ControlService.java
+
+Must:
+  Capture calling UID and user handle synchronously on the Binder thread and reject other user profiles.
+  Reject null or over-limit inputs before package inspection and never trust caller identity supplied in JSON.
+  Acquire a nonblocking per-UID/global lease before identity resolution and release it on every exit.
+  Return fixed Binder errors for malformed input, unavailable identity or quota exhaustion without reflection or logs.
+  Accept only the explicit binding action and disable started-service use.
+  In pending builds, pass the actual identity snapshot to the pending handler and initialize private storage lazily.
+  Return unsupported for appended formal descriptor transactions without changing existing pending behavior.

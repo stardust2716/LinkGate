@@ -1,0 +1,21 @@
+Spec: Authenticated FRP service composition
+
+Purpose:
+  Route actual backend requests through device/application authority without a legacy admission bypass.
+
+Owns:
+  ./linkgate.go
+  ./linkgate_test.go
+
+References:
+  /control-plane/authority/transport_gate.sdd
+
+Must:
+  Enter secure mode only during service construction, disable alternate listeners/plugins/public proxies and require the real Agent TLS scope before FRP decoding.
+  Preserve authenticated scope through multiplexing and message wrappers, match login user/client namespace, and bind work/visitor RunIDs to actual peers.
+  Permit simultaneous private runtimes within the same authenticated namespace using a canonical lowercase `128`-bit instance suffix on client ID; the suffix grants no cross-application or cross-role authority.
+  Register only stcp/xtcp publications with approved service metadata and deterministic names, close failed registrations, and close live relay sockets on authorization cancellation.
+  Bound asynchronous hole-punch work in separate visitor and response lanes, and check actual visitor/client/report identity for every live session.
+  Preserve existing unauthenticated legacy behavior only when the new secure composition is not selected.
+  Bound transaction/session identifiers and numeric IP/port candidate arrays before analysis; malformed candidates cannot enter the hole-punch analyzer.
+  Keep standard TLS handshakes off the accept loop with at most thirty-two accepted handshake workers; a silent unauthenticated peer cannot block the next valid device.

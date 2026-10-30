@@ -1,0 +1,39 @@
+Spec: Application-scoped secure connection broker
+
+Purpose:
+  Turn approved application imports into authorized peer streams and private local data attachments.
+
+Owns:
+  ./SecureConnections.cs
+  ./ISecureConnections.cs
+
+References:
+  ./SecurePeerServer.sdd
+  ./CallerIdentity.sdd
+
+Must:
+  Allow eight seconds for an established peer renewal response under congested relay traffic, while preserving original open deadlines and independent authorization revocation checks.
+  Accept an optional trusted scoped route provider for formal connections and distinguish its experimental capability from static endpoints.
+  Compose formal connection execution under the same exclusive host lock, identity, server authority and stop lifecycle; preserve experimental APIs.
+  Recover both formal and experimental old opens only after acquiring the exclusive state host lock.
+  Count schema-eight formal flows together with experimental opens before durable active-flow admission.
+  Reject unsupported relay budget/warning limits before an experimental open; declared constraints cannot be silently ignored.
+  Resolve only owner-configured peer endpoints and approved import scope; authenticate the expected peer before data.
+  Journal operation identity before external open, never recreate an old open and retain closed-after-restart outcomes.
+  Hold an exclusive per-state host lock before recovering old opens so parallel Agents cannot invalidate each other's live operations.
+  Admit at most `128` streams per caller and `1024` globally and bind one-use data pipes to the actual caller and trusted Agent.
+  Close corresponding streams after local review revocation or peer authorization expiry without affecting unrelated connections.
+  Expose no keys, arbitrary dial targets or bare TCP data ports to ordinary applications.
+  When an authenticated server control client is explicitly supplied, require an exact current lease before peer open and renew it before signed expiry without redialing business data.
+  Keep preview and server-authorized peer wire shapes distinct; a failed server-authorized attempt never retries the preview shape.
+  Admit explicit relay opens only with a server control client, a reviewed relay-allowing import and an exact immutable Agent-owned loopback route for visitor application/import and publisher device/application/service.
+  Link relay lifetime to the owned runtime; keep direct opens on the existing direct-only policy and never silently change paths or replay business data.
+  Retain the selected transport in the operation journal and report relay only for explicitly relay-scoped operations; legacy direct operations retain their original result.
+  Capture monotonic admission before storage and route lookup and carry the same deadline through server authorization and peer setup using the bounded planner.
+  Close raw peer sockets when an opening candidate is cancelled, before TLS disposal can delay resource release.
+
+
+Tasks:
+  [x] #1 Verify retained opens, caller scope, host exclusion, restart recovery and SDK data delivery in the direct preview.
+  [x] #2 Verify actual SDK data delivery with server-issued leases and renewed unchanged authority without backend redial.
+  [x] #3 Verify actual SDK relay delivery through protected frpc runtimes with inner data mTLS, current local/server grants and blocked-stream revocation.

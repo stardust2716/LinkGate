@@ -1,0 +1,12 @@
+Spec: Private application socket lifecycle verification
+
+Purpose:
+  Verify the real Java socket adapter preserves FIN and releases blocked resources when its application closes.
+
+Owns:
+  ./SocketAdapterTest.java
+
+Must:
+  A descriptor read failure interrupts the application's blocked read instead of returning a fabricated normal EOF.
+  Exercise actual local TCP sockets with request FIN, response integrity, blocked disposal and second-worker rejection.
+  Bound every fixture operation and stop only owned executor threads and sockets.

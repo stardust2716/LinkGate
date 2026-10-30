@@ -1,0 +1,10 @@
+Spec: Connection policy lifetime verification
+
+Purpose:
+  Verify direct preference, explicit fallback and independent attempt ownership.
+
+Owns:
+  ./ConnectionPlannerTest.java
+
+Must:
+  Cover prior budget consumption, terminal authorization errors, relay prohibition, direct timeout, late direct cleanup, parent cancellation, executor exhaustion, clock rollback and no replay after a selected result.

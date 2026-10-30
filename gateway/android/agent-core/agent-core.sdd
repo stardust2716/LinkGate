@@ -1,0 +1,13 @@
+Spec: Mobile authority build bridge
+
+Purpose:
+  Compile platform-independent mobile authority with real SQLite tests before Android integration.
+
+Owns:
+  ./build.gradle
+
+References:
+  /agent-core/agent-core.sdd
+
+Must:
+  Keep JDBC test-only and use a platform database port in production.

@@ -1,0 +1,18 @@
+Spec: Typed secure stream control contracts
+
+Purpose:
+  Share bounded secure-open and local permission request shapes with signature-pinned Android clients.
+
+Owns:
+  ./SecureReply.java
+
+References:
+  ./WireJson.sdd
+  ./ControlReply.sdd
+
+Must:
+  Require application-saved operation IDs and exact scope fields; never encode an arbitrary transport target.
+  Validate response correlation, fixed state/error fields and immutable typed results before delivering handles.
+  Keep experimental secure methods distinct from the unfinished full product connection API.
+
+  Encode explicit experimental relay opens separately from direct opens; accept only fixed direct/relay paths and a bounded relay failure code.

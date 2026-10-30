@@ -1,0 +1,26 @@
+Spec: Android owner-side native verification fixture
+
+Purpose:
+  Exercise real Keystore, descriptors and owner state without exposing test administration in the production APK.
+
+Owns:
+  ./NativeOwnerTest.java
+
+Must:
+  Keep fixture commands inside instrumentation and target-private files; production components gain no test API.
+  Export only a CSR and public evidence, prove the Keystore key cannot be encoded and validate descriptor half-close and blocked-read disposal.
+  Bound the owner host to five minutes and stop its foreground runtime on fixture exit.
+
+  Permit explicit fixture server configuration while stopped and export only the current public APK signing fingerprint for independent SDK pinning.
+
+  Verify corrupted saved server configuration cannot publish a preview runtime and that owner stop prevents a late startup from becoming active.
+
+  Report only aggregate owned runtime counts for scope-sharing acceptance; no production Binder management is added.
+  Report aggregate selected LAN and XTCP counts so the coordinator does not infer the direct candidate from the emulator topology.
+
+  Repeat immediate start/stop/start requests and observe beyond the foreground timeout window; a framework crash fails acceptance rather than being hidden by a successful earlier RPC.
+
+  Preserve the exact optional STUN destination snapshot across private server configuration persistence.
+  Permit an instrumentation-only generation invalidation command and aggregate formal XTCP count without adding production management transactions or changing device networking.
+  Permit an explicit owner fixture peer-route revision to a held silent loopback listener so cold XTCP is tested without accidental LAN success or external negative targets.
+  Verify reliable descriptor abort is distinguishable from clean EOF using an original descriptor after duplicated read handles.

@@ -1,0 +1,8 @@
+{
+  "name": "LinkGate",
+  "version": "0.2.3",
+  "status": "preview",
+  "androidVersionCode": 5,
+  "frpVersion": "0.71.1",
+  "supportedServices": ["tcp", "http-over-tcp", "websocket-over-tcp"]
+}

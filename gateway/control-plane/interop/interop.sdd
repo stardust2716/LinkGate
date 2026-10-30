@@ -1,0 +1,12 @@
+Spec: Local server lease interoperability fixture issuer
+
+Purpose:
+  Issue actual standard JWS fixtures for independent .NET and Java Agent verification.
+
+Owns:
+  ./main.go
+
+Must:
+  Generate ephemeral keys in memory and export only public certificates, snapshots and test tokens into a caller-protected fresh artifact directory.
+  Produce valid and cryptographically signed malformed cases without placing tokens in command-line or stdout.
+  Never contact cloud services or turn fixture identities into running gateway authority.

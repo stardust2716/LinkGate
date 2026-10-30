@@ -1,0 +1,17 @@
+Spec: Native cross-platform stream acceptance harness
+
+Purpose:
+  Coordinate actual Windows publisher, Android owner instrumentation and a separately signed public-SDK consumer.
+
+Owns:
+  ./NativeHarness.csproj
+  ./Program.cs
+
+Must:
+  Verify the explicitly isolated emulator before running target-private fixture commands.
+  Exchange device CSRs and public certificates without exporting the Android device key.
+  Pass application fixture tokens through private standard input, never command-line or evidence output.
+  Verify a large business transfer, actual caller UID separation, local and publisher authority and active revocation.
+  Stop only held fixture Jobs and verify cleanup paths remain inside owned artifact directories.
+
+  Use explicit remote loopback ADB host for every command so a lost isolated server cannot auto-launch a device-discovering replacement.

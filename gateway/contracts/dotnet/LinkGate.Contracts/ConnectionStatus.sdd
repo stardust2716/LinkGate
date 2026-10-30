@@ -1,0 +1,18 @@
+Spec: Immutable public connection status
+
+Purpose:
+  Share the exact connection status semantics with Java while remaining independent of platform authority and transport.
+
+Owns:
+  ./ConnectionStatus.cs
+
+References:
+  /contracts/java/src/main/java/dev/linkgate/contracts/ConnectionStatus.sdd
+  /docs/adr/0024-public-connection-lifecycle.md
+
+Must:
+  Restrict UTC years to 0001 through 9999 and reject leap seconds or 24-hour rollover normalization.
+  Parse at most 16 KiB of strict UTF8 JSON with exactly the 17 documented fields and canonical lowercase identifiers.
+  Represent byte counts as uint64 decimal strings, generation as positive uint64, and UTC timestamps as exact milliseconds.
+  Distinguish selected and business paths; reject impossible lifecycle, counter, completion, timestamp and fixed-error combinations.
+  Expose immutable typed values and fresh wire snapshots without performing IO or claiming any platform authorization.

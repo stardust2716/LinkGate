@@ -1,0 +1,14 @@
+Spec: Local review console verification
+
+Purpose:
+  Exercise production workflow and receipt code using scripted terminal ports and private temporary databases.
+
+Owns:
+  ./ReviewConsoleTests.cs
+
+Must:
+  Remove newer connection journals when constructing older schema fixtures; migration must not invent flows or attachments.
+  Remove newer access tables when constructing historical schema fixtures and verify the current schema version after migration.
+  Verify explicit confirmation, stale snapshots, cancelled input, durable recovery, failed prepare/acknowledgement and no automatic replay.
+  Cover receipt corruption, file lease contention, rendering injection, bounded paging and actual redirected executable refusal.
+  Distinguish scripted-port verification from unexecuted native interactive owner testing.

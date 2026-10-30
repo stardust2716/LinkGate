@@ -1,0 +1,14 @@
+Spec: Standard service-scoped short authorization leases
+
+Purpose:
+  Bind signed server authority to exact device/application/service generations and bounded active-session lifetime.
+
+Owns:
+  ./lease.go
+  ./lease_test.go
+
+Must:
+  Use @go-jose ES256 JWS and standard JWT claim validation with an explicitly supplied P-256 issuer key.
+  Accept exactly one publisher audience and bind visitor, scope, generations, server epoch and unique token ID.
+  Reject unknown algorithms, key-discovery headers, duplicate/unknown fields, malformed counters, wrong scope, expiry and lifetime above `120` seconds.
+  Convert valid remaining lifetime into an injected monotonic deadline, never extend it after wall-clock rollback or replay.

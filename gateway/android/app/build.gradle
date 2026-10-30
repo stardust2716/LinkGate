@@ -1,0 +1,32 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'com.nebula.linkgate'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'com.nebula.linkgate'
+        minSdk 26
+        targetSdk 36
+        versionCode 5
+        versionName '0.2.3'
+        ndk { abiFilters 'arm64-v8a' }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+            keepDebugSymbols += ['**/libfrpc.so', '**/liblinkgate-launcher.so']
+        }
+    }
+    sourceSets { main { assets.srcDirs += '../../frp-diagnostics/assets' } }
+    buildTypes { release { minifyEnabled false } }
+    testOptions { unitTests.returnDefaultValues = false }
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.json:json:20240303'
+}

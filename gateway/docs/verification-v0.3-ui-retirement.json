@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-30",
+  "passed": true,
+  "androidVersion": "0.3.0-preview.3",
+  "androidVersionCode": 4,
+  "applicationLabel": "LinkGate",
+  "windowsVersion": "0.3.0-preview.2",
+  "androidPackage": "com.nebula.linkgate.agent",
+  "apkSha256": "3fb0d2be2fbfb1db75964d9a380397aa763883e33390e6a26c8810ebf29da29d",
+  "signerSha256": "ccc21ebf6cab1610651f831a183f8b663fc749db63e80dc6c32de7795ec9879d",
+  "releaseSignatureVerified": true,
+  "embeddedRuntimeHashesVerified": true,
+  "ui": {
+    "passed": true,
+    "normalWidthPx": 1080,
+    "largeFontScale": 1.3,
+    "wideWidthPx": 1800,
+    "unfoldedWidthPx": 2200,
+    "readingWidthCapDp": 680,
+    "readingWidthCapVerified": true,
+    "screens": [
+      "home",
+      "devices",
+      "applications",
+      "access",
+      "settings",
+      "identity-menu",
+      "large-font",
+      "wide",
+      "unfolded"
+    ],
+    "physicalPhoneUiOperated": false
+  },
+  "physicalPhone": {
+    "coveredInstall": true,
+    "samePackageUidVerified": true,
+    "currentAgentUninstalled": false,
+    "userConfirmedPairingAndStartup": true,
+    "foregroundServiceVerified": true,
+    "screenOperatedByAgent": false
+  },
+  "legacyRetirement": {
+    "androidPackageRemoved": "com.nebula.linkgate",
+    "cloudServiceRemoved": "linkgate-frps.service",
+    "cloudBinaryRemoved": true,
+    "oldSystemUserRemoved": true,
+    "oldPort17400Closed": true,
+    "oldCloudRuleRemoved": true,
+    "newCloudRulesPreserved": true,
+    "newServiceActive": true,
+    "rustdeskAndStunPreserved": true,
+    "privateServerRecoveryArchive": true,
+    "serverArchiveSha256": "3d7aa8dcac06eac735cb1e5bea5bf0665a1faa2fa980e2ab12098a7def394e94",
+    "windowsDirectoriesRecycled": 12,
+    "windowsPermanentDeletionPerformed": false,
+    "desktopAndStartMenuUpdated": true,
+    "currentWindowsIdentityPreserved": true,
+    "privateLocalCredentialsPreserved": true
+  },
+  "fullTransportSuiteRepeated": false,
+  "protocolChanged": false,
+  "newApplicationAuthorityAdded": false
+}

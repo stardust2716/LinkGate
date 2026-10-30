@@ -1,0 +1,11 @@
+Spec: Known private descriptor refusal
+
+Purpose:
+  Distinguish an authenticated descriptor denial from transport uncertainty or a changed Agent identity.
+
+Owns:
+  ./NativeRefusalException.java
+
+Must:
+  Expose only fixed validated error codes and construct only after post-call peer verification.
+  Preserve the verified control session after a known denial and never imply a descriptor was delivered.

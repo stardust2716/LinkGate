@@ -1,0 +1,12 @@
+Spec: Asynchronous Android stream client
+
+Purpose:
+  Attach a previously opened authorized operation and return a standard socket to independent applications.
+
+Owns:
+  ./StreamClient.java
+
+Must:
+  Use the signature-pinned client for attachment, retain original operation identity and never retry open or business bytes.
+  Bound worker admission, descriptor handshakes and timers; close late sockets after cancellation.
+  Adapt a formal retained stream reference through the appended Binder transaction without reusing the experimental operation namespace.

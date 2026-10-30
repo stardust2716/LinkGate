@@ -1,0 +1,21 @@
+Spec: Independent secure stream integration
+
+Purpose:
+  Demonstrate usable SDK data transport and explicit owner setup without embedding gateway authority in applications.
+
+Structure:
+  ./SecureApp: Ordinary application consumer, HTTPS/WebSocket service and stream integration.
+  ./OwnerHarness: Isolated owner provisioning and end-to-end acceptance driver.
+
+Owns:
+  ./verify.ps1
+  ./README.md
+
+Must:
+  Use separate generated identities, private state and actual Agent/application processes.
+  Verify unauthenticated and ungranted access rejection, file integrity, WebSocket, directional FIN and active revocation.
+  Label loopback process tests accurately; do not claim physical-device, NAT or relay acceptance.
+  Provide reproducible application setup and report remaining operational limitations.
+
+Tasks:
+  [x] #1 Verify isolated owner enrollment and two-Agent independent application traffic with scoped active revocation.

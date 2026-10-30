@@ -1,0 +1,10 @@
+Spec: Application connection request and policy decision
+
+Purpose:
+  Remove application selection ambiguity and define request policy narrowing before public dispatch.
+
+Owns:
+  ./0023-connection-request-policy.md
+
+Must:
+  Distinguish side-effect-free shared validation from actual caller-bound authorization and public API availability.

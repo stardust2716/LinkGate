@@ -1,0 +1,18 @@
+Spec: Experimental pending registration handler
+
+Purpose:
+  Expose opt-in registration and operation lookup without granting permissions.
+
+Owns:
+  ./ControlRegistration.java
+
+References:
+  ./ControlRequest.sdd
+  ./PendingRegistry.sdd
+  ./ManifestContract.sdd
+
+Must:
+  Require a host-provided caller scope and stable mutation UUID; reject JSON identity fields.
+  Validate parameters and original manifest size before opening storage.
+  Advertise only experimental `app.register.pending` in addition to unsupported product capabilities.
+  Initialize storage lazily for registration/query only; keep hello available without database access.

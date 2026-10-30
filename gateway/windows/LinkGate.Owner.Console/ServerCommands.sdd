@@ -1,0 +1,11 @@
+Spec: Server owner command entry
+
+Purpose:
+  Expose explicit server device/service/grant changes and original-operation recovery without hand-written HTTP.
+
+Owns:
+  ./ServerCommands.cs
+
+Must:
+  Load only explicit owner identity and confirmed public server settings; require an intent file and retained mutation UUID for changes.
+  Print bounded outcomes or fixed unknown/refused codes, never keys, tokens or arbitrary server messages.

@@ -1,0 +1,25 @@
+Spec: Mobile gateway owner interface
+
+Purpose:
+  Let the user enroll a device, inspect actual application identity and approve narrowly scoped access.
+
+Owns:
+  ./OwnerActivity.java
+
+References:
+  ./OwnerActions.sdd
+  ./AndroidIdentity.sdd
+
+Must:
+  Present overview, devices, applications and settings as four stable destinations; keep daily start/stop on overview and enrollment/recovery in settings.
+  Show actual gateway state without claiming P2P or service readiness from process presence; update state in place while resumed, preserving scroll and navigation.
+  Use readable cards, bounded detail dialogs, loading/empty states and accessible touch targets that adapt to narrow, large-font and unfolded layouts.
+  Keep full verified caller provenance and exact application/service facts reviewable before approval; condensed cards must not remove security confirmation or uncertain-operation recovery.
+  Read identity/configuration status on the bounded worker without generating keys, resetting state or treating invalid storage as missing setup.
+  Require explicit confirmation of root fingerprint, peer key and reviewed application/service facts before changes.
+  Ignore administrative Intent extras and use user-selected public documents only.
+  Keep application-provided labels separate from actual package/signing provenance and escape untrusted review text.
+  Use bounded pages and background work, expose recovery for uncertain decisions and never auto-approve requests.
+  Separate foreground start/stop from UI lifetime and require restart for certificate replacement.
+
+  Confirm the server certificate fingerprint and explicit endpoints from a selected public document while stopped; show server mode and startup failure without exposing secrets.

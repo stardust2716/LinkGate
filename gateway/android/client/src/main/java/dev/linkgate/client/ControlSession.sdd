@@ -1,0 +1,19 @@
+Spec: Bounded Android control session
+
+Purpose:
+  Negotiate, register pending declarations and query explicit operations through a verified transport port.
+
+Owns:
+  ./ControlSession.java
+
+Must:
+  Require negotiated pending capability and explicit experimental opt-in before mutation, with no automatic retry/reconnect or generated operation UUID.
+  Allow one request at a time, verify peer before and after transport and discard late results after close/timeout/cancel.
+  Before transport entry mark a mutation as possibly submitted; map subsequent lost/invalid replies, timeout or close to unknown outcome with its original UUID.
+  Preserve standard future cancellation semantics while retaining operation ID and possible-submission metadata on mutation futures.
+  Keep valid Broker errors distinguishable from transport uncertainty and return fixed local errors.
+  Negotiate secure stream capabilities before optional open, scoped grant and native descriptor operations.
+  Serialize descriptor attachment with control exchanges, retain its original open operation and close late native results.
+
+  Require separate relay capability negotiation and experimental opt-in for relay opens; a live relay response without negotiation is rejected, while closed historical outcomes remain queryable.
+  Negotiate formal connection capability separately, retain open/attach/close operation IDs and query their typed results without parsing them as registration outcomes.

@@ -1,0 +1,27 @@
+Spec: Android authenticated access Agent
+
+Purpose:
+  Run a user-started gateway with Keystore identity, owner approvals and caller-bound Binder streams.
+
+Owns:
+  ./build.gradle
+  ./src/main/AndroidManifest.xml
+  ./README.md
+
+Structure:
+  ./src: Owner interface, private foreground runtime and exported authenticated Binder boundary.
+
+References:
+  /agent-core/agent-core.sdd
+  /transport-core/transport-core.sdd
+  /android/control-ipc/control-ipc.sdd
+
+Must:
+  Build the redesigned Android application as version 0.3.0-preview.3, versionCode 4, under the LinkGate label with the same non-debuggable package and existing development signing identity.
+  Preserve the current Agent Keystore identity and pairing during upgrade; the operator explicitly authorizes uninstalling only the obsolete com.nebula.linkgate application after this upgrade succeeds.
+  Keep foreground start/stop private to the owner interface and never expose administrative mutation through Binder or Intent extras.
+  Disable backup and keep device keys in Android Keystore; no private-key import/export.
+  Advertise only implemented capabilities and require owner startup before business networking.
+  Package source-built owned runtimes only from an explicitly selected generated artifact directory, with per-ABI binary hashes; legacy builds without that directory keep runtime capabilities unavailable.
+  Keep the API26 direct preview compatible while requiring API29 standard ALPN for authenticated FRP mode.
+  Observe default-network changes under the normal network-state permission without changing user network or VPN settings.

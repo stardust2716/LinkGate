@@ -1,0 +1,28 @@
+Spec: Public manifest parser
+
+Purpose:
+  Expose validated declarations with deterministic policy defaults and no parsing side effects.
+
+Owns:
+  ./ManifestContract.cs
+  @LinkGate.Contracts.ManifestContract
+
+References:
+  /docs/adr/0001-public-contract-normalization.md
+  /contracts/vectors/cases.json
+
+Must:
+  @ManifestContract.Parse and @ManifestContract.NormalizePolicy enforce the accepted normalization ADR.
+  Reject invalid encoding, ambiguous JSON, unknown fields and inconsistent declaration values before constructing public models.
+  Return @ContractException without input reflection on every input rejection.
+  Share the same internal strict document reader with @ConnectionOpenRequest rather than accepting a second weaker JSON interpretation.
+
+Must not:
+  Read credentials, open sockets or modify platform configuration.
+
+Exposes:
+  @ManifestContract.Parse
+  @ManifestContract.NormalizePolicy
+
+Done when:
+  Accepted and rejected shared cases match their explicit expected results.

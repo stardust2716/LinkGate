@@ -1,0 +1,13 @@
+Spec: Monotonic server-authority time fence
+
+Purpose:
+  Prevent stalled or rolled-back wall time from extending the signed validity of newly received or replayed leases.
+
+Owns:
+  ./LeaseClock.cs
+
+Must:
+  Share one fence throughout a live Agent authorization generation and advance effective UTC by at least monotonic elapsed time.
+  Preserve forward wall-time observations, permanently reject monotonic rollback and use the same held time provider for every receipt.
+  Never reconstruct the fence from a token or reset it for each verification.
+  Accept only forward server-Date observations from correlated pinned control responses, conservatively adding one second of date quantization and the complete measured request duration.

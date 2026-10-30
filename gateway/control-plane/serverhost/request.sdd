@@ -1,0 +1,14 @@
+Spec: Local Linux server identity request
+
+Purpose:
+  Provision one local P-256 server key and export only its standard proof-of-possession CSR for owner signing.
+
+Owns:
+  ./request.go
+  ./request_test.go
+
+Must:
+  Require an existing protected identity directory and create private key/request files exclusively with private permissions.
+  Keep the private key on its host; return only fixed completion and leave the public CSR available as a separate file.
+  Preserve existing or partial identity state instead of rotating or overwriting it on repeated commands.
+  Use standard P-256 PKCS8 and PKCS10 with the LinkGate device name and fsync new files and their directory.

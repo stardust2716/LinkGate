@@ -1,0 +1,209 @@
+{
+  "workPackage": "v0.3-public-contract-foundation",
+  "installedRuntimeVersion": "0.2.3",
+  "fullV03Delivered": false,
+  "specdd": {
+    "framework": "1.6",
+    "cli": "1.2.0",
+    "contentRoot": "gateway",
+    "enabledPlugins": 0,
+    "lintPassed": true,
+    "lintOutput": {
+      "directories": [
+        {
+          "path": "/",
+          "specs": [
+            {
+              "diagnostics": [],
+              "directoryLevel": true,
+              "name": "gateway.sdd",
+              "path": "gateway.sdd"
+            }
+          ]
+        },
+        {
+          "path": "/contracts/",
+          "specs": [
+            {
+              "diagnostics": [],
+              "directoryLevel": true,
+              "name": "contracts.sdd",
+              "path": "contracts/contracts.sdd"
+            }
+          ]
+        },
+        {
+          "path": "/contracts/dotnet/",
+          "specs": [
+            {
+              "diagnostics": [],
+              "directoryLevel": true,
+              "name": "dotnet.sdd",
+              "path": "contracts/dotnet/dotnet.sdd"
+            }
+          ]
+        },
+        {
+          "path": "/contracts/dotnet/LinkGate.Contracts/",
+          "specs": [
+            {
+              "diagnostics": [],
+              "directoryLevel": true,
+              "name": "LinkGate.Contracts.sdd",
+              "path": "contracts/dotnet/LinkGate.Contracts/LinkGate.Contracts.sdd"
+            },
+            {
+              "diagnostics": [],
+              "directoryLevel": false,
+              "name": "ManifestContract.sdd",
+              "path": "contracts/dotnet/LinkGate.Contracts/ManifestContract.sdd"
+            }
+          ]
+        },
+        {
+          "path": "/contracts/dotnet/LinkGate.Contracts.Tests/",
+          "specs": [
+            {
+              "diagnostics": [],
+              "directoryLevel": true,
+              "name": "LinkGate.Contracts.Tests.sdd",
+              "path": "contracts/dotnet/LinkGate.Contracts.Tests/LinkGate.Contracts.Tests.sdd"
+            }
+          ]
+        },
+        {
+          "path": "/contracts/java/",
+          "specs": [
+            {
+              "diagnostics": [],
+              "directoryLevel": true,
+              "name": "java.sdd",
+              "path": "contracts/java/java.sdd"
+            }
+          ]
+        },
+        {
+          "path": "/contracts/java/src/main/java/dev/linkgate/contracts/",
+          "specs": [
+            {
+              "diagnostics": [],
+              "directoryLevel": false,
+              "name": "ManifestContract.sdd",
+              "path": "contracts/java/src/main/java/dev/linkgate/contracts/ManifestContract.sdd"
+            },
+            {
+              "diagnostics": [],
+              "directoryLevel": false,
+              "name": "StrictJson.sdd",
+              "path": "contracts/java/src/main/java/dev/linkgate/contracts/StrictJson.sdd"
+            }
+          ]
+        },
+        {
+          "path": "/contracts/java/src/test/java/dev/linkgate/contracts/",
+          "specs": [
+            {
+              "diagnostics": [],
+              "directoryLevel": false,
+              "name": "ConformanceMain.sdd",
+              "path": "contracts/java/src/test/java/dev/linkgate/contracts/ConformanceMain.sdd"
+            }
+          ]
+        },
+        {
+          "path": "/contracts/vectors/",
+          "specs": [
+            {
+              "diagnostics": [],
+              "directoryLevel": true,
+              "name": "vectors.sdd",
+              "path": "contracts/vectors/vectors.sdd"
+            }
+          ]
+        },
+        {
+          "path": "/docs/",
+          "specs": [
+            {
+              "diagnostics": [],
+              "directoryLevel": true,
+              "name": "docs.sdd",
+              "path": "docs/docs.sdd"
+            }
+          ]
+        },
+        {
+          "path": "/docs/adr/",
+          "specs": [
+            {
+              "diagnostics": [],
+              "directoryLevel": true,
+              "name": "adr.sdd",
+              "path": "docs/adr/adr.sdd"
+            }
+          ]
+        },
+        {
+          "path": "/spec/",
+          "specs": [
+            {
+              "diagnostics": [],
+              "directoryLevel": true,
+              "name": "spec.sdd",
+              "path": "spec/spec.sdd"
+            }
+          ]
+        },
+        {
+          "path": "/spec/examples/",
+          "specs": [
+            {
+              "diagnostics": [],
+              "directoryLevel": true,
+              "name": "examples.sdd",
+              "path": "spec/examples/examples.sdd"
+            }
+          ]
+        }
+      ],
+      "errorCount": 0,
+      "filesChecked": 15,
+      "ok": true,
+      "rootDirectoryPath": "E:\\AI-Tools\\Remotedesk\\gateway",
+      "targetDirectoryPath": "E:\\AI-Tools\\Remotedesk\\gateway",
+      "targetPath": "E:\\AI-Tools\\Remotedesk\\gateway",
+      "warningCount": 0
+    }
+  },
+  "contracts": {
+    "contractVersion": 1,
+    "corpusVersion": 1,
+    "cases": 209,
+    "valid": 36,
+    "invalid": 173,
+    "dotnetPassed": true,
+    "javaPassed": true,
+    "normalizedResultsEqual": true,
+    "networkOrDeviceTestsPerformed": false
+  },
+  "corpusSha256": "f5f293bb6d0e03cdd1f695a4bfe9971b5cc63eabfc702d15e72011073c1a5d9d",
+  "legacyWindows": {
+    "checksPassed": 80,
+    "executedThisRun": true
+  },
+  "legacyAndroid": {
+    "jvmTests": 20,
+    "failures": 0,
+    "gradleTaskSucceeded": true,
+    "taskOutcome": "UP-TO-DATE"
+  },
+  "independentAppNetworkTested": false,
+  "brokerImplemented": false,
+  "sdkImplemented": false,
+  "deviceAuthorizationImplemented": false,
+  "phoneUiOperated": false,
+  "phoneInstalled": false,
+  "ecsModified": false,
+  "runtimeConfigurationChanged": false,
+  "scope": "Portable strict manifest/policy contracts only; no socket creation, device pairing, permissions, service lifecycle or transport integration."
+}

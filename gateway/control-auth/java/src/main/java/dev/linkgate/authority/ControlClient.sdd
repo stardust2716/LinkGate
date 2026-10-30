@@ -1,0 +1,19 @@
+Spec: Android-compatible Agent control client
+
+Purpose:
+  Obtain current service authority using platform-key mTLS and mature bounded HTTP.
+
+Owns:
+  ./ControlClient.java
+
+References:
+  /control-plane/authority/control_server.sdd
+
+Must:
+  Use a pinned mature HTTP client with fixed logical TLS name, explicit IPv4 DNS result, no proxy, redirects or automatic connection retries.
+  Keep the nonexportable device key in its platform handle; verify owner PKIX, exact profile and server SPKI.
+  Limit complete calls to three seconds, eight in-flight calls and sixty-four KiB reply bodies; cancellation and close abort owned calls.
+  Bind the control generation to authenticated hello and reject mismatching server epochs or replies received after close.
+  Verify returned current snapshot, exact requested scope and signed lease before exposing Agent-only authority; do not expose owner mutation RPC.
+  Permit read-only lease.check batches of at most sixty-four already verified snapshots bound to this client identity, clock and epoch.
+  After validating a correlated successful response over pinned mTLS, observe its standard HTTP Date as a forward-only time floor; malformed, failed, redirected or closed replies cannot reset clock or signed expiry.

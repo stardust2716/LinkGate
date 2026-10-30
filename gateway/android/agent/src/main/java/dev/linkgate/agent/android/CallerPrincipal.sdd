@@ -1,0 +1,13 @@
+Spec: Android current-caller principal
+
+Purpose:
+  Bind application authority to the actual Binder UID, package, signing generation and install identity.
+
+Owns:
+  ./CallerPrincipal.java
+
+Must:
+  Reject other user profiles, shared UIDs, missing metadata and changing snapshots.
+  Capture identity synchronously on the Binder thread and derive scope without request-supplied identity fields.
+  Keep caller provenance for owner review and bound concurrent inspection per UID and globally.
+  Preserve OS-verified signer rotation using the original signing anchor; reinstall and unrelated signers have distinct scopes.

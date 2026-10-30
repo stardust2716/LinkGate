@@ -1,0 +1,30 @@
+{
+  "recordedUtc": "2026-10-30",
+  "installedBaseline": "0.2.3",
+  "conformance": {
+    "contractVersion": 1,
+    "corpusVersion": 1,
+    "cases": 274,
+    "valid": 63,
+    "invalid": 211,
+    "dotnetPassed": true,
+    "javaPassed": true,
+    "normalizedResultsEqual": true,
+    "networkOrDeviceTestsPerformed": false
+  },
+  "connectionRequestCases": 65,
+  "windowsBrokerChecks": 461,
+  "javaRegression": {
+    "transportTests": 30,
+    "registryTests": 16,
+    "clientUnitTestsPassed": true
+  },
+  "paramsByteLimit": 16384,
+  "originalPolicyByteLimit": 8192,
+  "modelsImmutable": true,
+  "ordinaryCallerIdentityAccepted": false,
+  "authorityGrantedByComparison": false,
+  "formalConnectionApiImplemented": false,
+  "cloudAccessed": false,
+  "installedRuntimeChanged": false
+}

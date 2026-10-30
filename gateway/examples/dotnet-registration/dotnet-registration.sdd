@@ -1,0 +1,17 @@
+Spec: Independent Windows registration sample
+
+Purpose:
+  Demonstrate a trusted development launch, pending registration and operation lookup in an SDK-only consumer.
+
+Owns:
+  ./Registration.Sample.csproj
+  ./Program.cs
+  ./README.md
+  ./verify.ps1
+
+Must:
+  Require an operator-trusted Broker artifact directory, executable digest, state directory, manifest path and persistent operation UUID.
+  Verify the supplied digest while holding the executable file open, then pin only the process launched by the sample.
+  Close only the owned Broker and print registration/query results without paths or credentials.
+  Depend on the client SDK without Broker or SQLite assemblies.
+  In explicit query mode, query only the saved operation and never register again.

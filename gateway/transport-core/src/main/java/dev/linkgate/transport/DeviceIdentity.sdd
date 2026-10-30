@@ -1,0 +1,14 @@
+Spec: Platform-key Java device identity
+
+Purpose:
+  Prove possession of the locally generated device key with standard mTLS and owner trust.
+
+Owns:
+  ./DeviceIdentity.java
+
+Must:
+  Accept a platform PrivateKey handle without requiring private-key export.
+  Produce P-256 CSRs through pinned Bouncy Castle PKIX and use platform TLS for data protection.
+  Validate owner chain, certificate lifetime, both device EKUs, fixed server name and the exact approved peer SPKI.
+  Reject wrong root, wrong peer, expired certificate or unsupported key without insecure fallback.
+  Expose a fixed-peer platform TLS socket factory and matching trust manager for Agent HTTP without exporting the key; validate full device profile inside trust callbacks.

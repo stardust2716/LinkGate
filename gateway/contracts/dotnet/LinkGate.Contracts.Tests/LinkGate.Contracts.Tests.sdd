@@ -1,0 +1,25 @@
+Spec: Public contract conformance runner
+
+Platform: C#/.NET10
+
+Purpose:
+  Compare the portable parser against shared exact-byte cases and observable immutability boundaries.
+
+Owns:
+  ./LinkGate.Contracts.Tests.csproj
+  ./Program.cs
+
+References:
+  /contracts/vectors/cases.json
+  /docs/adr/0001-public-contract-normalization.md
+
+Must:
+  Compare shared status/operation DTO cases and check their immutable public properties.
+  Accept `--vectors` and `--output` paths and emit structural comparison results with `contractVersion`, `total`, `passed` and `cases`.
+  Exit nonzero on mismatches without logging rejected payloads.
+  Verify public values have no public setters and exposed collections reject modification.
+  Verify validation exceptions do not reflect a supplied simulated private marker.
+  Compare connection request parsing and policy narrowing against the shared request cases, including well-formed requests that exceed approved constraints.
+
+Done when:
+  The shared corpus passes and local boundary checks complete.

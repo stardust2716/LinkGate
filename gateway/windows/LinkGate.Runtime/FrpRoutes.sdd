@@ -1,0 +1,21 @@
+Spec: Dynamic authenticated Windows visitor routes
+
+Purpose:
+  Create verified FRP visitors on demand from an approved exact application/device/service scope.
+
+Owns:
+  ./FrpRoutes.cs
+
+References:
+  ./OwnedRuntimePool.sdd
+  ./FrpRuntimeBridge.sdd
+  /windows/LinkGate.Broker/ConnectionRoutes.sdd
+
+Must:
+  Keep one-second transport heartbeat emission but allow fifteen seconds for a response queued behind relay business bytes.
+  Delete only known owned profile/log files, allowing empty logs while rejecting linked paths and unexpected directory contents; do not apply identity-file size requirements to logs.
+  Configure only the explicit authenticated server and zero to four canonical numeric STUN endpoints; require two endpoints for XTCP and disable its relay fallback.
+  Derive namespace, STCP/XTCP service names and private loopback ports from the current broker-minted scope, without accepting application addresses or runtime arguments.
+  Use one bounded scope pool and a finite creation budget, registering the session and bridge before child launch so owner stop cannot miss a late process.
+  Release ports and private profiles on failed creation and stop only owned processes; listener presence is readiness for inner mTLS, not proof of business delivery.
+  Keep same-scope flows independent, periodically revoke invalid authority, and expose only aggregate runtime counts to the trusted host.

@@ -1,0 +1,14 @@
+Spec: Focused Windows runtime ownership verification
+
+Purpose:
+  Exercise sharing, independent cancellation, capacity, late startup and cleanup without running unrelated suites.
+
+Owns:
+  ./LinkGate.Runtime.Tests.csproj
+  ./Program.cs
+
+Must:
+  Verify confirmed server settings, canonical addresses and explicit STUN/fingerprint rejection with locally issued public certificates only.
+  Verify empty owned logs can be removed while a cleanup path outside its explicitly owned root is rejected.
+  Use deterministic clocks and owned fake resources with bounded waits, no cloud access or installed service changes.
+  Verify a cancelled waiter preserves another waiter, retired resources retain capacity until disposed, failed cleanup can retry, and close/clock rollback reject new work.

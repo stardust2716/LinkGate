@@ -1,0 +1,16 @@
+Spec: Agent peer authorization source
+
+Purpose:
+  Supply authenticated service leases to an actual Java peer connection without SDK credentials.
+
+Owns:
+  ./PeerLeaseSource.java
+
+References:
+  ./ControlClient.sdd
+  /transport-core/src/main/java/dev/linkgate/transport/PeerClient.sdd
+
+Must:
+  Acquire exact application/service authority before the peer opens, compare protocol and logical authority and retain one lease window.
+  Renew before the signed remaining lifetime falls below sixty seconds and preserve unchanged authority generations; a changed or closed source never revives an existing stream.
+  Expose only a bounded Agent callback used by the secure peer transport; do not change public business SDK shapes.

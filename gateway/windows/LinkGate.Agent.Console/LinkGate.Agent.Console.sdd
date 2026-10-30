@@ -1,0 +1,18 @@
+Spec: Explicit secure direct Agent host
+
+Purpose:
+  Run an owner-configured secure direct listener and process-pinned local SDK endpoint without installation.
+
+Owns:
+  ./LinkGate.Agent.Console.csproj
+  ./Program.cs
+
+References:
+  ../LinkGate.Broker/SecureConnections.sdd
+  ../LinkGate.Broker/SecurePeerServer.sdd
+
+Must:
+  Compose real authority, dynamic visitor runtimes and approved publishers only in explicit authenticated serve mode; do not migrate installed configuration.
+  Load private identity and state from explicit paths and print only public readiness references.
+  Preserve the bounded legacy preview invocation; authenticated serve mode requires explicit confirmed settings and runs until owner stop/cancellation, with redirected EOF alone not stopping the host.
+  Keep credentials out of standard output and never change installed runtime, routes, certificates or firewall policy.

@@ -1,0 +1,10 @@
+Spec: Scoped runtime ownership decision
+
+Purpose:
+  Explain transport reuse, independent stream cancellation and partial-initialization cleanup.
+
+Owns:
+  ./0019-scoped-runtime-pool.md
+
+Must:
+  Distinguish local concurrency and native sharing evidence from large-flow/endurance or automatic P2P policy acceptance.

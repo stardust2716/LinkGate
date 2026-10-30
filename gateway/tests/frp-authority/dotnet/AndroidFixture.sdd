@@ -1,0 +1,22 @@
+Spec: Isolated Android FRP bridge coordinator
+
+Purpose:
+  Combine native Keystore identity and actual Android transport with the existing Windows publisher and authenticated Go backend.
+
+Owns:
+  ./AndroidFixture.cs
+
+Must:
+  Require the explicitly isolated headless x86_64 emulator and ADB port5038 for every device command; never discover or operate a physical phone.
+  Specify the existing remote loopback ADB host so a lost isolated server cannot cause the client to launch a replacement discovery server.
+  Transfer only public enrollment material and target-private fixture inputs, never command-line secrets or private device keys.
+  Hold owned instrumentation processes, bound waits and record actual relay bytes separately from SDK/native-UID and physical NAT acceptance.
+
+  Exercise the owner-started server-configured gateway from an independently signed SDK-only application; verify real bytes, concurrent private runtime instances and separate local/server revocation before reporting public Android SDK acceptance.
+
+  Verify actual runtime reuse and that cancelling a shared stream leaves the other business stream alive.
+
+  Supply the actual authenticated publisher IPv4 port for direct SDK verification and record the selected LAN or XTCP candidate separately from physical NAT acceptance.
+  Assert one pooled runtime before exercising a different authorized scope; different scopes must not share a runtime merely to satisfy an aggregate count.
+  Exercise formal public open/status/attach/close through the independent SDK, verify exact actual counters and invalidate a test-owned network generation without changing real device networking.
+  Hold a silent owned loopback TCP listener for the alternate approved route and refresh local grants before requiring cold XTCP; never substitute an external address or wrong identity for a transport failure.

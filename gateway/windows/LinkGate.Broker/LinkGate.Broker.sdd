@@ -1,0 +1,36 @@
+Spec: Windows development Broker
+
+Purpose:
+  Host explicit per-user declaration review and optional authenticated, service-authorized direct streams.
+
+Owns:
+  ./LinkGate.Broker.csproj
+  ./README.md
+  ./packages.lock.json
+
+References:
+  ./PipeHost.sdd
+  ./ControlProtocol.sdd
+  ./FrameCodec.sdd
+  /contracts/dotnet/LinkGate.Control/LinkGate.Control.sdd
+  ./RegistrationStore.sdd
+  ./CallerIdentity.sdd
+  ./RegistrationReview.sdd
+  ./JournalCapacity.sdd
+  ./PendingGrants.sdd
+  ./SecureIdentity.sdd
+  ./SecureAuthority.sdd
+  ./SecureConnections.sdd
+  ./SecurePeerServer.sdd
+
+Must not:
+  Return configuration, caller paths, SID, credentials or another caller's application/service lists.
+  Claim same-user malicious-process isolation or trust in a Broker discovered only by pipe name or PID.
+
+Tasks:
+  [x] #1 Verify native pipe ownership, strict negotiation and bounded disconnect recovery.
+  [x] #2 Verify a client pins the trusted launcher process before sending any control bytes.
+  [x] #3 Verify durable pending registration without automatic authorization.
+
+Done when:
+  Isolated pipe tests cover fragmented frames, invalid inputs, occupied names, cancellation and subsequent clients.

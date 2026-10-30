@@ -1,0 +1,85 @@
+{
+  "case": "wifi-clash-on",
+  "clientVersion": "0.2.1",
+  "testVersion": 2,
+  "phone": {
+    "testVersion": 2,
+    "scenario": "wifi-clash-on",
+    "startedUtcMs": 1793186144916,
+    "elapsedMs": 1205,
+    "fileBytesVerified": 0,
+    "filesCompleted": 0,
+    "fileError": "file_failed",
+    "websocketPayloadBytes": 0,
+    "websocketFrames": 0,
+    "websocketError": "websocket_failed",
+    "websocketControlFrames": 0,
+    "uidRxDelta": 4803,
+    "uidTxDelta": 4341,
+    "before": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": false,
+      "businessDirectObserved": false,
+      "directTx": 0,
+      "directRx": 0,
+      "relayTx": 0,
+      "relayRx": 0,
+      "activeConnections": 0,
+      "setupMs": 0,
+      "bytesPerSecond": 0,
+      "fallbackReason": "none",
+      "complete": true
+    },
+    "after": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": false,
+      "businessDirectObserved": false,
+      "directTx": 0,
+      "directRx": 0,
+      "relayTx": 0,
+      "relayRx": 0,
+      "activeConnections": 0,
+      "setupMs": 1,
+      "bytesPerSecond": 0,
+      "fallbackReason": "direct_unavailable_relay_failed",
+      "complete": true
+    }
+  },
+  "windowsDelta": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 0,
+    "relayRx": 0
+  },
+  "phoneDelta": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 0,
+    "relayRx": 0
+  },
+  "pairedByteDifferences": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 0,
+    "relayRx": 0
+  },
+  "bothEndsBytesMatched": true,
+  "applicationPassed": false,
+  "directBusinessObserved": false,
+  "pcTunObserved": "Meta Tunnel Up",
+  "windowsSampling": "Idle snapshots padded by 5 seconds; clocks not assumed identical.",
+  "ecsStatus": "captured",
+  "ecsAlignedApprox": {
+    "ingressIpBytes": 2865,
+    "egressIpBytes": 4210,
+    "ingressTcpPayloadBytes": 2257,
+    "egressTcpPayloadBytes": 3318,
+    "packets": 29
+  },
+  "ecsCaptureComplete": true,
+  "ecsWindowCoversWholeTest": true,
+  "ecsKernelDroppedPackets": 0,
+  "ecsUnparsedPackets": 0
+}

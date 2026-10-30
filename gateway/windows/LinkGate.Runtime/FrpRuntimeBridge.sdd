@@ -1,0 +1,22 @@
+Spec: Private owned frpc bridge
+
+Purpose:
+  Authenticate the actual owned runtime through a private pipe and carry its approved application scope over Agent-held mTLS.
+
+Owns:
+  ./FrpRuntimeBridge.cs
+
+References:
+  ./RuntimePipe.sdd
+  /control-auth/dotnet/LinkGate.Authority/ControlClient.sdd
+  /windows/LinkGate.Processes/LinkGate.Processes.sdd
+
+Must:
+  Register the bridge with its session before launch; serialize child assignment with stop so a child cannot escape a concurrent shutdown.
+  Reserve the protected pipe before launching and hold the verified child and Job before accepting runtime bytes.
+  Check the OS pipe client PID against the held live child before network use and after TLS setup; reject other processes without external delivery.
+  Derive application identity and permission generation from the approved local review and require an explicit publish/access role.
+  Connect only to the configured IPv4 server, validate normal owner chain/name and fixed server SPKI, and write the fixed scope preface before forwarding frpc bytes.
+  Keep private keys in platform handles, bound connections and handshakes, and abort raw sockets before awaiting canceled copies.
+  Stop this runtime and all bridge connections when local approval changes, the child exits, identity expires or the owner stops; pending updates/rejections preserve unchanged approval.
+  Pass only an explicitly supplied canonical numeric IPv4 STUN endpoint snapshot to the child; never inherit a public discovery list from the parent environment.

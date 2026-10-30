@@ -1,0 +1,11 @@
+Spec: Independent Java real control client
+
+Purpose:
+  Verify mobile-compatible signed authorization over actual standard mTLS HTTP.
+
+Owns:
+  ./ControlAuthorityClient.java
+
+Must:
+  Retain its P-256 private key in process and write only a public CSR before waiting for public fixture configuration.
+  Check actual lease requests, wrong server pin, fixed errors and closing without logging credentials.

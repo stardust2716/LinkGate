@@ -1,0 +1,17 @@
+Spec: Shared Android Binder wire contract
+
+Purpose:
+  Provide a single generated AIDL interface without application implementation or permissions.
+
+Must:
+  Append the optional private data attachment transaction without changing existing request transaction identity.
+  Return a one-use caller-bound descriptor only when the host advertises secure streams; read-only hosts reject it.
+  Descriptor replies use @StreamAttachment status `0` success, `1` auth, `2` stopped, `3` capacity, `4` invalid, `5` unsupported, `6` storage; propagate return-value descriptor ownership through parceling.
+  Append formal stream-reference attachment after existing transactions; experimental operation attachment retains its original transaction and meaning.
+
+Owns:
+  ./build.gradle
+  ./src/main/AndroidManifest.xml
+  ./src/main/aidl/dev/linkgate/broker/ILinkGateControl.aidl
+  ./src/main/aidl/dev/linkgate/broker/StreamAttachment.aidl
+  ./src/main/java/dev/linkgate/broker/StreamAttachment.java

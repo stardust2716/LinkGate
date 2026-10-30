@@ -1,0 +1,25 @@
+Spec: Android private owned FRP bridge
+
+Purpose:
+  Keep device mTLS and approved application authority inside the Android Agent while running the verified transport engine.
+
+Owns:
+  ./FrpRuntimeBridge.java
+
+References:
+  ./AndroidIdentity.sdd
+  /backend-frp/backend-frp.sdd
+
+Must:
+  Require API29 standard ALPN, an approved import application, explicit owner server certificate/root/IPv4 and a private immutable generated configuration.
+  Verify packaged frpc and lifetime guard hashes before starting; capture the actual child PID from the verified guard's private output and hold its Java Process.
+  Bind a fresh filesystem Unix socket below the app-private no-backup directory before launching; check actual peer UID/PID and child liveness before external use and after TLS.
+  Authenticate the fixed server over standard mTLS/ALPN, write a bounded application/access scope prefix and never export the Keystore private key or allow network fallback outside the private bridge.
+  Bound accepted peers, handshake and copy executors; enforce a three-second handshake deadline by closing raw sockets.
+  Stop owned sockets and the held child on approval generation change, certificate expiry, child exit or owner stop; pending declaration denial preserves existing approval.
+  Use monotonic progression for certificate expiry and fixed error/state labels without raw log or credential output.
+
+  Report relay availability only on API29 or later with a complete hash-verified packaged runtime; a partial or corrupted package fails closed, while an intentionally absent runtime keeps only server-authorized direct access.
+
+  Register an optional private host owner before process launch so initialization failure cannot hide a still-closing child from pooled capacity accounting.
+  Override inherited STUN settings with the validated owner list, including an empty disabled list.

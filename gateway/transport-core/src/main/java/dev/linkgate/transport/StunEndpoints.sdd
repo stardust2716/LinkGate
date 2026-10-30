@@ -1,0 +1,12 @@
+Spec: Explicit owner STUN endpoint snapshot
+
+Purpose:
+  Bound and normalize public discovery destinations before an Agent starts its transport child.
+
+Owns:
+  ./StunEndpoints.java
+
+Must:
+  Accept an empty disabled list or at most four unique canonical numeric IPv4 endpoints with nonzero ports, without DNS or socket operations.
+  Reject fake-IP, multicast, unspecified, broadcast, link-local, malformed or duplicate destinations and return an immutable defensive snapshot.
+  Serialize only the configured list into the private child environment, with no implicit endpoints.

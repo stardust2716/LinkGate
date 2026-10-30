@@ -1,0 +1,10 @@
+Spec: Requested workspace resource cleanup
+
+Purpose:
+  Reclaim obsolete generated resources without changing active installations or reproducible source inputs.
+
+Must:
+  Limit deletion to explicitly inventoried ignored paths under the current workspace; preserve tracked files, linked paths, embedded Git repositories, private identities and current distribution assets.
+  Check live processes before removing owned emulator or build outputs; retain toolchains and dependency downloads when their use is uncertain.
+  Preserve small manifests and verification logs before removing duplicate payload trees; record exact paths and reclaimed space in ignored artifacts.
+  Do not start cross-session coordination or use an external cleaner to execute a rejected operation.

@@ -1,0 +1,11 @@
+Spec: Legacy gateway packaging entry
+
+Purpose:
+  Reproduce the existing Windows and Android package without mixing new development Agent artifacts into the installed version.
+
+Owns:
+  ./build.ps1
+
+Must:
+  Preserve locked diagnostic runtimes and persistent signing identities, generating local artifacts without deploying or installing them.
+  Select Gradle9.3.1 explicitly or from the supplied toolchain and run only legacy app tasks; development fixture modules must not enter legacy packaging.

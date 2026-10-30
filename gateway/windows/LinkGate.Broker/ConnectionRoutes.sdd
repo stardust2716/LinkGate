@@ -1,0 +1,16 @@
+Spec: Authorized private route provider boundary
+
+Purpose:
+  Allow the trusted Agent to obtain dynamic transport endpoints without exposing routing or runtime management to applications.
+
+Owns:
+  ./ConnectionRoutes.cs
+
+References:
+  ./LocalAccess.sdd
+
+Must:
+  Mint immutable route scopes only from current caller-bound local access; include all identity and grant generations in the pool key.
+  Keep provider endpoints and lifecycle private to trusted Agent composition, never part of control RPC or application SDK.
+  Pass the original absolute monotonic deadline and per-waiter cancellation to acquisition; route release must not stop unrelated leases.
+  Invalidate owned routes on network generation changes and allow authority/currentness checks without accepting self-declared caller data.

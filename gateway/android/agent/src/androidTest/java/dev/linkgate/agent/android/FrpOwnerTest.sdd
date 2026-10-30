@@ -1,0 +1,14 @@
+Spec: Native Keystore FRP bridge verification
+
+Purpose:
+  Exercise the actual packaged Android child and private bridge against a source-built authenticated backend.
+
+Owns:
+  ./FrpOwnerTest.java
+
+Must:
+  Keep all fixture configuration in target-private files and preserve nonexportable Keystore identity.
+  Reject an unrelated same-UID socket client and verify actual frpc relay, inner peer mTLS, current server lease, large business bytes, half-close and server/local revocation.
+  Bound the fixture and clean owned profile/socket/processes; do not add instrumentation administration to production Binder or owner interfaces.
+
+  Report guest hold duration separately from coordinator-measured server-trigger-to-close time; only the latter verifies the five-second revocation deadline.

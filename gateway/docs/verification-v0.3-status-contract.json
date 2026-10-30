@@ -1,0 +1,19 @@
+{
+  "contractVersion": 1,
+  "corpusVersion": 1,
+  "cases": 400,
+  "valid": 87,
+  "invalid": 313,
+  "dotnetPassed": true,
+  "javaPassed": true,
+  "normalizedResultsEqual": true,
+  "networkOrDeviceTestsPerformed": false,
+  "date": "2026-10-30",
+  "newDtoCases": 126,
+  "statusAndOperationDtos": true,
+  "windowsFormalRuntimeImplemented": false,
+  "androidUnitRegression": true,
+  "fullReleaseReady": false,
+  "installedRuntimeChanged": false,
+  "cloudChanged": false
+}

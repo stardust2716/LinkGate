@@ -1,0 +1,31 @@
+Spec: Authenticated direct peer data server
+
+Purpose:
+  Deliver only authorized business bytes to reviewed loopback services through mutually authenticated peer channels.
+
+Owns:
+  ./SecurePeerServer.cs
+
+References:
+  /control-auth/dotnet/LinkGate.Authority/LeaseSupervisor.sdd
+  ./SecureAuthority.sdd
+  /contracts/dotnet/LinkGate.Control/BusinessStream.sdd
+
+Must:
+  Allow fifteen seconds for final business FIN acknowledgement after local writes finish, since remote delivery can remain queued at a bandwidth-limited relay; revocation and stop cancellation still interrupt the wait.
+  Bound established control renewal reads to twelve seconds so relay queueing does not apply the shorter opening timeout to active business; independent local/server revocation still closes blocked IO.
+  Use independent authenticated control and data channels, one-use data attachment within `10` seconds and bounded session counts.
+  Bound concurrent sockets at `288` (two per session plus handshake headroom), TLS/open handshakes at `32` and active sessions at `128` with atomic admission; long-lived streams release handshake slots.
+  Send fixed authenticated authorization/capacity refusals only before the ticket or data-ready response; never insert control errors into business bytes.
+  Bind every data attachment to the control peer key, grant revision, publisher generation and service scope.
+  Renew authorization leases no longer than `120` seconds using monotonic time; lost control cannot extend them.
+  Recheck local authority at least every second and close revoked sessions within `5` seconds, including blocked IO.
+  Preserve backpressure and TCP half-close; never retry business payload or open a different target on failure.
+  In explicitly server-authorized mode, require a signed service lease matching the actual TLS visitor and exact local service, in addition to local grants; never fall back to preview admission on control failure.
+  Bind active data to a supervised server lease and validate changed heartbeat tokens before renewal; unchanged tokens do not reset signed expiry.
+  Allow trusted hosts to bind a transport listener to one publisher application/service; refuse another scope before local target delivery, including a valid grant for that other service.
+
+
+Tasks:
+  [x] #1 Verify actual peer channels, one-use attachment, half-close and revoked blocked streams in the Windows direct preview.
+  [x] #2 Verify explicit server leases plus local grants on actual Windows/Java business streams, real renewal and active revoke/epoch/control-outage closure.

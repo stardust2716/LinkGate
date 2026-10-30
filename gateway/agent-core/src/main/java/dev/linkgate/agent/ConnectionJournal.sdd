@@ -1,0 +1,21 @@
+Spec: Caller-bound durable public connections
+
+Purpose:
+  Preserve formal connection operations, cumulative snapshots and one-use attachment claims alongside application authority.
+
+Owns:
+  ./ConnectionJournal.java
+
+References:
+  ./AgentRegistry.sdd
+  ./ConnectionMeter.sdd
+  /docs/adr/0024-public-connection-lifecycle.md
+
+Must:
+  Allow coalesced snapshots to skip forward through pending/attaching/open/draining while rejecting reverse progress; slow half-closed streams must retain observed counters before termination.
+  Resolve actual caller ownership, current local device/service grant and requested policy under the same write transaction that records a new open.
+  Retain matching operations without dialing again and reject parameter conflicts before changing connection state.
+  Bound combined experimental/formal active counts and preserve reserved revocation capacity.
+  Persist cumulative snapshots by increasing sequence and original boot; reject stale updates, state regression, path changes or decreasing counters and never revive a terminal record.
+  Bind attachment claims and one-use consumption to caller, current boot and current exact authority; a repeated operation returns its original reference without granting another descriptor.
+  Recover old active rows in bounded batches, preserving original counters/path and marking unobserved tails incomplete.

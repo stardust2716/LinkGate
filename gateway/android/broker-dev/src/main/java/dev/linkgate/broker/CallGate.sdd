@@ -1,0 +1,11 @@
+Spec: Bounded Binder call admission
+
+Purpose:
+  Bound active calls without retaining a history of caller UIDs.
+
+Owns:
+  ./CallGate.java
+
+Must:
+  Admit at most `8` simultaneous calls per UID and `32` globally without waiting or queueing.
+  Release each lease at most once and discard inactive UID entries.

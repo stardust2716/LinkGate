@@ -1,0 +1,15 @@
+Spec: Portable Java authenticated peer transport
+
+Purpose:
+  Provide Android-compatible device identity and business streams interoperable with the Windows publishing Agent.
+
+Structure:
+  ./src: Device authentication, bounded framing and peer stream implementation.
+
+References:
+  /windows/LinkGate.Broker/SecurePeerServer.sdd
+  /contracts/java/src/main/java/dev/linkgate/contracts/WireJson.sdd
+
+Must:
+  Use platform TLS and locally held keys, preserve publisher authorization and never fall back to unauthenticated transport.
+  Keep device keys and transport implementation outside ordinary application SDK dependencies.

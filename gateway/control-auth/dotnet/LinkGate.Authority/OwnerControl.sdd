@@ -1,0 +1,13 @@
+Spec: Explicit server owner control
+
+Purpose:
+  Manage existing authenticated server device/service/grant authority from the owner tool.
+
+Owns:
+  ./OwnerControl.cs
+
+Must:
+  Accept a canonical nonnegative affected count, including zero when no prior grants require invalidation.
+  Expose only the existing fixed owner methods, using the already pinned mTLS connection and server-enforced owner role.
+  Require strict bounded intent JSON, explicit uint64 expected revision and stable mutation UUID; do not retry after unknown outcome.
+  Validate exact correlated result shapes and report historical outcomes separately from live authority; expose no tokens or request exception details.

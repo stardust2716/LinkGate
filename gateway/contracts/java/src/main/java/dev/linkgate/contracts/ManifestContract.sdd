@@ -1,0 +1,27 @@
+Spec: Public manifest semantics
+
+Purpose:
+  Return immutable public declarations and normalized policies only after their complete semantic contract holds.
+
+Owns:
+  ./ManifestContract.java
+
+References:
+  ./StrictJson.sdd
+  ./ApplicationManifest.java
+  ./ConnectionPolicy.java
+  ./ContractException.java
+  /docs/adr/0001-public-contract-normalization.md
+
+Must:
+  Validate field sets, required types, identifiers, loopback targets, authorities, health checks and unique service declarations.
+  Apply mode-specific policy defaults and reject inconsistent waits, relay permissions or uint64 budgets.
+  Count string limits as Unicode scalars and preserve declaration array order.
+  Return @ContractException with code `INVALID_REQUEST` and no reflected input or parser cause when validation fails.
+
+Exposes:
+  @ManifestContract.parse
+  @ManifestContract.normalizePolicy
+
+Done when:
+  Shared accepted cases match expected normalized objects and rejected cases expose only the stable error code.

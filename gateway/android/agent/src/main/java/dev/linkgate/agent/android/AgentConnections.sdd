@@ -1,0 +1,31 @@
+Spec: Caller-bound Android business runtime
+
+Purpose:
+  Connect approved local scopes through authenticated peers and attach one-use Binder descriptors.
+
+Owns:
+  ./AgentConnections.java
+
+References:
+  /agent-core/src/main/java/dev/linkgate/agent/AgentRegistry.sdd
+  /transport-core/src/main/java/dev/linkgate/transport/PeerClient.sdd
+  /android/descriptor-core/descriptor-core.sdd
+
+Must:
+  Journal opens before dialing and cap active runtime streams at `16` per caller and `32` globally.
+  Capture the caller before attachment, reject stolen or repeated operations and require descriptor acknowledgement within ten seconds.
+  Abort transports and descriptors before asynchronous persistence so storage delay cannot extend revoked business access.
+  Preserve half-close and backpressure, close on caller death or lost authority and never replay payload.
+  Keep startup, copy, control, timers and persistence queues separately bounded and stop late opens after shutdown.
+
+  Acquire current server leases for configured server mode on both direct and relay business paths; failed server authorization must not downgrade to preview.
+  Hold each relay lease until its corresponding stream closes, release it before deferred journal writes and preserve unrelated flows sharing the same runtime.
+
+  Preserve authenticated server denial and lease verification failure as authorization outcomes; do not report them as an offline transport failure.
+
+  Start the total budget at admission before journal IO, carry it through authorization and route setup, and hand off exactly one planner result.
+  A direct-only open may try a bounded known-IPv4 candidate then authenticated XTCP with fallback disabled; explicit relay remains a separate selection.
+  Close registered raw abort handles before deferred persistence, including attempts that have not yet become ready.
+  Count only selected authenticated direct candidates by LAN or XTCP for owner-side aggregate acceptance; a listening visitor alone is not a successful direct connection.
+  Compose the formal connection runtime under the same owner lifetime and bounded workers, recovering its journal only after exclusive startup publication is authorized.
+  Reject new attempts during network invalidation, abort old generation IO before recycling owned runtime caches and resume only after invalidation finishes.

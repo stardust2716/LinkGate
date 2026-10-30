@@ -1,0 +1,17 @@
+Spec: Windows bounded connection planning
+
+Purpose:
+  Select one authenticated transport within the original application admission budget.
+
+Owns:
+  ./ConnectionPlanner.cs
+
+Must:
+  Expose the original absolute attempt deadline to trusted route acquisition without resetting budgets.
+  Defer cancellation-source disposal until an in-progress raw-abort/cancel pass ends; reentrant release must still deliver cancellation and remain idempotent.
+  Include authorization and preparation time before scheduling; direct-only spends the remaining total budget on direct.
+  Permit relay only under the effective approved policy and never retry authentication, capability, capacity, cancellation or clock failures through another path.
+  Bound active setup attempts independently by path, retaining a slot until late work actually terminates.
+  Cancel raw transport handles before deferred disposal, dispose late successes and transfer exactly one result without replaying application bytes.
+  Return selected path, fixed fallback reason and setup time separately from later business traffic.
+  Reject unsupported prewarm and relay byte limits before transport IO.

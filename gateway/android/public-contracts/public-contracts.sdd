@@ -1,0 +1,13 @@
+Spec: Portable Java Android build bridge
+
+Purpose:
+  Expose the existing portable public contract sources as a Java library without Android dependencies.
+
+Owns:
+  ./build.gradle
+
+References:
+  /contracts/java/java.sdd
+
+Must:
+  Publish declaration/control contracts without the pending transaction implementation.

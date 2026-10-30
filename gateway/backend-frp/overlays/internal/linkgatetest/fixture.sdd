@@ -1,0 +1,12 @@
+Spec: Backend actual identity test fixture
+
+Purpose:
+  Generate independent test devices and current server authority without exporting private keys.
+
+Owns:
+  ./fixture.go
+
+Must:
+  Use standard P-256/x509 TLS identities generated in process, temporary synchronized databases and isolated loopback sockets.
+  Expose only test fixture helpers to tests; production backend components must not depend on this package.
+  Preserve device/application role boundaries and close all fixture sockets, controls and databases in cleanup.

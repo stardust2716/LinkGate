@@ -1,0 +1,13 @@
+Spec: Windows visitor access verification
+
+Purpose:
+  Verify exact local permission is independent of reviewed declarations and remote publisher grants.
+
+Owns:
+  ./LocalAccessTests.cs
+
+Must:
+  Remove newer connection journals when constructing older schema fixtures; migration must not invent flows or attachments.
+  Use owned private databases and locally issued identities, without cloud, service installation or route changes.
+  Cover absent/wrong caller and scope, stale proposals, retained-operation conflicts, denial preservation, reapproval and peer invalidation, rollback and restart.
+  Prove full-budget revocation consumes its reservation and schema-six migration invents no access; missing current-schema tables fail closed.

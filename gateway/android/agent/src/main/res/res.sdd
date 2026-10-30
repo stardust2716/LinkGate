@@ -1,0 +1,14 @@
+Spec: LinkGate mobile appearance resources
+
+Purpose:
+  Supply the LinkGate application name, launcher identity and native theme.
+
+Owns:
+  ./values/strings.xml
+  ./values/styles.xml
+  ./drawable/ic_linkgate.xml
+  ./drawable/ic_linkgate_notification.xml
+
+Must:
+  Use LinkGate as the launcher name, retain the existing package and signing identity, and keep navigation/status colors readable.
+  Use scalable native vector icons without network assets or new UI runtime dependencies.

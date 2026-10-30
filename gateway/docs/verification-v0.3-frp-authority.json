@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-30",
+  "milestone": "authenticated-frp-windows-business-relay",
+  "status": "development-verification-only",
+  "installedVersion": "0.2.3",
+  "authority": {
+    "topLevelTests": 30,
+    "passed": true,
+    "vet": true,
+    "raceTested": false
+  },
+  "backend": {
+    "passed": true,
+    "sourceCommit": "d8cf1800dc1abd7fda1828cab105d7a6b5a50eb1",
+    "topLevelTests": 153,
+    "linkgateTopLevelTests": 11,
+    "vet": true,
+    "moduleChecksums": true,
+    "go": "go version go1.27.3 windows/amd64",
+    "patchSha256": "FC80E5D974D417D2A025E28F46C757AFE5C917C15C0FA89195C2B9296FC6CE0F",
+    "moduleSha256": "FF64ABA02B00C1F0E8D08B8E6C535AE9373C5905AE93B56E644CCCBD065BA520",
+    "sumSha256": "273DF854A1CB96C78F227A189EF84600C1A8A917F701A3A555A4CB11400493DB",
+    "frpcSha256": "A75CFC007BF3AB0DC5039185B221EBA2FA4D5D451E78F9DA9C588F7CC7DD9B09",
+    "fixtureSha256": "EE043CD44C4C487FC39F5E28D5E059E56846A14CF862E83EDC22AA56B2066A1E",
+    "physicalNatTested": false,
+    "installedRuntimeChanged": false
+  },
+  "windowsBroker": {
+    "checks": 434,
+    "passed": true
+  },
+  "nativeWindows": {
+    "passed": true,
+    "checks": 29,
+    "actualSourceBuiltFrpc": true,
+    "actualProtectedNamedPipes": true,
+    "actualParentPidVerified": true,
+    "unrelatedPipeClientDenied": true,
+    "clientKeysExported": false,
+    "actualMutualTlsBackend": true,
+    "actualWireV2": true,
+    "actualTcpMux": true,
+    "actualRelayBytes": 67108864,
+    "integrity": true,
+    "requestHalfClose": true,
+    "actualReportedPath": "relay",
+    "missingLocalGrantRejected": true,
+    "scopePolicyRejected": true,
+    "activeRelayRevokeMs": 58,
+    "localGrantRevokeMs": 45,
+    "localRuntimeRevokeMs": 216,
+    "pendingDenialPreservesRuntime": true,
+    "unrelatedRuntimePreserved": true,
+    "agentDataMtlsInRelayTested": true,
+    "businessSdkInRelayTested": true,
+    "androidNativeBridgeTested": false,
+    "physicalNatTested": false,
+    "cloudAccessed": false,
+    "installedRuntimeChanged": false
+  },
+  "independentSdkProcessInRelayTested": false,
+  "notYetVerified": [
+    "Android native private runtime bridge",
+    "actual XTCP business direct path",
+    "new four-network matrix",
+    "100000 short flows",
+    "24h and 72h stability",
+    "release and upgrade chain"
+  ]
+}

@@ -1,0 +1,23 @@
+Spec: Post-trial mature gateway release
+
+Purpose:
+  Preserve requirements deferred from the first installable trial without expanding its delivery scope.
+
+References:
+  ./SPEC.md
+  ./SECURITY-SPEC.md
+  ./ACCEPTANCE.md
+  /release/release.sdd
+
+Must:
+  Keep these requirements open until independently implemented and verified; do not block the explicitly scoped trial on them.
+  Preserve trial security and installed identities while implementing later changes.
+
+Tasks:
+  [ ] #1 Complete service.prepare, service-level health/events and aggregate accounting APIs.
+  [ ] #2 Add additional HTTP client adapters, transparent compatibility entry and independently published SDK packages.
+  [ ] #3 Complete automatic Windows network observation, new-mode TUN egress selection and physical network recovery.
+  [ ] #4 Complete device certificate renewal/rotation, managed backup/restore and operational migration tools.
+  [ ] #5 Complete signed automatic update/rollback and production signing/distribution.
+  [ ] #6 Verify physical ARM64 and four network/VPN scenarios with independent applications.
+  [ ] #7 Verify declared concurrency, 100000 short flows and 24/72-hour stability before production 1.0.

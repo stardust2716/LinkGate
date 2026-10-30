@@ -1,0 +1,14 @@
+Spec: Durable review intent receipt
+
+Purpose:
+  Retain one unresolved operation across console failures under an exclusive private-state lease.
+
+Owns:
+  ./ReviewIntentFile.cs
+
+Must:
+  Reject linked paths, hold a non-shared file lease and use bounded strict JSON receipts containing only operation references and versions.
+  Require a protected Broker state directory and reject receipt or lease ACLs granting access outside the current user and SYSTEM.
+  Flush a private temporary file before atomic replacement; never overwrite an unresolved receipt or automatically reset corrupt state.
+  Acknowledge only the expected operation and preserve the receipt when any write fails.
+  Retain the last acknowledged reference until a new explicitly confirmed operation is prepared.

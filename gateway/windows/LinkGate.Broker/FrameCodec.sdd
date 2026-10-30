@@ -1,0 +1,13 @@
+Spec: Control frame codec
+
+Purpose:
+  Preserve exact control payload boundaries over a byte stream.
+
+Owns:
+  ./FrameCodec.cs
+
+Must:
+  Delegate framing to the portable wire codec while preserving the existing Broker API.
+  Encode length as four unsigned little-endian bytes; accept `1` through `65536` payload bytes.
+  Return clean EOF only before the header; reject truncated headers and bodies.
+  Pass cancellation through reads, writes and flushes without allocating over-limit bodies.

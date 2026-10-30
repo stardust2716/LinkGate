@@ -1,0 +1,14 @@
+Spec: Private Android registration database sessions
+
+Purpose:
+  Back portable registry transactions with Android SQLite in private non-backup state.
+
+Owns:
+  ./RegistrationDatabase.java
+
+Must:
+  Keep state in a no-backup subdirectory with mode `0700` and reject linked registry paths.
+  Open and close a session per operation, using immediate transactions and full synchronization without WAL.
+  Commit only explicitly successful transactions and roll back failures on close.
+  Bind SQL parameters, bound lookup rows and return fixed storage errors.
+  Disable automatic corruption deletion/recreation and retain damaged state for explicit recovery.

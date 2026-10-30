@@ -1,0 +1,26 @@
+Spec: Explicit owner enrollment and secure grant tooling
+
+Purpose:
+  Provision device identities and approve or revoke scoped service grants without giving applications owner authority.
+
+Owns:
+  ./LinkGate.Owner.Console.csproj
+  ./Program.cs
+
+References:
+  ../LinkGate.Broker/SecureIdentity.sdd
+  ../LinkGate.Broker/SecureAuthority.sdd
+
+Must:
+  Permit certificate-only trust of an access-only peer without inventing an unused dial endpoint, requiring the same explicit public-key confirmation and expected revision.
+  Permit explicit command-line declaration approval only with matching pending revision, decision version and owner-confirmed canonical manifest hash; expose original review-operation lookup.
+  Dispatch server-owner commands only to the explicit mTLS owner entry, preserving existing local commands and their authority boundary.
+  Offer local visitor access request inspection, proposal export, explicit approval, bounded grant inspection and versioned revocation with retained operation UUIDs.
+  Create keys only in private owner/device directories and transfer only CSR, public certificate and public root files.
+  Require explicit retained operation UUIDs and expected revisions for authority mutations.
+  Export a grant proposal before approval and reject stale proposal versions during activation.
+  Preserve existing identities, never overwrite secret files and keep all private keys out of output.
+  Leave application declaration review to the separate host-only review workflow.
+
+Tasks:
+  [x] #1 Verify request, issuance, installation, peer trust, retained outcome lookup and revocation in isolated CLI acceptance.

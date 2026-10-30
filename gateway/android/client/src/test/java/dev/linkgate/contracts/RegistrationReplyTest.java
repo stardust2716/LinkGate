@@ -1,0 +1,21 @@
+package dev.linkgate.contracts;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.UUID;
+
+public final class RegistrationReplyTest {
+    private static final UUID ID=UUID.fromString("00000000-0000-4000-8000-000000000001"), OP=UUID.fromString("00000000-0000-4000-8000-000000000002");
+    private static final String RESULT="{\"applicationRef\":\"00000000-0000-4000-8000-000000000003\",\"permissionDiff\":{\"addedExports\":[\"files\"],\"removedExports\":[],\"changedExports\":[],\"addedImports\":[],\"removedImports\":[],\"changedImports\":[],\"declarationChanged\":true},\"approvalRequired\":true}";
+    private static byte[] bytes(String text){return text.getBytes(StandardCharsets.UTF_8);}
+    private static String envelope(String result){return "{\"kind\":\"response\",\"apiVersion\":1,\"requestId\":\""+ID+"\",\"result\":"+result+"}";}
+    private static void reject(String result){try{RegistrationReply.readPending(bytes(envelope(result)),ID);fail("Invalid pending accepted");}catch(ContractException e){assertEquals("INVALID_REQUEST",e.getMessage());assertNull(e.getCause());}}
+    @Test public void resultAndDiffAreImmutableAndUnapproved(){RegistrationReply.Pending result=RegistrationReply.readPending(bytes(envelope(RESULT)),ID);assertTrue(result.approvalRequired);assertEquals(Arrays.asList("files"),result.permissionDiff.addedExports);try{result.permissionDiff.addedExports.clear();fail("Mutable diff");}catch(UnsupportedOperationException expected){}}
+    @Test public void malformedPendingFieldsAndIdsAreRejected(){for(String value:new String[]{RESULT.replace("\"approvalRequired\":true","\"approvalRequired\":false"),RESULT.replace("\"files\"","\"files\",\"files\""),RESULT.replace("\"files\"","\"bad_id\""),RESULT.replace("\"declarationChanged\":true","\"declarationChanged\":1"),RESULT.replace("\"permissionDiff\":","\"unknown\":true,\"permissionDiff\":"),RESULT.replace("00000000-0000-4000-8000-000000000003","bad")})reject(value);}
+    @Test public void statusRequiresOriginalOperationAndSucceededState(){String status="{\"operationId\":\""+OP+"\",\"status\":\"succeeded\",\"result\":"+RESULT+"}";assertEquals(OP,RegistrationReply.readStatus(bytes(envelope(status)),ID,OP).operationId);for(String value:new String[]{status.replace(OP.toString(),ID.toString()),status.replace("succeeded","pending")})try{RegistrationReply.readStatus(bytes(envelope(value)),ID,OP);fail("Invalid status accepted");}catch(ContractException expected){}}
+    @Test public void correlationDuplicatesAndWrongEnvelopeAreRejected(){for(String value:new String[]{envelope(RESULT).replace(ID.toString(),OP.toString()),envelope(RESULT).replace("\"result\":","\"error\":{},\"result\":"),envelope(RESULT).replace("\"kind\":","\"ki\\u006ed\":\"response\",\"kind\":")})try{RegistrationReply.readPending(bytes(value),ID);fail("Invalid envelope accepted");}catch(ContractException expected){}}
+    @Test public void serverErrorsDoNotReflectRawMessageOrDetails(){String error="{\"kind\":\"response\",\"apiVersion\":1,\"requestId\":\""+ID+"\",\"error\":{\"code\":\"OPERATION_CONFLICT\",\"stage\":\"storage\",\"retryable\":false,\"message\":\"private-marker\",\"details\":{\"secret\":\"private-marker\"}}}";try{RegistrationReply.readPending(bytes(error),ID);fail("Error accepted");}catch(ControlReply.BrokerError e){assertEquals("OPERATION_CONFLICT",e.code);assertFalse(e.toString().contains("private-marker"));assertNull(e.getCause());}}
+    @Test public void requestsUseExplicitOperationIdAndNoCallerIdentity(){String input="{\"manifestVersion\":1,\"applicationId\":\"test.sdk\",\"displayName\":\"SDK\",\"exports\":[{\"serviceId\":\"files\",\"label\":\"Files\",\"protocol\":\"tcp\",\"localTarget\":{\"host\":\"127.0.0.1\",\"port\":18481}}],\"imports\":[]}";ControlRequest registered=ControlRequest.parse(RegistrationReply.registerRequest(ID,OP,ManifestContract.parse(bytes(input))));assertEquals(OP,registered.operation);assertEquals("app.register",registered.method);assertEquals(1,registered.params.size());ControlRequest query=ControlRequest.parse(RegistrationReply.statusRequest(ID,OP));assertNull(query.operation);assertEquals(OP.toString(),query.params.get("operationId"));}
+}

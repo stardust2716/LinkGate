@@ -1,0 +1,10 @@
+Spec: Authenticated server time-floor verification
+
+Purpose:
+  Check that trusted clock observations cure a lagging local clock without weakening existing lease fences.
+
+Owns:
+  ./LeaseClockTest.java
+
+Must:
+  Verify forward server observations, old-Date rejection, fractional progression and permanently closed monotonic rollback without using real credentials or relaxing signed lease checks.

@@ -1,0 +1,11 @@
+Spec: Server exact-scope models
+
+Purpose:
+  Validate bounded canonical public identifiers and keep errors independent from untrusted input.
+
+Owns:
+  ./types.go
+
+Must:
+  Use canonical device-key hashes, application/service IDs and operation UUIDs; keep version counters as decimal strings on JSON wire.
+  Reject unknown JSON fields, duplicate members, bad Unicode and oversized input before state mutation.

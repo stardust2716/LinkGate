@@ -1,0 +1,12 @@
+Spec: Windows retained connection verification
+
+Purpose:
+  Verify original operation outcomes and current state remain distinct across restart and failed attachment.
+
+Owns:
+  ./ConnectionJournalTests.cs
+
+Must:
+  Exercise exact local access, policy narrowing, one-use attachments, replay/conflict, close intent, stale snapshots and bounded crash recovery on real SQLite.
+  Verify actual lifecycle meter FIN/drain, uint64 overflow and monotonic clock failure with deterministic clocks.
+  Cover schema-seven migration without invented connections and preserve prior access/operation results.

@@ -1,0 +1,12 @@
+Spec: Persistent pending registration verification
+
+Purpose:
+  Verify caller-scoped registration transactions and RPC integration using temporary private state.
+
+Owns:
+  ./RegistrationTests.cs
+
+Must:
+  Cover restart retries, changed parameters, caller separation, capacity, rollback and unsupported privileged operations.
+  Exercise registration over a real pipe and remove only owned temporary test state.
+  Kill an owned child with an uncommitted SQLite transaction and verify recovery without partial registration.

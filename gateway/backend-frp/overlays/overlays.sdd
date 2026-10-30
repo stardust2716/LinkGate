@@ -1,0 +1,14 @@
+Spec: Pinned backend source overlays
+
+Purpose:
+  Supply small reviewable additions to the derived pinned FRP source.
+
+Structure:
+  ./cmd: Explicit server lifecycle commands and separate isolated native-runtime fixtures.
+  ./client: Private owned-Agent connectors without exported device keys.
+  ./server: Authenticated backend entry points and actual server path checks.
+  ./internal: In-process public-certificate and authority fixtures used only by tests.
+  ./pkg: Hole-punch session authorization binding and shared test fixtures.
+
+Must:
+  Keep production overlays independent of test fixture secrets and leave all upstream modifications represented by the owned patch.

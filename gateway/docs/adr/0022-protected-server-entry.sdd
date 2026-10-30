@@ -1,0 +1,10 @@
+Spec: Protected server lifecycle decision
+
+Purpose:
+  Describe persistent authenticated Linux server commands and their remaining operational release boundary.
+
+Owns:
+  ./0022-protected-server-entry.md
+
+Must:
+  Distinguish actual local Linux permission/mTLS checks from cloud deployment, complete administration and release readiness.

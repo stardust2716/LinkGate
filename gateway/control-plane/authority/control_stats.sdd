@@ -1,0 +1,11 @@
+Spec: Aggregate server control counters
+
+Purpose:
+  Observe successful lease issuance, publisher verification and current-authority batch activity without credentials or scopes.
+
+Owns:
+  ./control_stats.go
+
+Must:
+  Record successful operations with saturating atomic UInt64 counters and expose immutable process-local snapshots only.
+  Include no tokens, identities, paths, addresses or raw errors; do not add an unauthenticated network metrics endpoint.

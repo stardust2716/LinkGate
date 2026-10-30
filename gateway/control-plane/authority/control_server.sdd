@@ -1,0 +1,18 @@
+Spec: Authenticated Agent control endpoint
+
+Purpose:
+  Expose exact-scope lease acquisition and separate owner administration over actual device-authenticated TLS.
+
+Owns:
+  ./control_server.go
+  ./control_server_test.go
+
+Must:
+  Derive the caller from verified TLS state, bind visitor lease requests to that device and recheck current role on every request.
+  Return a current lease authority snapshot to the authenticated visitor on acquisition, or to its publishing device after signature, scope, version and expiry validation.
+  Bind the server certificate key and owner root to persistent authority before serving; bound leases by certificate expiry as well as `120` seconds.
+  Keep owner mutations separate from ordinary Agent requests, compare expected versions and retain original operation IDs without automatic replay.
+  Enforce exact JSON fields, `64` KiB bodies, bounded headers/timeouts, at most `8` concurrent calls per device and `32` globally.
+  Expose fixed correlated errors only; never log raw control requests, tokens, certificates or network addresses.
+  Keep new control networking local to explicit listener ownership; do not deploy or change legacy ECS listeners.
+  Check up to sixty-four current lease snapshots per authenticated batch, bound each scope to the actual visitor or publisher and return only aligned validity plus server epoch.

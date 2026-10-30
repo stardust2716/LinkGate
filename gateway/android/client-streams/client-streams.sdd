@@ -1,0 +1,21 @@
+Spec: Android private stream socket SDK
+
+Purpose:
+  Turn an authorized Binder descriptor into a standard application-owned Java socket while retaining TLS semantics.
+
+Owns:
+  ./build.gradle
+  ./src/main/AndroidManifest.xml
+  ./README.md
+
+Structure:
+  ./src: Descriptor ownership, bounded socket adaptation and independent stream verification.
+
+References:
+  /android/client/client.sdd
+
+Must:
+  Depend only on the public client and framework; carry no Agent state, device keys, PKIX dependency or transport runtime.
+  Declare INTERNET only for the private in-process socket adapter, without overriding application cleartext policy.
+  Never return a public listening endpoint; verify the accepted socket against the held local client before forwarding any bytes.
+  Preserve application HTTP authority, TLS checks and TCP half-close; close all owned descriptors after failure or cancellation.

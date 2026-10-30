@@ -1,0 +1,10 @@
+Spec: Portable Java server-authority verification
+
+Purpose:
+  Validate server leases with mature JOSE and platform PKIX without Android-specific state or SDK privileges.
+
+Structure:
+  ./src: Immutable current authority, signed lease checks and shared monotonic clock fence.
+
+Must:
+  Carry server authority only in Agent-side modules; never add JOSE or transport state to thin business SDKs.

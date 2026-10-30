@@ -1,0 +1,11 @@
+Spec: Portable registry SQLite JVM verification
+
+Purpose:
+  Verify production SQL and protocol against desktop SQLite without claiming Android adapter validation.
+
+Owns:
+  ./PendingRegistryTest.java
+
+Must:
+  Cover reopen, caller isolation, canonical retries, quotas, conflicts, rollback and malformed input.
+  Keep JDBC test-only and clean up owned temporary databases.

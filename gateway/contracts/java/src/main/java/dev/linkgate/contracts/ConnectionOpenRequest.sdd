@@ -1,0 +1,16 @@
+Spec: Portable explicit connection request
+
+Purpose:
+  Validate public target references and a policy bounded by an independently approved import.
+
+Owns:
+  ./ConnectionOpenRequest.java
+
+References:
+  /docs/adr/0023-connection-request-policy.md
+  ./ManifestContract.sdd
+
+Must:
+  Match the .NET request fields, strict `16 KiB` input boundary, UUID normalization and exact policy narrowing semantics.
+  Reject unknown/caller/address fields and malformed identifiers with fixed @ContractException errors.
+  Keep all parsed fields immutable and perform no storage, authority lookup or networking.

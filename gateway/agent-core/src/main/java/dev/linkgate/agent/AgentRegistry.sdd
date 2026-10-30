@@ -1,0 +1,27 @@
+Spec: Transactional mobile access authority
+
+Purpose:
+  Resolve only owner-approved client imports into device and service scoped business connections.
+
+Owns:
+  ./AgentRegistry.java
+
+References:
+  /contracts/java/src/main/java/dev/linkgate/contracts/WireJson.sdd
+  /transport-core/src/main/java/dev/linkgate/transport/DeviceIdentity.sdd
+
+Must:
+  Retain app, owner and open outcomes atomically with bounded operation and application counts.
+  Compare complete reviewed generations; maintain a distinct authority epoch so denied pending updates preserve prior authority.
+  Require explicit local device/service approval in addition to publisher grants, preventing reinstall or signer changes from inheriting old access.
+  Reserve future revocation capacity for every active approval and peer; ordinary operations cannot consume reservations.
+  Reject unowned imports, arbitrary addresses, stale peer or grant revisions and untrusted clock state.
+  Close old opens after a new boot without dialing them again and never delete retained outcomes to admit new mutations.
+
+  Resolve reviewed brokered imports independently of path; direct preview opens require direct-only and relay opens require an explicit relay-enabled policy.
+  Persist the selected path in the immutable operation result without changing local-grant snapshots or replaying old opens; legacy outcomes without a path mean direct.
+
+  Expose the immutable approved policy to the internal planner without changing retained grant snapshots; unsupported relay-byte budgets fail before authorizing an open.
+  Migrate schema1 atomically to schema2 without changing existing declarations, grants or experimental outcomes; include formal flows and one-use attachments in the same private transaction boundary.
+  Route formal open operation queries to their retained connection state; a completed open remains succeeded after its stream closes, while an opening crash remains failed.
+  Share internal transaction and authority helpers only with the Agent-owned connection journal; SDKs do not gain database or approval access.

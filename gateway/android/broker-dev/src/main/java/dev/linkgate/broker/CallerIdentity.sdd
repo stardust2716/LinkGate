@@ -1,0 +1,16 @@
+Spec: Experimental Android caller snapshot
+
+Purpose:
+  Inspect current package identity for a single-package Binder UID without granting permissions.
+
+Owns:
+  ./CallerIdentity.java
+
+Must:
+  Obtain package names from PackageManager and verify package UID equals the captured calling UID.
+  Reject multiple packages, declared shared UID, missing signatures or inconsistent repeated identity snapshots.
+  Include current signer digests, available signing history and first-install time in an internal immutable identity key.
+  Keep package names, certificates and UID out of public responses.
+
+Must not:
+  Treat the snapshot as approved registration, signing-lineage authorization or validated shared-UID support.

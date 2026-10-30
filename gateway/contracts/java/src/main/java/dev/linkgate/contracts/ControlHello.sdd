@@ -1,0 +1,17 @@
+Spec: Portable Java control negotiation
+
+Purpose:
+  Produce strict API1 hello responses with no application or credential access.
+
+Owns:
+  ./ControlHello.java
+
+References:
+  ./StrictJson.sdd
+
+Must:
+  Accept at most `65536` UTF-8 bytes with strict lexical JSON, duplicate-key and Unicode rejection.
+  Validate request UUID, exact envelope fields, integer API version and hello version array before responding.
+  Echo only a validated request ID and return fixed errors for invalid hello parameters or unsupported methods.
+  Keep a stable per-instance boot ID and report all product capabilities unsupported.
+  Expose Android admission limits without claiming Windows connection semantics.

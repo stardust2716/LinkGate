@@ -1,0 +1,10 @@
+Spec: Owner-authorized STUN discovery decision
+
+Purpose:
+  Explain explicit destination consent and real multi-destination observations in the new authenticated backend.
+
+Owns:
+  ./0020-explicit-stun.md
+
+Must:
+  Separate the new Agent configuration from legacy public fallback behavior and distinguish observed mapping, actual business path and physical-network acceptance.

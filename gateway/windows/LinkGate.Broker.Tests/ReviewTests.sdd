@@ -1,0 +1,15 @@
+Spec: Declaration review transaction verification
+
+Purpose:
+  Verify host decisions and application isolation using owned temporary SQLite state and real pipe requests.
+
+Owns:
+  ./ReviewTests.cs
+
+Must:
+  Remove newer connection journals when constructing older schema fixtures; migration must not invent flows or attachments.
+  Remove newer access tables when constructing historical schema fixtures and verify the current schema version after migration.
+  Cover approval, denial, revocation, restart, old operation replay, stale snapshots, ABA declaration changes and cross-store rejection.
+  Verify atomic schema-one migration preserves pending operations without inventing approved state.
+  Exercise concurrent decisions, quota exhaustion, injected transaction failure and corrupt rows without partial changes.
+  Verify ordinary application requests cannot invoke review or retrieve administrator operations.

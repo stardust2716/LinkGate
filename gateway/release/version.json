@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "windowsVersion": "0.3.0-preview.2",
+  "androidVersion": "0.3.0-preview.3",
+  "androidVersionCode": 4,
+  "serverBinaryVersion": "0.3.0-preview.1"
+}

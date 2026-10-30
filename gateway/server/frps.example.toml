@@ -1,0 +1,14 @@
+# Copy into a private root-owned staging directory and replace the token.
+# The installer intentionally accepts only this minimal v0.1.0 configuration.
+bindAddr = "0.0.0.0"
+bindPort = 17400
+proxyBindAddr = "127.0.0.1"
+transport.tls.force = true
+transport.tls.certFile = "/etc/linkgate/server.crt"
+transport.tls.keyFile = "/etc/linkgate/server.key"
+auth.method = "token"
+auth.token = "REPLACE_WITH_64_LOWERCASE_HEX_CHARACTERS"
+log.to = "console"
+log.level = "info"
+log.disablePrintColor = true
+detailedErrorsToClient = false

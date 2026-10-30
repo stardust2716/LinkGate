@@ -1,0 +1,15 @@
+Spec: Portable pending registration transactions
+
+Purpose:
+  Atomically retain caller-scoped unapproved declarations and operation results through a supplied SQL session port.
+
+Owns:
+  ./PendingRegistry.java
+
+Must:
+  Commit the normalized pending declaration and successful operation result in one transaction.
+  Deduplicate caller and operation UUID before quota checks; conflict on changed canonical parameters and preserve old results.
+  Match the Windows pending result shape and keep approvalRequired `true` without creating grants or flows.
+  Retain all results, cap caller operations at `500000`, global operations at `1000000` and registrations at `1024`.
+  Use Android26-compatible SQLite syntax, bound parameters and explicit schema checks.
+  Convert corrupt stored data and session failures to fixed storage errors without raw exceptions.

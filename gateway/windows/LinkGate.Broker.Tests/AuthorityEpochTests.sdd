@@ -1,0 +1,13 @@
+Spec: Authority epoch persistence and migration verification
+
+Purpose:
+  Prove review denials preserve live authority and schema upgrades never restore previously invalid grants.
+
+Owns:
+  ./AuthorityEpochTests.cs
+
+Must:
+  Remove newer connection journals when constructing older schema fixtures; migration must not invent flows or attachments.
+  Remove newer access tables when constructing historical schema fixtures and verify the current schema version after migration.
+  Exercise actual schema-five migration with valid and stale grant stamps and retain old operation results.
+  Verify denial-only epoch preservation, approval/revocation invalidation and corrupt epoch refusal.

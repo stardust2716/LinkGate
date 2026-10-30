@@ -1,0 +1,35 @@
+Spec: Device-authorized FRP backend
+
+Purpose:
+  Preserve actual authenticated device/application authority across pinned FRP control, work, visitor and hole-punching paths.
+
+Owns:
+  ./README.md
+  ./authority.patch
+  ./prepare.py
+  ./verify.ps1
+  ./build-android.ps1
+
+Structure:
+  ./overlays: Additional narrowly scoped backend implementation and actual path verification.
+
+References:
+  /control-plane/authority/transport_gate.sdd
+  /docs/adr/0002-frp-authorization-boundary.md
+  /docs/adr/0015-authenticated-transport-control.md
+
+Must:
+  Build only an ignored derived copy of the fixed upstream commit; leave shared upstream source and installed runtimes untouched.
+  Keep legacy listeners distinct from the new mode; new mode accepts actual standard mTLS Agent scope and never falls back to shared-token or empty-identity admission.
+  Bind backend work and visitor sockets to their actual authenticated control subject, including application and role, rather than trusting RunID alone.
+  Enforce current authorization on actual hole-punch visitor/client/report paths as well as precheck, and close active relay flows on cancellation.
+  Keep the Agent data mTLS and local grant boundary necessary even after transport admission succeeds.
+  Require actual patched-backend tests before claiming backend authorization or direct-connect acceptance.
+  Keep Agent STUN contacts explicit and separate from legacy public defaults, preserving real same-socket multi-destination observation rather than inventing mapping samples.
+  Derive portable relative module references and omit temporary checkout VCS metadata from packaged binaries; generated source-copy paths are not runtime configuration.
+  Preserve active owned XTCP carriers across individual open cancellation and stale hole-punch completion; new attempts must not tear down unrelated business streams.
+
+Tasks:
+  [x] #1 Verify authenticated FRP control/work/publication/relay paths on pinned source.
+  [x] #2 Verify actual hole-punch scope binding, bypass rejection and revocation.
+  [ ] #3 Connect platform-owned private runtime bridges and verify independent business flows.

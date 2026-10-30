@@ -1,0 +1,12 @@
+Spec: Native runtime-only pipe instances
+
+Purpose:
+  Keep a live private Windows pipe namespace reserved for the Agent's held runtime.
+
+Owns:
+  ./RuntimePipe.cs
+
+Must:
+  Use per-run unpredictable local-only byte pipes with explicit current-user/SYSTEM ACL and a first-instance reservation.
+  Keep an existing instance alive while allocating its successor; bound instances at sixty-four and use overlapped cancellation.
+  Obtain the actual client PID from the kernel handle; never accept a caller-supplied PID as identity.

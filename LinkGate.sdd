@@ -1,0 +1,26 @@
+Spec: Standalone LinkGate publication
+
+Purpose:
+  Publish the application gateway with coherent public documentation and deployment guidance.
+
+Owns:
+  ./.gitattributes
+  ./.gitignore
+  ./README.md
+  ./AGENTS.md
+  ./THIRD_PARTY.md
+  ./docs/ARCHITECTURE.md
+  ./docs/DEPLOYMENT.md
+  ./docs/BUILD.md
+  ./docs/README.md
+  ./scripts/check-repository.py
+  ./.specdd/bootstrap.project.md
+
+Structure:
+  ./gateway: Source-adjacent gateway implementation and SpecDD contracts.
+  ./.agents/skills: Discoverable deployment skill.
+
+Must:
+  Preserve existing runtime interfaces and exclude private identities, credentials, generated runtimes and local history from Git.
+  Distinguish current experimental capabilities from later mature-release requirements.
+  Keep release binaries separate from source and publish explicit version/hash metadata.

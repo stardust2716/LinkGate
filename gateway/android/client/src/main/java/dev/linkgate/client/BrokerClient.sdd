@@ -1,0 +1,25 @@
+Spec: Signature-pinned Binder client
+
+Purpose:
+  Offer asynchronous control calls with verified binding and explicit close.
+
+Owns:
+  ./BrokerClient.java
+
+References:
+  ./PeerPin.sdd
+  ./ClientRuntime.sdd
+  /contracts/java/src/main/java/dev/linkgate/contracts/ControlReply.sdd
+  ./ControlSession.sdd
+
+Must:
+  Verify service metadata and current signing certificates before binding, after callback and around every hello call.
+  Use an explicit component and action, validate the AIDL descriptor and listen for Binder death and binding loss.
+  Complete bind and control futures after a two-second timeout without claiming native Binder interruption.
+  Keep one active request per client and never automatically rebind, retry or enable experimental capabilities.
+  On failure, cancellation or close, discard late results and unbind each accepted binding once, including late bind completion.
+  Retain the runtime lease until binding cleanup finishes; release failed binds without leaking leases.
+  Recheck the same installed peer around descriptor attachment and close descriptors from failed or late calls.
+
+  Expose explicit relay opening without embedding a backend runtime or changing the direct method into implicit fallback.
+  Expose formal open/status/attach/close and appended stream-reference Binder attachment through the same pinned session; require explicit experimental opt-in and discard late descriptors.

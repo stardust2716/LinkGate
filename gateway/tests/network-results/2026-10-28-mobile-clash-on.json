@@ -1,0 +1,85 @@
+{
+  "case": "mobile-clash-on",
+  "clientVersion": "0.2.1",
+  "testVersion": 2,
+  "phone": {
+    "testVersion": 2,
+    "scenario": "mobile-clash-on",
+    "startedUtcMs": 1793189454631,
+    "elapsedMs": 63304,
+    "fileBytesVerified": 20971520,
+    "filesCompleted": 20,
+    "fileError": "none",
+    "websocketPayloadBytes": 614400,
+    "websocketFrames": 300,
+    "websocketError": "none",
+    "websocketControlFrames": 4,
+    "uidRxDelta": 43392613,
+    "uidTxDelta": 22243465,
+    "before": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": false,
+      "businessDirectObserved": false,
+      "directTx": 0,
+      "directRx": 0,
+      "relayTx": 0,
+      "relayRx": 0,
+      "activeConnections": 0,
+      "setupMs": 0,
+      "bytesPerSecond": 0,
+      "fallbackReason": "none",
+      "complete": true
+    },
+    "after": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": false,
+      "businessDirectObserved": false,
+      "directTx": 0,
+      "directRx": 0,
+      "relayTx": 311098,
+      "relayRx": 21282743,
+      "activeConnections": 0,
+      "setupMs": 1556,
+      "bytesPerSecond": 360652,
+      "fallbackReason": "direct_tunnel_unavailable",
+      "complete": true
+    }
+  },
+  "windowsDelta": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 21282743,
+    "relayRx": 311098
+  },
+  "phoneDelta": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 311098,
+    "relayRx": 21282743
+  },
+  "pairedByteDifferences": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 0,
+    "relayRx": 0
+  },
+  "bothEndsBytesMatched": true,
+  "applicationPassed": true,
+  "directBusinessObserved": false,
+  "pcTunObserved": "Meta Tunnel Up",
+  "windowsSampling": "Idle snapshots padded by 5 seconds; clocks not assumed identical.",
+  "ecsStatus": "captured",
+  "ecsAlignedApprox": {
+    "ingressIpBytes": 22129269,
+    "egressIpBytes": 24307597,
+    "ingressTcpPayloadBytes": 21716853,
+    "egressTcpPayloadBytes": 23708373,
+    "packets": 21531
+  },
+  "ecsCaptureComplete": true,
+  "ecsWindowCoversWholeTest": true,
+  "ecsKernelDroppedPackets": 0,
+  "ecsUnparsedPackets": 0
+}

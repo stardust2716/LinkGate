@@ -1,0 +1,14 @@
+Spec: Owned XTCP tunnel generation guard
+
+Purpose:
+  Keep shared authenticated direct carriers alive across individual stream cancellation and stale tunnel attempts.
+
+Owns:
+  ./linkgate_tunnel.go
+  ./linkgate_tunnel_test.go
+
+Must:
+  Apply only in explicit owned Agent mode and preserve stock session behavior otherwise.
+  Retire only the exact carrier observed failing; cancellation or a late failure cannot close a newer or healthy shared carrier.
+  Keep a healthy initialized carrier when duplicate hole-punch attempts complete and close the redundant candidate instead of replacing live streams.
+  Close late initialization after owner shutdown and retain single ownership of every carrier and UDP listener.

@@ -1,0 +1,13 @@
+Spec: .NET independent server lease validation
+
+Purpose:
+  Enforce standard signed server authority at an Agent using current trusted control state.
+
+Owns:
+  ./ServerLease.cs
+
+Must:
+  Verify mature ES256 JWS/JWT signing, issuer, audience, type and lifetime in addition to strict exact JSON and generation matching.
+  Validate the owner-root device certificate profile and pin the expected issuer SPKI without system trust changes or token-supplied keys.
+  Bind receipt lifetime to the earlier of signed expiry and issuer/root certificate expiry using a held time provider.
+  Preserve the first monotonic deadline for replay, reject old sequences and permanently close a stopped control generation.

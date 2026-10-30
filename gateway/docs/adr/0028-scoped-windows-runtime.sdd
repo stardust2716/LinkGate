@@ -1,0 +1,10 @@
+Spec: Scoped Windows runtime and operational composition decision
+
+Purpose:
+  Record dynamic runtime ownership, explicit owner commands and authenticated host readiness boundaries.
+
+Owns:
+  ./0028-scoped-windows-runtime.md
+
+Must:
+  Retain the actual focused test evidence and first cleanup failure; distinguish component/fixture verification from installed release and physical network acceptance.

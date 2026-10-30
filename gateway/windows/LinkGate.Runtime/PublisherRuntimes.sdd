@@ -1,0 +1,18 @@
+Spec: PublisherRuntimes
+
+Purpose:
+  Publish approved local exports through the authenticated backend without static profiles.
+
+Owns:
+  ./PublisherRuntimes.cs
+
+References:
+  ./FrpRuntimeBridge.sdd
+
+Must:
+  Use a fifteen-second transport heartbeat response timeout while retaining one-second emission and independent authority invalidation.
+  Retry failed startup with per-application bounded exponential backoff, retain capacity for failed cleanup and close publishers on authority-storage failure.
+  Discover only explicitly approved publisher applications, with at most sixteen owned publishers and fixed local inner-mTLS targets.
+  Derive STCP/XTCP proxies from approved service IDs, current review generations and explicit server/STUN settings; never create authority from registration.
+  Retire revoked, changed or dead publishers and clean only owned processes/files; preserve existing publishers across denial-only reviews.
+  Report local process presence separately from remote registration/business readiness.

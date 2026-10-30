@@ -1,0 +1,27 @@
+Spec: Interactive local declaration review console
+
+Purpose:
+  Let an owner inspect and decide local declaration candidates through an explicit development terminal.
+
+Owns:
+  ./LinkGate.Review.Console.csproj
+  ./Program.cs
+  ./README.md
+
+Structure:
+  ./ReviewWorkflow.cs: Bounded human review and recovery commands.
+  ./ReviewIntentFile.cs: Private durable receipt and exclusive console lease.
+  ./ReviewText.cs: Safe rendering of untrusted declaration content.
+  ./ReviewTerminal.cs: Bounded terminal input adapter.
+
+References:
+  ../LinkGate.Broker/RegistrationReview.sdd
+  /docs/adr/0011-local-review-console.md
+
+Must:
+  Require an existing explicit state database, interactive input/output and typed opening confirmation before initialization.
+  Reject redirected automation without opening state; provide no automatic approval flags or management listener.
+  Keep the lack of binary identity verification and network grant authority visible to the operator.
+
+Tasks:
+  [x] #1 Deliver the console with verified review, durable recovery and redirected-input rejection.

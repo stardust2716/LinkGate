@@ -1,0 +1,25 @@
+Spec: Bounded lexical JSON
+
+Purpose:
+  Preserve exact JSON token distinctions and Unicode scalar validity before contract semantics are evaluated.
+
+Owns:
+  ./StrictJson.java
+
+References:
+  /docs/adr/0001-public-contract-normalization.md
+
+Must:
+  Decode UTF-8 without replacement and reject duplicate decoded keys, invalid surrogate pairs and non-JSON syntax.
+  Bound input bytes, nested containers and value count before allocating an unbounded parse tree.
+  Preserve numeric lexical form through @StrictJson.NumberToken so semantic integer checks can reject decimals and exponents.
+  Write valid normalized JSON without altering valid string contents.
+  Optionally capture the original control manifest value slice without changing ordinary parse behavior.
+  Capture the original root connection policy slice for request parsing so whitespace and escaped encoding count toward the same policy byte limit on both platforms.
+  Preserve the original root control params slice for formal open dispatch so envelope parsing cannot erase nested policy byte limits.
+
+Must not:
+  Coerce an invalid input into a plausible declaration.
+
+Done when:
+  The shared malformed encoding, escaped-key, nesting and lexical-number cases retain their expected outcomes.

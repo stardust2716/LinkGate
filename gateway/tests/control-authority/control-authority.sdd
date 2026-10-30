@@ -1,0 +1,19 @@
+Spec: Actual Agent control authority integration
+
+Purpose:
+  Verify independent .NET and Java clients over actual mTLS HTTP against current durable server authority.
+
+Owns:
+  ./verify.ps1
+  ./README.md
+
+Structure:
+  ./dotnet: Owned fixture lifecycle, .NET control verification and evidence.
+  ./java: Independent platform-key Java control receiver.
+
+Must:
+  Generate each client private key only in its own process and share only public CSRs and certificates.
+  Isolate loopback endpoints and protected ignored fixtures without installing or altering running components.
+  Verify exact-scope acquisition, independent publisher validation, revoked permissions, wrong pins, closed generations and cancellation.
+  Exercise actual SDK and Java peer business bytes with both local and server grants; verify signed authority revocation interrupts blocked data within five seconds.
+  Keep both actual data channels alive for sixty-five real seconds and verify new server-issued, publisher-validated lease renewals without backend redial.

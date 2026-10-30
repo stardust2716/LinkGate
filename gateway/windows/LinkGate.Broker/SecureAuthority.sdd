@@ -1,0 +1,24 @@
+Spec: Publisher device and service authority
+
+Purpose:
+  Persist device trust and least-scope service grants that the actual publishing Agent enforces.
+
+Owns:
+  ./SecureAuthority.cs
+
+References:
+  ./RegistrationReview.sdd
+  ./JournalCapacity.sdd
+  ./SecureIdentity.sdd
+
+Must:
+  Include exact local visitor grants in schema validation and reserved revocation accounting; peer revocation atomically retires both publisher and visitor authority.
+  Bind grants to authenticated device key, client application, reviewed publisher application and fixed export service.
+  Reserve logical revoke capacity for every active device/grant and retain administrator operation outcomes atomically.
+  Use monotonic revisions and compare reviewed proposals before activation; re-trust or re-grant never revives old authority.
+  Bind live grants to authority epochs rather than denial-only review counters; approval proposals still bind the complete review decision version.
+  Reject new opens immediately after committed revocation and expose revocation state to active-session monitoring.
+  Never accept ordinary application grant approval or caller-supplied target addresses.
+
+Tasks:
+  [x] #1 Verify exact scope, versioned approval, retained decisions and grant/device revocation in the direct preview.

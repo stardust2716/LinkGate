@@ -1,0 +1,12 @@
+Spec: Retained public connection operation value
+
+Purpose:
+  Decode a correlated typed operation independently of platform and transport.
+
+Owns:
+  ./ConnectionOperation.cs
+
+Must:
+  Require canonical operation UUID correlation, exact pending/reconciling fields, one typed success reference or a fixed failed error.
+  Bound strict JSON to 16 KiB and reject unknown fields, reflected exception text or success/failure ambiguity with fixed contract errors.
+  Preserve immutable values without retrying an operation or treating a retained success reference as current authority.

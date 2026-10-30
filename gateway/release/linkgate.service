@@ -1,0 +1,14 @@
+[Unit]
+Description=LinkGate authenticated gateway
+After=network-online.target
+Wants=network-online.target
+[Service]
+User=linkgate
+Group=linkgate
+ExecStart=/opt/linkgate/linkgate-server serve /etc/linkgate/server.json
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,23 @@
+Spec: Java contract conformance runner
+
+Purpose:
+  Verify shared encoded inputs against independently declared expected outcomes and detect mutable model regressions.
+
+Owns:
+  ./ConformanceMain.java
+
+References:
+  /contracts/vectors/cases.json
+  /docs/adr/0001-public-contract-normalization.md
+  /contracts/java/src/main/java/dev/linkgate/contracts/ManifestContract.sdd
+
+Must:
+  Compare shared status/operation DTO cases and verify returned wire maps do not mutate retained values.
+  Compare normalized objects structurally and fail the process when any accepted or rejected outcome differs.
+  Write the aggregate and per-case results requested by the runner contract without printing rejected input values.
+  Verify returned collections cannot mutate the parsed declaration and changing the input byte array cannot change it.
+  Verify invalid input errors contain no input text or original parser cause.
+  Evaluate shared connection request and separate approved-policy cases without treating a syntactically valid request as authorization.
+
+Done when:
+  All shared cases and immutable-model checks pass with Java compilation warnings treated as errors.

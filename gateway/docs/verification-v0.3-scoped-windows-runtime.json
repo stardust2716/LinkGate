@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-30",
+  "installedLegacyChanged": false,
+  "passed": true,
+  "cloudAccessed": false,
+  "runtimeOwnershipChecks": 23,
+  "physicalNetworksTested": false,
+  "scopedBrokerOwnerChecks": 130,
+  "milestone": "Windows dynamically scoped runtime and owner workflow",
+  "firstCleanupFailure": "Nonempty identity-file validation incorrectly rejected an owned empty runtime log; fixed by owned-file cleanup validation.",
+  "nativeWindows": {
+    "passed": true,
+    "runId": "f5ebf0b2de1c42e4a5fcbf7efb40b689",
+    "mode": "scoped-runtime-only",
+    "sdk": {
+      "passed": true,
+      "checks": 66,
+      "businessSockets": 9,
+      "transfers": [
+        {
+          "mode": "direct",
+          "path": "direct",
+          "bytes": 67108864,
+          "exactTx": "33",
+          "exactRx": "67108864",
+          "complete": true
+        },
+        {
+          "mode": "relay",
+          "path": "relay",
+          "bytes": 67108864,
+          "exactTx": "33",
+          "exactRx": "67108864",
+          "complete": true
+        },
+        {
+          "mode": "automatic",
+          "path": "direct",
+          "bytes": 67108864,
+          "exactTx": "33",
+          "exactRx": "67108864",
+          "complete": true
+        }
+      ],
+      "oneUseAttachment": true,
+      "retainedOpen": true,
+      "independentCancellation": true,
+      "localVisitorRevoke": true,
+      "networkGenerationInjected": true,
+      "physicalNetworkChanged": false,
+      "independentWindowsProcess": false,
+      "dynamicScopedRuntime": true
+    },
+    "actualSourceBuiltFrpc": true,
+    "actualMutualTlsBackend": true,
+    "noStaticVisitorConfiguration": true,
+    "noStaticPublisherConfiguration": true,
+    "publisherRevokeCleanup": true,
+    "physicalNatTested": false,
+    "cloudAccessed": false,
+    "installedRuntimeChanged": false
+  }
+}

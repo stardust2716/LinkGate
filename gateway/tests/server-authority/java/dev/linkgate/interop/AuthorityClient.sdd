@@ -1,0 +1,12 @@
+Spec: Independent JVM server lease receiver
+
+Purpose:
+  Execute the portable Agent receiver against standard tokens signed by the separately built Go issuer.
+
+Owns:
+  ./AuthorityClient.java
+
+Must:
+  Read only public certificates and fixture tokens, reject signed malformed inputs and preserve fixed rejection errors.
+  Verify shared-clock expiry, replay, late higher sequences, rollback and permanently closed control generations.
+  Report counts only, without token contents or private key export.

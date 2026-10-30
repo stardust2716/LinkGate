@@ -1,0 +1,128 @@
+{
+  "version": "0.2.2",
+  "windowsChecksPassed": 71,
+  "androidJvmTestsPassed": 19,
+  "goMetricsTestsPassed": 2,
+  "windowsEgressTestsPassed": 2,
+  "pristineSourcePatchReproductionVerified": true,
+  "socketIntegration": {
+    "frpVersion": "0.71.1",
+    "phoneUiOperated": false,
+    "productionServicesUsed": false,
+    "stcpHttpPassed": true,
+    "stcpStreamingPassed": true,
+    "stcpWebSocketPassed": true,
+    "xtcpUnavailableFallbackHttpAndWebSocketPassed": true,
+    "instrumentedRelayBytesMatchedBothEnds": true,
+    "fallbackSetupAndReasonVerified": true,
+    "visitorBusinessTxBytes": 717,
+    "visitorBusinessRxBytes": 74664,
+    "badServerTokenRejected": true,
+    "wrongCaRejected": true,
+    "wrongServiceKeyRejected": true,
+    "localStunResponses": 1,
+    "loopbackNatHoleObserved": false,
+    "loopbackQuicDirectObserved": false,
+    "wanDirectnessVerified": false,
+    "passed": true
+  },
+  "physicalBypassSmoke": {
+    "phoneUiOperated": false,
+    "testScope": "Windows-physical-binding-via-own-ECS",
+    "health": {
+      "ok": true,
+      "bytes": 37,
+      "elapsedMs": 1550
+    },
+    "file": {
+      "ok": true,
+      "bytes": 1048576,
+      "elapsedMs": 3536
+    },
+    "websocketPassed": true,
+    "visitorSnapshot": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": false,
+      "businessDirectObserved": false,
+      "directTx": 0,
+      "directRx": 0,
+      "relayTx": 434,
+      "relayRx": 1049020,
+      "activeConnections": 0,
+      "setupMs": 1511,
+      "bytesPerSecond": 0,
+      "fallbackReason": "direct_tunnel_unavailable",
+      "complete": true,
+      "egressMode": "physical-ipv4",
+      "physicalInterfaceIndex": 11,
+      "verifiedBoundSocketKinds": [
+        "stun",
+        "tcp"
+      ],
+      "natPreparationFailure": "stun_insufficient_observations"
+    },
+    "publisherSnapshot": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": false,
+      "businessDirectObserved": false,
+      "directTx": 0,
+      "directRx": 0,
+      "relayTx": 1049020,
+      "relayRx": 434,
+      "activeConnections": 0,
+      "setupMs": 1,
+      "bytesPerSecond": 138,
+      "fallbackReason": "none",
+      "complete": true,
+      "egressMode": "physical-ipv4",
+      "physicalInterfaceIndex": 11,
+      "verifiedBoundSocketKinds": [
+        "tcp"
+      ],
+      "natPreparationFailure": "none"
+    },
+    "publisherDelta": {
+      "relayTx": 1049020,
+      "relayRx": 434,
+      "directTx": 0,
+      "directRx": 0
+    },
+    "pairedBytesMatched": true,
+    "physicalBindingsVerified": true,
+    "wanDirectnessVerified": false
+  },
+  "scope": "Windows IPv4 TCP control and NAT UDP sockets; other app routes and Clash configuration unchanged",
+  "tunKeptEnabled": true,
+  "globalRoutesModified": false,
+  "clashConfigurationModified": false,
+  "administratorRequired": false,
+  "androidVersionNameReadback": "0.2.2",
+  "androidVersionCodeReadback": 4,
+  "phoneUiOperated": false,
+  "stunProbe": {
+    "mappedAddressCount": 1,
+    "otherAddressAttributePresent": false,
+    "frpMinimumObservations": 2
+  },
+  "knownBlockingCondition": "stun_insufficient_observations",
+  "p2pDirectnessVerified": false,
+  "independentDestinationProbe": {
+    "target": "223.5.5.5:443",
+    "systemRouteUsesTun": true,
+    "unboundSourceWasTun": true,
+    "boundSourceWasPhysical": true,
+    "defaultAndBoundTcpConnected": true,
+    "verifiedInterfaceIndex": 11
+  },
+  "reachabilityCounterexample": {
+    "target": "1.1.1.1:443",
+    "unboundConnected": true,
+    "boundConnected": false,
+    "failure": "timeout",
+    "causeDetermined": false
+  },
+  "realHoleSocketsExercised": false,
+  "historicalPhoneMatrixVersion": "0.2.1"
+}

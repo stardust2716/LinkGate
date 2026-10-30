@@ -1,0 +1,17 @@
+Spec: Authenticated Android application boundary
+
+Purpose:
+  Expose scoped declarations, local permission requests and private business descriptors to independent applications.
+
+Owns:
+  ./ControlService.java
+
+Must:
+  Capture actual UID, profile and signing/install scope on the Binder thread with nonblocking caller/global quota.
+  Preserve strict envelope, original manifest size and exact parameter validation and return fixed errors without raw exceptions.
+  Expose no owner approval, identity import, route mutation or gateway-stop RPC.
+  Require owner-started runtime for business opens and bind descriptor attachments to the same actual caller.
+
+  Advertise experimental relay only with an owner-configured running provider; preserve recorded paths even while stopped.
+  Dispatch formal operations with original params bytes, expose caller-filtered durable statuses and append one-use stream-reference Binder attachment.
+  Keep formal capability experimental and require configured server authority for new business opens; history remains queryable while stopped without claiming an inactive stream is live.

@@ -1,0 +1,21 @@
+Spec: Windows control transport verification
+
+Purpose:
+  Verify native pipe negotiation and failure isolation without installed services or cloud access.
+
+Owns:
+  ./LinkGate.Broker.Tests.csproj
+  ./Program.cs
+
+References:
+  ../LinkGate.Broker/LinkGate.Broker.sdd
+  ./ConnectionPlannerTests.sdd
+
+Must:
+  Offer a focused secure-stream regression for relay heartbeat fixes without repeating unrelated platform suites.
+  Offer a focused scoped-routing suite containing only affected permission, journal, planner and control-boundary scenarios.
+  Run the formal connection boundary tests with an explicit fake provider separately from real authenticated transport acceptance.
+  Run retained connection journal and business meter verification alongside platform regressions.
+  Run exact local visitor access verification alongside existing preview regressions.
+  Use unique test pipe suffixes and cancel all owned listeners on exit.
+  Distinguish executed local-user tests from unexecuted other-user and remote-machine tests.

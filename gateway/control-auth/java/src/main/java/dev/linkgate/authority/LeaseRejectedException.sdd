@@ -1,0 +1,11 @@
+Spec: Fixed Java lease refusal
+
+Purpose:
+  Keep rejected server authority distinct from business payload and raw cryptographic/parser diagnostics.
+
+Owns:
+  ./LeaseRejectedException.java
+
+Must:
+  Preserve AUTH_REQUIRED and the fixed public message without a nested cause; optional Agent-local diagnostic stages come only from a closed enum.
+  Expose a fixed authorization code and no token, private input or nested exception detail.

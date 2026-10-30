@@ -1,0 +1,8 @@
+plugins { id 'java-library' }
+java { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
+sourceSets {
+    main {
+        java.srcDirs = ['../../contracts/java/src/main/java']
+        java.exclude 'dev/linkgate/contracts/PendingRegistry.java', 'dev/linkgate/contracts/ControlRegistration.java'
+    }
+}

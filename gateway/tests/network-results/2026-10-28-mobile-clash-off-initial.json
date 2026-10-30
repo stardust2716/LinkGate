@@ -1,0 +1,85 @@
+{
+  "case": "mobile-clash-off",
+  "clientVersion": "0.2.1",
+  "testVersion": 2,
+  "phone": {
+    "testVersion": 2,
+    "scenario": "mobile-clash-off",
+    "startedUtcMs": 1793188614657,
+    "elapsedMs": 64315,
+    "fileBytesVerified": 20971520,
+    "filesCompleted": 20,
+    "fileError": "none",
+    "websocketPayloadBytes": 595968,
+    "websocketFrames": 291,
+    "websocketError": "none",
+    "websocketControlFrames": 4,
+    "uidRxDelta": 44004810,
+    "uidTxDelta": 22279996,
+    "before": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": false,
+      "businessDirectObserved": false,
+      "directTx": 0,
+      "directRx": 0,
+      "relayTx": 0,
+      "relayRx": 0,
+      "activeConnections": 0,
+      "setupMs": 0,
+      "bytesPerSecond": 0,
+      "fallbackReason": "none",
+      "complete": true
+    },
+    "after": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": false,
+      "businessDirectObserved": false,
+      "directTx": 0,
+      "directRx": 0,
+      "relayTx": 301810,
+      "relayRx": 21273491,
+      "activeConnections": 0,
+      "setupMs": 1545,
+      "bytesPerSecond": 422212,
+      "fallbackReason": "direct_tunnel_unavailable",
+      "complete": true
+    }
+  },
+  "windowsDelta": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 21273491,
+    "relayRx": 301810
+  },
+  "phoneDelta": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 301810,
+    "relayRx": 21273491
+  },
+  "pairedByteDifferences": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 0,
+    "relayRx": 0
+  },
+  "bothEndsBytesMatched": true,
+  "applicationPassed": true,
+  "directBusinessObserved": false,
+  "pcTunObserved": "Meta Tunnel Up",
+  "windowsSampling": "Idle snapshots padded by 5 seconds; clocks not assumed identical.",
+  "ecsStatus": "partial-window",
+  "ecsAlignedApprox": {
+    "ingressIpBytes": 0,
+    "egressIpBytes": 0,
+    "ingressTcpPayloadBytes": 0,
+    "egressTcpPayloadBytes": 0,
+    "packets": 0
+  },
+  "ecsCaptureComplete": true,
+  "ecsWindowCoversWholeTest": false,
+  "ecsKernelDroppedPackets": 0,
+  "ecsUnparsedPackets": 0
+}

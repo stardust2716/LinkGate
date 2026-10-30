@@ -1,0 +1,10 @@
+Spec: Public connection lifecycle decision
+
+Purpose:
+  Define retained open outcomes, caller-bound attachment and generation-safe business accounting.
+
+Owns:
+  ./0024-public-connection-lifecycle.md
+
+Must:
+  Separate actual platform execution from shared contract validation and from still-open release gates.

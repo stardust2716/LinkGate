@@ -1,0 +1,85 @@
+{
+  "case": "wifi-clash-on",
+  "clientVersion": "0.2.1",
+  "testVersion": 2,
+  "phone": {
+    "testVersion": 2,
+    "scenario": "wifi-clash-on",
+    "startedUtcMs": 1793186534974,
+    "elapsedMs": 63059,
+    "fileBytesVerified": 20971520,
+    "filesCompleted": 20,
+    "fileError": "none",
+    "websocketPayloadBytes": 751616,
+    "websocketFrames": 367,
+    "websocketError": "none",
+    "websocketControlFrames": 4,
+    "uidRxDelta": 43586914,
+    "uidTxDelta": 22479036,
+    "before": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": false,
+      "businessDirectObserved": false,
+      "directTx": 0,
+      "directRx": 0,
+      "relayTx": 0,
+      "relayRx": 0,
+      "activeConnections": 0,
+      "setupMs": 0,
+      "bytesPerSecond": 0,
+      "fallbackReason": "none",
+      "complete": true
+    },
+    "after": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": false,
+      "businessDirectObserved": false,
+      "directTx": 0,
+      "directRx": 0,
+      "relayTx": 380242,
+      "relayRx": 21351619,
+      "activeConnections": 0,
+      "setupMs": 1522,
+      "bytesPerSecond": 432128,
+      "fallbackReason": "direct_tunnel_unavailable",
+      "complete": true
+    }
+  },
+  "windowsDelta": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 21351619,
+    "relayRx": 380242
+  },
+  "phoneDelta": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 380242,
+    "relayRx": 21351619
+  },
+  "pairedByteDifferences": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 0,
+    "relayRx": 0
+  },
+  "bothEndsBytesMatched": true,
+  "applicationPassed": true,
+  "directBusinessObserved": false,
+  "pcTunObserved": "Meta Tunnel Up",
+  "windowsSampling": "Idle snapshots padded by 5 seconds; clocks not assumed identical.",
+  "ecsStatus": "captured",
+  "ecsAlignedApprox": {
+    "ingressIpBytes": 22410652,
+    "egressIpBytes": 25295906,
+    "ingressTcpPayloadBytes": 21863740,
+    "egressTcpPayloadBytes": 24640214,
+    "packets": 25206
+  },
+  "ecsCaptureComplete": true,
+  "ecsWindowCoversWholeTest": true,
+  "ecsKernelDroppedPackets": 0,
+  "ecsUnparsedPackets": 0
+}

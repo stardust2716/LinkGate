@@ -1,0 +1,14 @@
+Spec: Portable registration core build bridge
+
+Purpose:
+  Build pending transaction and handler sources separately from the client-facing public contracts.
+
+Owns:
+  ./build.gradle
+
+References:
+  /contracts/java/src/main/java/dev/linkgate/contracts/PendingRegistry.sdd
+  /contracts/java/src/main/java/dev/linkgate/contracts/ControlRegistration.sdd
+
+Must:
+  Keep JDBC in test configurations and production sources independent of platform database implementations.

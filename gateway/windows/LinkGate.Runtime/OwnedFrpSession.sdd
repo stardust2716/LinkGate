@@ -1,0 +1,14 @@
+Spec: OwnedFrpSession
+
+Purpose:
+  Own one private FRP child and its files through partial startup and repeated cleanup.
+
+Owns:
+  ./OwnedFrpSession.cs
+
+References:
+  ./FrpRuntimeBridge.sdd
+
+Must:
+  Register bridge ownership before child start, abort owned networking/processes on stop, and reject late startup after stop.
+  Dispose only known owned profile/log files, including empty logs; refuse linked or out-of-root cleanup paths and permit cleanup retry.

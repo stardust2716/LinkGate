@@ -1,0 +1,29 @@
+Spec: Portable .NET public contracts
+
+Platform: C#/.NET10
+
+Purpose:
+  Expose strict public manifest validation independently from the legacy Windows pairing model.
+
+Structure:
+  ./LinkGate.Contracts: Portable validated models and public parser.
+  ./LinkGate.Contracts.Tests: Shared-corpus conformance and immutability checks.
+  ./LinkGate.Control: Portable bounded control framing and strict JSON decoding.
+
+References:
+  /docs/adr/0001-public-contract-normalization.md
+  /contracts/vectors/cases.json
+
+Must:
+  Return normalized declarations that match the shared expected JSON structurally.
+  Keep legacy Windows pairing parsing unchanged.
+
+Exposes:
+  @LinkGate.Contracts.ManifestContract.Parse
+  @LinkGate.Contracts.ManifestContract.NormalizePolicy
+
+Tasks:
+  [x] #1 Implement the public parser, immutable models and shared-corpus runner.
+
+Done when:
+  The corpus runner verifies all selected valid and invalid cases and exits nonzero on any discrepancy.

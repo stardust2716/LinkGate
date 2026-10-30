@@ -1,0 +1,19 @@
+pluginManagement {
+    repositories { google(); mavenCentral(); gradlePluginPortal() }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories { google(); mavenCentral() }
+}
+rootProject.name = 'LinkGate'
+include ':app'
+include ':broker-dev'
+include ':control-ipc', ':public-contracts', ':client'
+include ':registration-core'
+include ':secure-transport'
+include ':agent-core'
+include ':agent'
+include ':client-streams'
+include ':descriptor-core'
+include ':native-consumer'
+include ':control-authority'

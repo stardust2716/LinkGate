@@ -1,0 +1,10 @@
+Spec: Android control negotiation JVM verification
+
+Purpose:
+  Verify exact protocol replies and malformed input handling on a regular JVM.
+
+Owns:
+  ./ControlHelloTest.java
+
+Must:
+  Distinguish portable protocol tests from native Binder and package identity verification.

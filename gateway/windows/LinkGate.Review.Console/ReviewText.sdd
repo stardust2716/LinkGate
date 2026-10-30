@@ -1,0 +1,11 @@
+Spec: Safe declaration rendering
+
+Purpose:
+  Display complete candidate and prior approval content without interpreting application text as terminal controls.
+
+Owns:
+  ./ReviewText.cs
+
+Must:
+  Render untrusted labels and manifests through ASCII JSON escaping, including Unicode format and terminal control characters.
+  Show application reference, caller scope, both versions, prior approval and the absence of verified binary identity or network grants.

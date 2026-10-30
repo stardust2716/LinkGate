@@ -1,0 +1,15 @@
+Spec: JVM Agent-role interoperability fixture
+
+Purpose:
+  Exercise the Android-compatible transport implementation against a Windows publisher.
+
+Owns:
+  ./InteropClient.java
+
+References:
+  /transport-core/transport-core.sdd
+
+Must:
+  Generate a separate local key and CSR and report only public identity and transfer results.
+  Keep software-key PKCS8 storage confined to this JVM fixture; Android production uses Keystore handles.
+  Never describe this Agent-role fixture as an independent Android application or Binder acceptance.

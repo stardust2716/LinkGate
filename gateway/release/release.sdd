@@ -1,0 +1,37 @@
+Spec: First installable LinkGate trial
+
+Purpose:
+  Deliver a bounded Windows x64 and Android access trial from the already verified authenticated gateway.
+
+Owns:
+  ./version.json
+  ./TRIAL-SCOPE.md
+  ./build-trial.ps1
+  ./LinkGate.iss
+  ./Start-LinkGate.cmd
+  ./Launch-LinkGate.ps1
+  ./README-template.md
+  ./server.json.example
+  ./linkgate.service
+
+Structure:
+  ./sample: One independent SDK consumer and a deterministic local service example.
+
+References:
+  /docs/SECURITY-SPEC.md
+  /windows/LinkGate.Runtime/LinkGate.Runtime.sdd
+  /docs/mature-release.sdd
+
+Must:
+  Preserve original install/WAN evidence; version Windows and Android independently using version.json, with Android UI 0.3.0-preview.3 and Windows 0.3.0-preview.2.
+  Package Windows Agent, owner/review tools, verified authenticated runtime, minimal sample and Android APK without private identities, server addresses or credentials.
+  Install per-user, preserve existing identity/state, expose a working configuration/start entry and provide uninstall without deleting user state.
+  Verify selected runtime/APK hashes and freeze final package hashes; do not silently substitute stock FRP or unsigned input versions.
+  Limit verification to changed authorization tooling and one owned install/configure/transfer/stop/uninstall acceptance; reuse prior transport evidence.
+
+Tasks:
+  [x] #1 Deliver server device/service/grant owner commands with original-operation recovery.
+  [x] #2 Build Windows setup and Android APK with complete runtime dependencies.
+  [x] #3 Deliver minimal deployment/pairing guide and one independent application sample.
+  [x] #4 Verify one complete isolated install and application transfer/cleanup path and freeze evidence.
+  [x] #5 Deliver the narrowly scoped WAN heartbeat/FIN/sample-session fixes and record real deployment evidence.

@@ -1,0 +1,164 @@
+{
+  "clientVersion": "0.2.3",
+  "case": "wifi-clash-off",
+  "testVersion": 2,
+  "phone": {
+    "testVersion": 2,
+    "scenario": "wifi-clash-off",
+    "startedUtcMs": 1793205830154,
+    "elapsedMs": 61245,
+    "fileBytesVerified": 1128267776,
+    "filesCompleted": 1076,
+    "fileError": "none",
+    "websocketPayloadBytes": 2107392,
+    "websocketFrames": 1029,
+    "websocketError": "none",
+    "websocketControlFrames": 5,
+    "uidRxDelta": 2315209448,
+    "uidTxDelta": 1146960539,
+    "before": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": true,
+      "businessDirectObserved": false,
+      "directTx": 0,
+      "directRx": 0,
+      "relayTx": 0,
+      "relayRx": 0,
+      "activeConnections": 0,
+      "setupMs": 0,
+      "bytesPerSecond": 0,
+      "fallbackReason": "none",
+      "complete": true,
+      "natPreparationFailure": "none",
+      "stunStatus": "ready",
+      "stunObservations": 2,
+      "stunAttemptedEndpoints": 3,
+      "stunFallbackUsed": true
+    },
+    "after": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": true,
+      "businessDirectObserved": true,
+      "directTx": 1134178,
+      "directRx": 1129469917,
+      "relayTx": 0,
+      "relayRx": 0,
+      "activeConnections": 0,
+      "setupMs": 0,
+      "bytesPerSecond": 9850133,
+      "fallbackReason": "none",
+      "complete": true,
+      "natPreparationFailure": "none",
+      "stunStatus": "ready",
+      "stunObservations": 2,
+      "stunAttemptedEndpoints": 3,
+      "stunFallbackUsed": true
+    }
+  },
+  "windowsDelta": {
+    "directTx": 1129469917,
+    "directRx": 1134178,
+    "relayTx": 0,
+    "relayRx": 0
+  },
+  "phoneDelta": {
+    "directTx": 1134178,
+    "directRx": 1129469917,
+    "relayTx": 0,
+    "relayRx": 0
+  },
+  "pairedByteDifferences": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 0,
+    "relayRx": 0
+  },
+  "bothEndsBytesMatched": true,
+  "applicationPassed": true,
+  "directBusinessObserved": true,
+  "ecsStatus": "captured",
+  "phoneUiOperated": false,
+  "windowsSampling": "Idle snapshots padded by 5 seconds; wall clocks not assumed identical.",
+  "windowsBoundaryIdle": true,
+  "windowsSampleBeforeUtc": "2026-10-28T16:43:45.1449995+00:00",
+  "windowsSampleAfterUtc": "2026-10-28T16:44:57.1451725+00:00",
+  "phoneReportedScenarioNotIndependentlyVerified": true,
+  "ecsWindowCoversWholeTest": true,
+  "ecsCaptureComplete": true,
+  "ecsKernelDroppedPackets": 0,
+  "ecsUnparsedPackets": 0,
+  "ecsAlignedApprox": {
+    "ingressIpBytes": 864,
+    "egressIpBytes": 1030,
+    "ingressTcpPayloadBytes": 272,
+    "egressTcpPayloadBytes": 306,
+    "packets": 29
+  },
+  "ecsPaddedAlignedApprox": {
+    "ingressIpBytes": 1052,
+    "egressIpBytes": 1218,
+    "ingressTcpPayloadBytes": 340,
+    "egressTcpPayloadBytes": 374,
+    "packets": 35
+  },
+  "ecsAlignment": "UTC-second buckets using phone timestamps; also retain +/-5s padded window; network/control/TLS/retransmission included, no exact wire/application equality implied.",
+  "ecsCapture": {
+    "startedUtcMs": 1793205761739,
+    "elapsedMs": 152577,
+    "scope": "interface-tcp-17400",
+    "stoppedByRequest": true,
+    "selectedBuckets": [
+      [
+        1793205829,
+        188,
+        188,
+        68,
+        68,
+        6
+      ],
+      [
+        1793205845,
+        40,
+        74,
+        0,
+        34,
+        2
+      ],
+      [
+        1793205848,
+        224,
+        224,
+        68,
+        68,
+        6
+      ],
+      [
+        1793205859,
+        188,
+        228,
+        68,
+        68,
+        7
+      ],
+      [
+        1793205878,
+        224,
+        276,
+        68,
+        68,
+        7
+      ],
+      [
+        1793205889,
+        188,
+        228,
+        68,
+        68,
+        7
+      ]
+    ]
+  },
+  "directBusinessBytePercent": 100.0
+}

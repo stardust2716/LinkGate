@@ -1,0 +1,15 @@
+Spec: Held-socket private stream adapter
+
+Purpose:
+  Supply a real Java TCP socket to standard TLS/HTTP libraries over a private gateway stream.
+
+Owns:
+  ./SocketAdapter.java
+
+Must:
+  Close the application endpoint before the bridge peer on abort so an interrupted descriptor is not deliberately converted into a clean peer FIN.
+  Keep the loopback listener transient and private to setup; match both endpoints to the already-held connected socket.
+  Reject unmatched contenders before reading or forwarding their bytes and bound acceptance to two seconds.
+  Preserve each direction's EOF and backpressure with at most two bounded copy workers per stream.
+  On setup rejection, cancellation or failed pumps, close both socket endpoints and the underlying descriptor.
+  Closing the application socket immediately aborts the descriptor and blocked copy workers; output half-close alone preserves inbound delivery.

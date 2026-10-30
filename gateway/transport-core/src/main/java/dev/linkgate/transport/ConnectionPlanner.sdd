@@ -1,0 +1,16 @@
+Spec: Bounded direct-first connection planning
+
+Purpose:
+  Select one fully authenticated business transport within an application's original opening budget.
+
+Owns:
+  ./ConnectionPlanner.java
+
+Must:
+  Include prior authorization/preparation time by accepting the original monotonic admission timestamp; never reset total or direct-wait budgets between attempts.
+  Prefer direct within its configured window, use relay only when explicitly allowed, and spend the total budget on direct when relay is forbidden.
+  Treat authentication, identity, unsupported capability, resource exhaustion and clock failures as terminal rather than bypassing them through another path.
+  Keep partial attempts cancelable, close late results, transfer exactly one winning result and never replay application bytes or migrate an already returned stream.
+  Use separate host-bounded direct/relay executors; no new threads or implicit retry loops belong to the planner.
+  Return fixed path, fallback reason and setup duration separately from later actual business-byte counters.
+  Reject unsupported prewarm and relay-byte-budget features before opening a transport.

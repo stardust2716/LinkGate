@@ -1,0 +1,19 @@
+Spec: Windows cooperative caller identity
+
+Purpose:
+  Bind pending registration to the actual user and executable path observed from a held pipe-client process handle.
+
+Owns:
+  ./CallerIdentity.cs
+
+References:
+  /docs/adr/0003-pending-registration.md
+
+Must:
+  Read client PID from the pipe, hold the opened live process handle and verify its token SID against the impersonated pipe SID.
+  Read the executable path from the held process and recheck the pipe PID and process liveness before accepting the scope.
+  Hash the SID and case-normalized executable path as the stable cooperative scope; do not accept identity fields from requests.
+  Keep native process metadata out of RPC responses.
+
+Must not:
+  Claim executable signature verification or isolation among programs sharing an executable or Windows user.

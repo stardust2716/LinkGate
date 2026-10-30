@@ -1,0 +1,16 @@
+Spec: Owned headless Android emulator lifetime
+
+Purpose:
+  Bound native test runtime and terminate the emulator and isolated ADB server when their owner exits.
+
+Owns:
+  ./EmulatorHarness.csproj
+  ./Program.cs
+
+References:
+  /windows/LinkGate.Processes/LinkGate.Processes.sdd
+
+Must:
+  Hold verified executable files and kernel Jobs before resuming child processes.
+  Refuse occupied fixture ports and never stop the default ADB server or unrelated emulator.
+  Require an explicit stop marker or exit within thirty minutes; keep logs in private artifact directories.

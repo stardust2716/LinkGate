@@ -1,0 +1,17 @@
+Spec: Public connection operation wire values
+
+Purpose:
+  Encode formal connection requests and strictly correlate asynchronous operation and status replies.
+
+Owns:
+  ./ConnectionReply.java
+
+References:
+  ./ConnectionStatus.sdd
+  ./ConnectionOpenRequest.sdd
+
+Must:
+  Expose a bounded standalone operation-value parser and immutable wire serialization for cross-language conformance; require canonical response UUIDs.
+  Preserve caller-provided mutation UUIDs and correlate every response with its request and operation.
+  Keep pending/reconciling results empty, successful results typed by connection or stream reference, and failed results mutually exclusive with success.
+  Decode only bounded public DTOs and pass known Broker refusals without reflecting payloads or accepting arbitrary data endpoints.

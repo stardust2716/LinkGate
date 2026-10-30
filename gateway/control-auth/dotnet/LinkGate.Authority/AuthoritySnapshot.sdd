@@ -1,0 +1,11 @@
+Spec: Exact .NET server authority snapshot
+
+Purpose:
+  Parse immutable current service/grant state received over an authenticated control connection.
+
+Owns:
+  ./AuthoritySnapshot.cs
+
+Must:
+  Validate exact shapes, canonical device/application/service IDs and positive UInt64 decimal-string generations.
+  Require both active records and matching publisher/service generations without trusting a token to supply current state.

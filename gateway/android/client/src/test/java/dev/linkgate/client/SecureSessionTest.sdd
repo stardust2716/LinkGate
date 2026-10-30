@@ -1,0 +1,12 @@
+Spec: Secure descriptor client uncertainty verification
+
+Purpose:
+  Verify capability negotiation, serialized native calls and disposal of late or untrusted native results.
+
+Owns:
+  ./SecureSessionTest.java
+
+Must:
+  Retain operation identity on uncertain attachment and dispose a result if timeout, cancellation or peer verification wins.
+
+  Verify separate relay opt-in, rejection of unnegotiated live relay replies and recovery of historical closed relay outcomes.

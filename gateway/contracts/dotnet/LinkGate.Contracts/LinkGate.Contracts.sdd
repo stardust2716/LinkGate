@@ -1,0 +1,28 @@
+Spec: Portable public contract values
+
+Platform: C#/.NET10
+
+Purpose:
+  Keep normalized application declarations immutable and independent of platform or transport state.
+
+Structure:
+  ./ManifestContract.cs: Strict declaration parsing owned by its local contract.
+
+Owns:
+  ./LinkGate.Contracts.csproj
+  ./Models.cs
+
+References:
+  /docs/adr/0001-public-contract-normalization.md
+  ./PendingGrantRequest.sdd
+
+Must:
+  @AppManifest and nested values expose no public setters or writable collections.
+  @AppManifest.ToJson and @ConnectionPolicy.ToJson produce normalized public values without credentials.
+  @ContractException.Code is `INVALID_REQUEST`, with a fixed message and no supplied values or nested parser exception.
+
+Must not:
+  Depend on Windows UI, Android APIs or the legacy pairing model.
+
+Done when:
+  Public values resist collection mutation and preserve the normalized shared-corpus results.

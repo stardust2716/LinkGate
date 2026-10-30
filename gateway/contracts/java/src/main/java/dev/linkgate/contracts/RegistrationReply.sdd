@@ -1,0 +1,17 @@
+Spec: Pending registration client wire contract
+
+Purpose:
+  Build bounded registration/query requests and expose validated immutable pending results.
+
+Owns:
+  ./RegistrationReply.java
+
+References:
+  ./ControlReply.sdd
+  ./ManifestContract.sdd
+
+Must:
+  Require application-supplied operation UUIDs, preserve correlation and enforce manifest/frame byte limits before transport.
+  Require exact pending result/diff fields, bounded unique service IDs and approvalRequired `true`.
+  Validate operation status against the requested operation UUID; do not invent success for unknown states.
+  Share pending-result validation with the registry and never reflect raw server messages/details.

@@ -1,0 +1,22 @@
+Spec: LinkGate mobile interface delivery
+
+Purpose:
+  Deliver the renamed mobile interface and retire explicitly obsolete installations while retaining the active gateway identity.
+
+Owns:
+  ./MOBILE-UI.md
+
+References:
+  /android/agent/src/main/java/dev/linkgate/agent/android/OwnerActivity.sdd
+  ./retire-legacy.sdd
+
+Must:
+  Distinguish the Android-only UI release from the unchanged Windows/backend versions and retain previous transport evidence.
+  Verify native layouts on an owned emulator only and upgrade the physical phone without operating its screen or deleting the current Agent.
+  Record recoverable Windows cleanup and private cloud recovery material separately from active installations.
+
+Tasks:
+  [x] #1 Rename launcher/notification and provide a coherent native icon and theme.
+  [x] #2 Deliver overview, devices, applications and settings with explicit protected approvals.
+  [x] #3 Verify responsive layouts, signed upgrade and retained pairing with owner confirmation.
+  [x] #4 Retire verified old Android/Windows/cloud installations and preserve the current gateway.

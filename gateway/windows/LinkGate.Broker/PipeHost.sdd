@@ -1,0 +1,19 @@
+Spec: Native Windows control listener
+
+Purpose:
+  Admit only the current Windows user to a bounded local control session.
+
+Owns:
+  ./PipeHost.cs
+
+Must:
+  Create the first pipe instance with a protected current-user DACL and reject remote clients.
+  Capture the actual impersonated client SID after reading and compare it to the host SID before dispatch.
+  Bound each read/write to two seconds and keep one connection active with at most `32` requests.
+  After the final response, allow up to two seconds for peer consumption before recycling the native instance.
+  Retain the first pipe handle across sessions, reject occupied names and release identity tokens after checks.
+  Cancel pending accepts and reads on shutdown without affecting installed services.
+  Recover if a client closes before the native accept starts.
+  Capture the held pipe-client process identity for registration-enabled hosts before dispatch.
+  Keep pending-grant requests disabled unless explicitly selected by the host.
+  Share the protected first-instance pipe factory with one-use secure data attachments and keep secure streams disabled unless explicitly supplied by the host.

@@ -1,0 +1,25 @@
+Spec: Revocation capacity reservation
+
+Purpose:
+  Keep one retained-operation slot available for revoking each approved local declaration within hard journal bounds.
+
+Owns:
+  ./JournalCapacity.cs
+
+References:
+  ./RegistrationStore.sdd
+  ./RegistrationReview.sdd
+  /docs/adr/0010-revocation-capacity.md
+
+Must:
+  Include exact local visitor grants in schema validation and reserved revocation accounting; peer revocation atomically retires both publisher and visitor authority.
+  Count each approved declaration as one reserved slot in both global and host operation budgets.
+  Count active secure devices and service grants as reserved revocations and include their administrator journal in host usage.
+  Admit a new approval only when its result and future revocation fit; ordinary mutations cannot consume reserved slots.
+  Consume an existing reservation and retain the revocation result atomically, without bypassing quotas or deleting prior operations.
+  Derive reservations from durable approved state after restart and expose only host-local aggregate capacity diagnostics.
+  Reject migration or admission when retained results plus reservations exceed configured limits.
+  Keep storage failures, stale decisions and integer exhaustion distinct from the logical quota guarantee.
+
+Tasks:
+  [x] #1 Verify full-budget revocation, concurrent admission, rollback and schema migration.

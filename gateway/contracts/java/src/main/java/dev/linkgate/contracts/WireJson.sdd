@@ -1,0 +1,15 @@
+Spec: Portable bounded wire JSON facade
+
+Purpose:
+  Share strict decoding and lexical integer validation between platform control and authenticated transport adapters.
+
+Owns:
+  ./WireJson.java
+
+References:
+  ./StrictJson.sdd
+
+Must:
+  Preserve duplicate-key, UTF-8, depth, value-count and byte limits of the existing decoder.
+  Validate field sets and integer lexical form explicitly without coercion or raw exception disclosure.
+  Expose original formal connection params only after validating the control request; nested policy limits apply to original bytes.

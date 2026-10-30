@@ -1,0 +1,12 @@
+Spec: Bounded Android client workers
+
+Purpose:
+  Bound blocked platform calls and timers without spawning replacement workers after timeouts.
+
+Owns:
+  ./ClientRuntime.java
+
+Must:
+  Use at most two worker threads with no work queue, one timer thread and eight active client leases per runtime.
+  Allow a single process-wide SDK runtime and release each client lease only once.
+  Remove cancelled timer tasks and reject overload without blocking.

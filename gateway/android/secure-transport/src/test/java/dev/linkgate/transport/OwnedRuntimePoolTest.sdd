@@ -1,0 +1,10 @@
+Spec: Scoped runtime sharing concurrency verification
+
+Purpose:
+  Verify independent cancellation, authority invalidation and bounded runtime ownership.
+
+Owns:
+  ./OwnedRuntimePoolTest.java
+
+Must:
+  Use barriers and controlled clocks to verify coalesced creation, waiter cancellation, unrelated-scope isolation, idle expiry, invalidation, failed creation and shutdown during creation without leaking resources or capacity.

@@ -1,0 +1,16 @@
+Spec: Independent Android native stream consumer
+
+Purpose:
+  Verify public SDK integration from a separately signed application and actual distinct Android UID.
+
+Owns:
+  ./build.gradle
+  ./src/main/AndroidManifest.xml
+
+Structure:
+  ./src: SDK-only application and native instrumentation acceptance.
+
+Must:
+  Depend only on the public stream SDK; carry no Agent classes, device keys, database or transport implementation.
+  Require an explicit fixture signing keystore, never inherit the Agent debug signer.
+  Keep owner approval and remote grant administration outside the consumer.

@@ -1,0 +1,13 @@
+Spec: Public application contract examples
+
+Purpose:
+  Illustrate planned APIs without real credentials or operational configuration.
+
+Owns:
+  ./file-client.app.json
+  ./file-service.app.json
+  ./connection-open.request.json
+  ./connection-open.response.json
+
+Must:
+  Remain valid under the public contract and use example-only remote identities.

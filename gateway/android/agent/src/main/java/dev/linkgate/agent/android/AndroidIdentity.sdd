@@ -1,0 +1,13 @@
+Spec: Android non-exportable device enrollment
+
+Purpose:
+  Generate Keystore-backed device requests and install explicitly confirmed owner-signed public certificates.
+
+Owns:
+  ./AndroidIdentity.java
+
+Must:
+  Authorize both SHA-256 signing and TLS prehashed ECDSA signing without exporting the key; prove both mechanisms before enrollment.
+  Keep private keys in Android Keystore and sign CSRs without encoding the private key.
+  Validate public chain, device profile, local key possession and database identity binding before certificate replacement.
+  Never silently replace a missing existing identity or change the trusted owner root.

@@ -1,0 +1,14 @@
+Spec: Isolated installed trial acceptance
+
+Purpose:
+  Verify the delivered package through one owned install, explicit configuration and independent SDK application transfer.
+
+Owns:
+  ./verify-trial.py
+
+Must:
+  Use the built installer and packaged executables, a temporary WSL Linux authenticated server and independently launched application processes.
+  Keep server private keys on Linux and exercise explicit server and local owner commands rather than injecting authorization records.
+  Bound subprocess waits and payload sizes; stop only processes created by this run and uninstall only its isolated directory.
+  Preserve user identities and existing installed services; freeze aggregate evidence without keys, addresses or runtime tokens.
+  Report LAN direct and forced relay separately without claiming physical mobile or cross-NAT acceptance.

@@ -1,0 +1,18 @@
+Spec: Windows owned application transport runtime
+
+Purpose:
+  Compose an approved application with a verified owned backend process while retaining device keys inside the Agent.
+
+Owns:
+  ./LinkGate.Runtime.csproj
+  ./packages.lock.json
+  ./README.md
+
+References:
+  /windows/LinkGate.Broker/RegistrationReview.sdd
+  /windows/LinkGate.Processes/LinkGate.Processes.sdd
+
+Must:
+  Permit the dedicated local runtime verification assembly to inspect internal pool lifecycles without exposing them to business SDKs.
+  Keep runtime ownership and network credentials out of thin business SDK dependencies.
+  Start only explicitly selected source-built verified runtimes and leave installed legacy services unchanged.

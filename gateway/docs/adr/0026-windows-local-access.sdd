@@ -1,0 +1,10 @@
+Spec: Windows exact local access decision
+
+Purpose:
+  Explain the separate local visitor permission boundary needed before formal Windows connections.
+
+Owns:
+  ./0026-windows-local-access.md
+
+Must:
+  Distinguish host-only authority storage from still-unimplemented formal Windows API and owner workflow integration.

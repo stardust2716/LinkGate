@@ -1,0 +1,39 @@
+{
+  "recordedUtc": "2026-10-30",
+  "installedBaseline": "0.2.3",
+  "nativeRunId": "9a98b267d729422aabdb5464184224d3",
+  "native": {
+    "passed": true,
+    "hostPlatform": "linux/amd64",
+    "localWsl": true,
+    "hostTests": 10,
+    "serverTests": 5,
+    "actualPersistentAuthority": true,
+    "actualControlMtls": true,
+    "unpairedDeviceRefused": true,
+    "rawLegacyBackendRefused": true,
+    "storageChangeStopsListeners": true,
+    "missingWitnessNotRecreated": true,
+    "cloudAccessed": false,
+    "installedRuntimeChanged": false,
+    "sourceCommit": "d8cf1800dc1abd7fda1828cab105d7a6b5a50eb1",
+    "patchSha256": "98980F60A0EC3E0D5C2E1361EC18E8C6E9B9C3A88BD3E5A23F2A779524F49515",
+    "serverSha256": "4FD3E938099E9E43F652FA5F14D4F341C3096C02F0733192774D6DEF3B6720A9"
+  },
+  "backendRegression": {
+    "topLevelTests": 162,
+    "linkgateTopLevelTests": 19,
+    "vet": true,
+    "moduleChecksums": true,
+    "go": "go version go1.27.3 windows/amd64",
+    "patchSha256": "98980F60A0EC3E0D5C2E1361EC18E8C6E9B9C3A88BD3E5A23F2A779524F49515",
+    "frpcSha256": "86029DF92D2462CF7213587229FE5F665437F81F8F46E621CEE42AB8DA07D733",
+    "fixtureSha256": "6976526AA78367C3F7680EABE0CF133344751903BB45AA2123F64B7DFD679307"
+  },
+  "identicalUnchangedFrpcAcrossDerivedCopies": true,
+  "identicalUnchangedFixtureAcrossDerivedCopies": true,
+  "cgoRaceExecuted": false,
+  "cloudDeployed": false,
+  "fullRemoteAdminCliImplemented": false,
+  "releaseReady": false
+}

@@ -1,0 +1,32 @@
+Spec: Process-pinned control client
+
+Purpose:
+  Exchange bounded control requests only with the live process selected by a trusted launcher.
+
+Owns:
+  ./VerifiedPipeClient.cs
+
+References:
+  /contracts/dotnet/LinkGate.Control/FrameCodec.sdd
+  /contracts/dotnet/LinkGate.Control/ControlJson.sdd
+
+Must:
+  Negotiate connection.api separately and strictly validate correlated formal operation/status replies under the existing unknown-outcome and process-pin boundary.
+  Require a live process handle supplied by a trusted launcher; duplicate and hold it for the connection lifetime.
+  Accept only local canonical LinkGate control pipe names.
+  Before writing, obtain the OS pipe server PID and compare its held process identity and creation time to the pin.
+  Fail closed on exited peers, failed native checks, cancellation or mismatched identity; never retry or select another process.
+  Bound connect and each exchange to two seconds and serialize exchanges without an unbounded queue.
+  Validate strict JSON response, request correlation and exclusive result/error shape before returning a cloned result.
+  Dispose owned pipe and process handles on all failed connections and on disposal.
+  Require explicit opt-in to experimental pending registration and an application-supplied operation UUID.
+  Once a mutation write is attempted, report interrupted or malformed replies as an unknown outcome with the same operation UUID.
+  Validate method-specific results and fixed error fields; never expose raw server messages or details.
+  Keep public client namespace `LinkGate.Client` and replace only the unpublished development API location.
+  Refuse requests beyond the negotiated session request limit before attempting a write.
+  Require negotiated `grant.request.pending` and explicit experimental opt-in for pending permission requests, with caller-persisted operation IDs and typed result validation.
+  Require negotiated `secure.stream.direct` and explicit experimental opt-in for secure streams; validate connection status and attachment names without retrying mutations.
+  Negotiate secure.stream.relay separately before opens and ready attachments; allow retained closed relay outcomes to be queried after restart even when no current relay routes exist.
+
+Must not:
+  Treat this pin as installed-binary verification, automatic discovery or same-user malicious-code isolation.

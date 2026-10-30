@@ -1,0 +1,32 @@
+Spec: Pending application registration journal
+
+Purpose:
+  Atomically retain unapproved manifests and caller-scoped operation results across Broker restarts.
+
+Owns:
+  ./RegistrationStore.cs
+
+References:
+  /contracts/dotnet/LinkGate.Contracts/ManifestContract.sdd
+  /docs/adr/0003-pending-registration.md
+  /docs/adr/0009-windows-declaration-review.md
+  ./JournalCapacity.sdd
+  ./PendingGrants.sdd
+  ./SecureAuthority.sdd
+
+Must:
+  Migrate schema seven to eight atomically, preserving local access while adding empty connection/attachment journals and active-flow indexes.
+  Keep schema-seven local visitor grants empty on migration; existing declaration and publisher approvals do not invent local access.
+  Store normalized pending declarations and successful operation results in one SQLite immediate transaction with full synchronization.
+  Deduplicate by OS-derived caller scope and operation UUID; compare canonical method and parameter digests without request IDs.
+  Return the original success for matching retries, conflict for different parameters and unknown for another caller.
+  Retain all results without eviction in this milestone; cap per-caller operations at `500000`, total at `1000000` and registrations at `1024`.
+  Reject linked state paths, restrict state directory to the current user and SYSTEM and use parameterized SQL.
+  Fail closed on storage errors or unknown schema versions; never grant network access from registration.
+  Migrate schemas `1` through `7` atomically to `8`, preserving declarations/results and validating reservations before commit.
+  Initialize legacy state without invented trust, grants or opens; reject missing current-schema storage rather than recreating it.
+  Initialize schema-five authority epochs from existing decision versions, preserving both active and already invalid grant stamps.
+  Increment pending revision only for a changed declaration; preserve approved state and never reapply an old registration operation.
+
+Tasks:
+  [x] #1 Verify atomic registration, persistent retries, isolation and failure rollback.

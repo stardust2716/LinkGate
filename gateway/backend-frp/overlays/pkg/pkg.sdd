@@ -1,0 +1,7 @@
+Spec: Backend protocol authority extensions
+
+Purpose:
+  Bind actual hole-punch sessions to independently managed device/service authority.
+
+Structure:
+  ./nathole: Current visitor/publisher authorization at actual session paths.

@@ -1,0 +1,16 @@
+Spec: Scoped owned-runtime sharing
+
+Purpose:
+  Reuse a bounded authorized transport runtime across independent business flows without coupling their cancellation.
+
+Owns:
+  ./OwnedRuntimePool.java
+
+Must:
+  Share only exactly equal owner-provided scope keys, coalesce concurrent creation and count creating or closing resources against capacity.
+  Hold a distinct lease per acquisition; closing one lease never closes a resource still leased by another flow.
+  Create outside the pool lock and dispose a resource returned after shutdown, cancellation or invalidation before allowing its capacity slot to be reused.
+  Bound waiter lifetime by its monotonic deadline without resetting another waiter's budget or starting duplicate creation.
+  Close idle resources after the configured timeout and close all resources on failed current-authority/aliveness validation; keep maintenance external and threads bounded by the host.
+
+  Allow a factory to register its resource before initialization; failed initialization retains cleanup ownership and its slot until close succeeds.

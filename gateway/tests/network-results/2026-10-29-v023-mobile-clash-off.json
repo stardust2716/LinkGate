@@ -1,0 +1,596 @@
+{
+  "clientVersion": "0.2.3",
+  "case": "mobile-clash-off",
+  "testVersion": 2,
+  "phone": {
+    "testVersion": 2,
+    "scenario": "mobile-clash-off",
+    "startedUtcMs": 1793204824442,
+    "elapsedMs": 62337,
+    "fileBytesVerified": 20971520,
+    "filesCompleted": 20,
+    "fileError": "none",
+    "websocketPayloadBytes": 1142784,
+    "websocketFrames": 558,
+    "websocketError": "none",
+    "websocketControlFrames": 4,
+    "uidRxDelta": 45049769,
+    "uidTxDelta": 23414366,
+    "before": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": false,
+      "businessDirectObserved": false,
+      "directTx": 0,
+      "directRx": 0,
+      "relayTx": 0,
+      "relayRx": 0,
+      "activeConnections": 0,
+      "setupMs": 0,
+      "bytesPerSecond": 0,
+      "fallbackReason": "none",
+      "complete": true,
+      "natPreparationFailure": "none",
+      "stunStatus": "ready",
+      "stunObservations": 2,
+      "stunAttemptedEndpoints": 2,
+      "stunFallbackUsed": true
+    },
+    "after": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": true,
+      "businessDirectObserved": true,
+      "directTx": 1273,
+      "directRx": 19925490,
+      "relayTx": 576081,
+      "relayRx": 1622477,
+      "activeConnections": 0,
+      "setupMs": 0,
+      "bytesPerSecond": 279105,
+      "fallbackReason": "direct_tunnel_unavailable",
+      "complete": true,
+      "natPreparationFailure": "none",
+      "stunStatus": "ready",
+      "stunObservations": 2,
+      "stunAttemptedEndpoints": 2,
+      "stunFallbackUsed": true
+    }
+  },
+  "windowsDelta": {
+    "directTx": 19925490,
+    "directRx": 1273,
+    "relayTx": 1622477,
+    "relayRx": 576081
+  },
+  "phoneDelta": {
+    "directTx": 1273,
+    "directRx": 19925490,
+    "relayTx": 576081,
+    "relayRx": 1622477
+  },
+  "pairedByteDifferences": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 0,
+    "relayRx": 0
+  },
+  "bothEndsBytesMatched": true,
+  "applicationPassed": true,
+  "directBusinessObserved": true,
+  "ecsStatus": "captured",
+  "phoneUiOperated": false,
+  "windowsSampling": "Idle snapshots padded by 5 seconds; wall clocks not assumed identical.",
+  "windowsBoundaryIdle": true,
+  "windowsSampleBeforeUtc": "2026-10-28T16:26:59.050039+00:00",
+  "windowsSampleAfterUtc": "2026-10-28T16:28:12.055626+00:00",
+  "phoneReportedScenarioNotIndependentlyVerified": true,
+  "ecsWindowCoversWholeTest": true,
+  "ecsCaptureComplete": true,
+  "ecsKernelDroppedPackets": 0,
+  "ecsUnparsedPackets": 0,
+  "ecsAlignedApprox": {
+    "ingressIpBytes": 2441502,
+    "egressIpBytes": 3050631,
+    "ingressTcpPayloadBytes": 2266998,
+    "egressTcpPayloadBytes": 2868291,
+    "packets": 7733
+  },
+  "ecsPaddedAlignedApprox": {
+    "ingressIpBytes": 2441502,
+    "egressIpBytes": 3050631,
+    "ingressTcpPayloadBytes": 2266998,
+    "egressTcpPayloadBytes": 2868291,
+    "packets": 7733
+  },
+  "ecsAlignment": "UTC-second buckets using phone timestamps; also retain +/-5s padded window; network/control/TLS/retransmission included, no exact wire/application equality implied.",
+  "ecsCapture": {
+    "startedUtcMs": 1793204687899,
+    "elapsedMs": 247770,
+    "scope": "interface-tcp-17400",
+    "stoppedByRequest": true,
+    "selectedBuckets": [
+      [
+        1793204825,
+        1068272,
+        167847,
+        1056484,
+        157399,
+        531
+      ],
+      [
+        1793204826,
+        10148,
+        1313052,
+        4344,
+        1301384,
+        324
+      ],
+      [
+        1793204827,
+        14490,
+        219494,
+        10894,
+        214266,
+        171
+      ],
+      [
+        1793204828,
+        24480,
+        24480,
+        21720,
+        21720,
+        120
+      ],
+      [
+        1793204829,
+        24480,
+        24480,
+        21720,
+        21720,
+        120
+      ],
+      [
+        1793204830,
+        24480,
+        24480,
+        21720,
+        21720,
+        120
+      ],
+      [
+        1793204831,
+        24480,
+        24480,
+        21720,
+        21720,
+        120
+      ],
+      [
+        1793204832,
+        24480,
+        24480,
+        21720,
+        21720,
+        120
+      ],
+      [
+        1793204833,
+        24480,
+        24480,
+        21720,
+        21720,
+        120
+      ],
+      [
+        1793204834,
+        24428,
+        24480,
+        21720,
+        21720,
+        119
+      ],
+      [
+        1793204835,
+        22084,
+        22032,
+        19548,
+        19548,
+        109
+      ],
+      [
+        1793204836,
+        24480,
+        24480,
+        21720,
+        21720,
+        120
+      ],
+      [
+        1793204837,
+        24480,
+        24480,
+        21720,
+        21720,
+        120
+      ],
+      [
+        1793204838,
+        24616,
+        24668,
+        21788,
+        21788,
+        125
+      ],
+      [
+        1793204839,
+        24480,
+        24560,
+        21720,
+        21720,
+        122
+      ],
+      [
+        1793204840,
+        22274,
+        22234,
+        19606,
+        19606,
+        115
+      ],
+      [
+        1793204841,
+        24520,
+        24480,
+        21720,
+        21720,
+        121
+      ],
+      [
+        1793204842,
+        24428,
+        24520,
+        21720,
+        21720,
+        120
+      ],
+      [
+        1793204843,
+        22084,
+        22032,
+        19548,
+        19548,
+        109
+      ],
+      [
+        1793204844,
+        24428,
+        24480,
+        21720,
+        21720,
+        119
+      ],
+      [
+        1793204845,
+        23276,
+        23252,
+        20636,
+        20636,
+        114
+      ],
+      [
+        1793204846,
+        23288,
+        23260,
+        20632,
+        20632,
+        115
+      ],
+      [
+        1793204847,
+        24652,
+        24860,
+        21788,
+        21788,
+        128
+      ],
+      [
+        1793204848,
+        22084,
+        22032,
+        19548,
+        19548,
+        109
+      ],
+      [
+        1793204849,
+        24542,
+        24560,
+        21754,
+        21720,
+        123
+      ],
+      [
+        1793204850,
+        22084,
+        22112,
+        19548,
+        19548,
+        111
+      ],
+      [
+        1793204851,
+        24428,
+        24520,
+        21720,
+        21720,
+        120
+      ],
+      [
+        1793204852,
+        22084,
+        22072,
+        19548,
+        19548,
+        110
+      ],
+      [
+        1793204853,
+        24428,
+        24560,
+        21720,
+        21720,
+        121
+      ],
+      [
+        1793204854,
+        22084,
+        22112,
+        19548,
+        19548,
+        111
+      ],
+      [
+        1793204855,
+        24618,
+        24762,
+        21778,
+        21778,
+        127
+      ],
+      [
+        1793204856,
+        24480,
+        24560,
+        21720,
+        21720,
+        122
+      ],
+      [
+        1793204857,
+        23276,
+        23372,
+        20636,
+        20636,
+        117
+      ],
+      [
+        1793204858,
+        23414,
+        23300,
+        20666,
+        20632,
+        118
+      ],
+      [
+        1793204859,
+        24394,
+        24560,
+        21686,
+        21720,
+        121
+      ],
+      [
+        1793204860,
+        24428,
+        24520,
+        21720,
+        21720,
+        120
+      ],
+      [
+        1793204861,
+        23276,
+        23332,
+        20636,
+        20636,
+        116
+      ],
+      [
+        1793204862,
+        23288,
+        23340,
+        20632,
+        20632,
+        117
+      ],
+      [
+        1793204863,
+        24428,
+        24520,
+        21720,
+        21720,
+        120
+      ],
+      [
+        1793204864,
+        24480,
+        24560,
+        21720,
+        21720,
+        122
+      ],
+      [
+        1793204865,
+        23276,
+        23252,
+        20636,
+        20636,
+        114
+      ],
+      [
+        1793204866,
+        24480,
+        24600,
+        21720,
+        21720,
+        123
+      ],
+      [
+        1793204867,
+        25684,
+        25748,
+        22804,
+        22804,
+        127
+      ],
+      [
+        1793204868,
+        24628,
+        24748,
+        21788,
+        21788,
+        127
+      ],
+      [
+        1793204869,
+        22170,
+        22032,
+        19582,
+        19548,
+        110
+      ],
+      [
+        1793204870,
+        24584,
+        24682,
+        21744,
+        21778,
+        125
+      ],
+      [
+        1793204871,
+        24480,
+        24480,
+        21720,
+        21720,
+        120
+      ],
+      [
+        1793204872,
+        24428,
+        24480,
+        21720,
+        21720,
+        119
+      ],
+      [
+        1793204873,
+        24480,
+        24480,
+        21720,
+        21720,
+        120
+      ],
+      [
+        1793204874,
+        22124,
+        22032,
+        19548,
+        19548,
+        110
+      ],
+      [
+        1793204875,
+        24480,
+        24480,
+        21720,
+        21720,
+        120
+      ],
+      [
+        1793204876,
+        24428,
+        24480,
+        21720,
+        21720,
+        119
+      ],
+      [
+        1793204877,
+        24756,
+        24860,
+        21788,
+        21788,
+        130
+      ],
+      [
+        1793204878,
+        24428,
+        24480,
+        21720,
+        21720,
+        119
+      ],
+      [
+        1793204879,
+        24480,
+        24480,
+        21720,
+        21720,
+        120
+      ],
+      [
+        1793204880,
+        22084,
+        22032,
+        19548,
+        19548,
+        109
+      ],
+      [
+        1793204881,
+        24480,
+        24480,
+        21720,
+        21720,
+        120
+      ],
+      [
+        1793204882,
+        24566,
+        24480,
+        21754,
+        21720,
+        121
+      ],
+      [
+        1793204883,
+        24394,
+        24480,
+        21686,
+        21720,
+        119
+      ],
+      [
+        1793204884,
+        7948,
+        7960,
+        6712,
+        6712,
+        54
+      ]
+    ]
+  },
+  "directBusinessBytePercent": 90.06315885767262
+}

@@ -1,0 +1,11 @@
+Spec: Independent process peer verification
+
+Purpose:
+  Verify trusted and impostor pipe processes using owned child processes.
+
+Owns:
+  ./PeerTests.cs
+
+Must:
+  Verify a legitimate child Broker, a different-process impostor before payload delivery, terminated pins and cancellation.
+  Stop only held child processes and isolate all test pipe names.

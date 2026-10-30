@@ -1,0 +1,7 @@
+Spec: Target identity JVM checks
+
+Purpose:
+  Verify exact signing pins, lifecycle changes and immutable identity snapshots.
+
+Owns:
+  ./PeerPinTest.java

@@ -1,0 +1,30 @@
+Spec: Protected Linux authority host
+
+Purpose:
+  Open an explicitly provisioned server identity and independent durable authority stores without fixture credentials.
+
+Owns:
+  ./host.go
+  ./host_test.go
+  ./private_linux.go
+  ./private_other.go
+  ./README.md
+
+Must:
+  Accept only bounded exact schema1 configuration, absolute paths and distinct numeric IPv4 control/backend ports.
+  Require caller-owned private directories, regular single-link private files and no symbolic path components; reject unsupported host platforms before opening state.
+  Keep the witness outside both authority and identity backup trees; normal open requires existing files and never bootstraps or repairs missing state.
+  Explicit initialization creates both databases exclusively and bootstraps only the verified owner certificate under the same root, without importing an owner private key.
+  Load the server private key only from its protected identity directory, validate its standard device profile and bind durable authority to server/root identity.
+  Detect changed protected directory/file identity during runtime checks and fail closed; partial initialization remains an explicit recovery condition rather than being silently overwritten.
+  Keep storage and identity errors fixed without reflecting filesystem paths or key material.
+
+Scenario: missing witness
+  Given initialized authority with a removed witness
+  When normal open is requested
+  Then opening fails without creating a replacement witness
+
+Scenario: conflicting initialization
+  Given either state file already exists
+  When initialization is requested
+  Then existing state is not overwritten

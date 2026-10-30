@@ -1,0 +1,11 @@
+Spec: Authenticated peer stream capacity verification
+
+Purpose:
+  Verify long-lived data streams do not consume handshake slots and session limits are enforced atomically.
+
+Owns:
+  ./PeerCapacityTests.cs
+
+Must:
+  Open `128` actual authenticated control/data pairs, reject the next session before backend delivery and close the batch after grant revocation.
+  Use private fixture state, owned listeners and bounded cancellation; close every accepted socket on exit.

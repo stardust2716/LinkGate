@@ -1,0 +1,14 @@
+Spec: Strict Java control request envelope
+
+Purpose:
+  Share validated request correlation and parameter boundaries across control handlers.
+
+Owns:
+  ./ControlRequest.java
+
+References:
+  ./StrictJson.sdd
+
+Must:
+  Validate exact envelope fields, UUIDs, lexical API integer and object parameters before correlation is used.
+  Preserve original manifest value bytes for the separate `49152` byte limit.

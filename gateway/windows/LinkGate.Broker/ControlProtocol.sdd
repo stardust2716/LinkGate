@@ -1,0 +1,22 @@
+Spec: Bounded development control protocol
+
+Purpose:
+  Negotiate declarations and opt-in secure stream operations while keeping owner approval outside application RPC.
+
+Owns:
+  ./ControlProtocol.cs
+
+Must:
+  Report the actual formal provider reason rather than labelling scoped dynamic runtime mode as static owner endpoints.
+  Dispatch connection.open/status/attach/close only to an explicitly capable formal provider; parse original params bytes, require retained operation IDs for mutations, and advertise experimental connection.api honestly.
+  Advertise experimental scoped relay only when the supplied secure host explicitly supports it; keep the existing direct method bound to direct-only policy.
+  Support `hello`, pending `app.register` and caller-scoped `operation.status`; expose `grant.request` and `grant.request.status` only with explicit pending-grant opt-in.
+  Advertise `grant.request.pending` only when enabled and `secure.stream.direct` only with an explicitly configured secure provider; other unfinished network capabilities remain unsupported.
+  Bind secure connection opens, status and attachments to the actual caller; never approve a grant through application RPC.
+  Require an explicit registration store and OS caller scope for registration; disabled stores remain read-only.
+  Enforce operation UUIDs, strict parameter fields and the shared manifest contract before mutation.
+  Report remaining product capabilities as unsupported and keep a stable per-host boot ID.
+  Reject duplicate decoded keys, bad UTF-8, BOM, unpaired surrogate escapes and unknown envelope or hello fields.
+  Bound JSON containers to depth `16`, values to `10000` and payload to `65536` bytes.
+  Use the portable control JSON decoder before method dispatch.
+  Close malformed envelopes without inventing a request ID; return fixed errors for valid envelopes with invalid parameters.

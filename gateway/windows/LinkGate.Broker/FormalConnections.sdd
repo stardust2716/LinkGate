@@ -1,0 +1,28 @@
+Spec: Windows public connection execution
+
+Purpose:
+  Compose exact local visitor access, server leases, protected one-use data pipes and observed business accounting.
+
+Owns:
+  ./FormalConnections.cs
+  ./IFormalConnections.cs
+
+References:
+  ./ConnectionJournal.sdd
+  ./ConnectionMeter.sdd
+  ./ConnectionPlanner.sdd
+  ./SecureConnections.sdd
+
+Must:
+  When an explicit scoped provider is configured, try a short owner-known LAN candidate then XTCP, with terminal authentication failures never falling back; use dynamic relay only when policy permits.
+  Offer experimental connection.api only with explicitly configured server authority and an owner-started secure host; never downgrade to preview authentication.
+  Capture original monotonic admission before storage and use requested approved policy with authenticated direct endpoints and exact owned relay routes.
+  Keep at most 32 live formal entries and 16 per caller, share the durable combined limits, and return retained operations before resource admission without redial.
+  Create data pipe names only from retained streamRef, pin actual pipe clients to their OS caller and consume attachment once after a bounded header; keep the total attach budget ten seconds.
+  Count successful business writes per selected path, preserve FIN/backpressure, mark complete only after both drains and persist cumulative snapshots on an owned periodic monitor.
+  Close raw sockets, pipes and late transports on cancellation, grant loss, host stop or network-generation invalidation; closing one flow cannot close unrelated flows.
+  Expose only DTOs and reference values, never candidates, process paths, device keys or caller-submitted dial targets.
+  Keep physical network observation separate from scoped runtime acquisition; expose no unverified physical network claims.
+
+Tasks:
+  [x] #1 Verify public SDK delivery, retained operations, one-use caller-bound pipes, exact counters and independent cancellation through actual authenticated direct/relay transports.

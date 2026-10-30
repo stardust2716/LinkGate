@@ -1,0 +1,28 @@
+Spec: Host-only application declaration review
+
+Purpose:
+  Persist explicit host decisions against exact pending declarations without creating network grants.
+
+Owns:
+  ./RegistrationReview.cs
+
+References:
+  ./RegistrationStore.sdd
+  /docs/adr/0009-windows-declaration-review.md
+  ./JournalCapacity.sdd
+
+Must:
+  Validate schema-eight connection and attachment tables and reject missing current-schema journals.
+  Include exact local visitor grants in schema validation and reserved revocation accounting; peer revocation atomically retires both publisher and visitor authority.
+  Expose review only to the trusted in-process host; ordinary application RPC must not dispatch these methods.
+  Bind an immutable snapshot to its store, application, pending revision, canonical manifest and decision version.
+  Reject stale or cross-store decisions, including an intervening change back to identical declaration content.
+  Keep the approved declaration separate from pending updates; denial of pending does not revoke prior approval.
+  Increment decision versions on approval, denial and revocation; revocation clears the approved declaration.
+  Increment authority epochs only on approval or revocation; denial preserves active imports, grants and streams while invalidating stale review proposals.
+  Atomically retain administrator operation results with decisions, replay original results without reapplying and reject changed parameters.
+  Use the existing operation quotas and fail closed with fixed errors on corrupt review or operation state.
+  Expose caller-scope provenance and keyset-paged references only to the host, with a maximum page of `200` canonical unique UUIDs.
+
+Tasks:
+  [x] #1 Verify durable decisions, stale rejection, migration, replay, concurrency and rollback.

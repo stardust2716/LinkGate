@@ -1,0 +1,82 @@
+{
+  "date": "2026-10-29",
+  "scope": "Windows known reachable IPv4; brokered direct-only development preview",
+  "installedVersionUnchanged": "0.2.3",
+  "windowsBrokerSdk": {
+    "passed": true,
+    "checks": 417,
+    "actualNativePipe": true,
+    "independentProcessPeerTested": true,
+    "sameUserSidVerified": true,
+    "otherUserTested": false,
+    "remoteMachineTested": false,
+    "cloudAccessed": false,
+    "installedRuntimeChanged": false
+  },
+  "independentBusinessApplication": {
+    "passed": true,
+    "independentApplication": true,
+    "consumerSdkOnly": true,
+    "mutualTls": true,
+    "explicitServiceGrant": true,
+    "ungrantedDenied": true,
+    "fileBytes": 67108864,
+    "webSocketBytes": 28,
+    "halfClose": true,
+    "applicationAuthentication": true,
+    "activeRevokeMs": 425,
+    "revokedOpenDenied": true,
+    "unrelatedServiceWorks": true,
+    "physicalDevices": false,
+    "natTraversal": false,
+    "relay": false,
+    "installedRuntimeChanged": false,
+    "ownerCliEnrollment": true
+  },
+  "sharedContracts": {
+    "contractVersion": 1,
+    "corpusVersion": 1,
+    "cases": 209,
+    "valid": 36,
+    "invalid": 173,
+    "dotnetPassed": true,
+    "javaPassed": true,
+    "normalizedResultsEqual": true,
+    "networkOrDeviceTestsPerformed": false
+  },
+  "specdd": {
+    "specs": 88,
+    "errors": 0,
+    "warnings": 0
+  },
+  "schemas": {
+    "valid": 3,
+    "examples": 4,
+    "negativeCasesRejected": 10,
+    "localLinksVerified": true
+  },
+  "legacyRegistrationSample": {
+    "passed": true,
+    "restartQuery": true,
+    "consumerHasServerDependencies": false
+  },
+  "repositoryChecks": {
+    "secretAndSourceBoundariesPassed": true,
+    "diffWhitespacePassed": true
+  },
+  "notAccepted": [
+    "Physical multi-device or cross-user acceptance",
+    "Secure NAT traversal and relay integration",
+    "Android secure data SDK",
+    "Automatic pairing UI and certificate renewal",
+    "External backup rollback protection",
+    "Signed installer, installed service integration and release readiness",
+    "Long duration and 100000-stream load acceptance"
+  ],
+  "reproduce": [
+    "dotnet run --project gateway/windows/LinkGate.Broker.Tests -c Release",
+    "./gateway/examples/secure-direct/verify.ps1",
+    "./gateway/contracts/verify.ps1 -JdkDirectory <JDK17-directory>",
+    "./gateway/examples/dotnet-registration/verify.ps1"
+  ]
+}

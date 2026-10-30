@@ -1,0 +1,19 @@
+Spec: Durable server authorization and lease boundary
+
+Purpose:
+  Keep server-approved device roles, published scopes and access grants distinct from caller declarations.
+
+Structure:
+  ./types.go: Bounded exact-scope models and fixed errors.
+  ./lease.go: Standard signed JWT issuance and validated monotonic reception.
+  ./store.go: Atomic authority and owner operation persistence.
+  ./transport_gate.go: Device/application-bound backend admission and cancellation.
+  ./identity.go: Standard mTLS certificate profiles and actual handshake device identity.
+  ./witness.go: Independently held transactional rollback witness outside authority backups.
+  ./control_stats.go: Saturating aggregate process-local authority counters.
+  ./control_server.go: Bounded mTLS Agent control and owner-only administration.
+
+Must:
+  Bind access to exact visitor device/application and publisher device/application/service with monotonic generations.
+  Preserve original owner operation outcomes and reserve space for every active authority revocation.
+  Never treat a claimed application, proxy name or RunID as proof of authenticated device identity.

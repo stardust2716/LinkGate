@@ -1,0 +1,47 @@
+Spec: Gateway product and engineering documentation
+
+Purpose:
+  Keep requirements, decisions and progress explicit without replacing implementation evidence.
+
+Owns:
+  ./README.md
+  ./SPEC.md
+  ./PRODUCT-PLAN.md
+  ./SECURITY-SPEC.md
+  ./ACCEPTANCE.md
+  ./PROGRESS.md
+  ./HANDOFF.md
+  ./SPEC-DD.md
+  ./verification-v0.3-contracts.json
+  ./verification-v0.3-secure-direct.json
+  ./verification-v0.3-android-native.json
+  ./verification-v0.3-server-authority.json
+  ./verification-v0.3-frp-authority.json
+  ./verification-v0.3-frp-direct.json
+  ./verification-v0.3-android-frp.json
+  ./verification-v0.3-android-sdk-relay.json
+  ./verification-v0.3-runtime-pool.json
+  ./verification-v0.3-explicit-stun.json
+  ./verification-v0.3-connection-planner.json
+  ./verification-v0.3-server-host.json
+  ./verification-v0.3-connection-request.json
+  ./verification-v0.3-public-connection.json
+  ./verification-v0.3-windows-local-access.json
+  ./verification-v0.3-status-contract.json
+  ./verification-v0.3-windows-connection-journal.json
+  ./verification-v0.3-windows-public-connection.json
+  ./verification-v0.3-scoped-windows-runtime.json
+  ./verification-v0.3-first-installable.json
+  ./verification-v0.3-deployment.json
+  ./verification-v0.3-ui-retirement.json
+  ./WINDOWS-AUTHENTICATED.md
+
+Structure:
+  ./adr: Specific reviewed engineering decisions and their consequences.
+
+References:
+  /contracts/contracts.sdd
+
+Must:
+  Distinguish completed contract work from remaining Broker and platform integration work.
+  Attribute installed behavior to its actual version and retain prior acceptance evidence.

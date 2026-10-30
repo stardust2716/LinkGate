@@ -1,0 +1,18 @@
+Spec: Private Agent transport connector
+
+Purpose:
+  Route the owned frpc control/work transport through the actual parent Agent instead of reading device keys.
+
+Owns:
+  ./linkgate.go
+  ./linkgate_windows.go
+  ./linkgate_unix.go
+  ./linkgate_other.go
+  ./linkgate_test.go
+
+Must:
+  Select bridge mode when either Agent pipe or PID metadata is present; invalid or incomplete metadata fails closed without network fallback.
+  Require a TCP configuration without proxy URL and create a nonempty unpredictable initial RunID before login.
+  Use the pinned Microsoft pipe library on Windows, hold the parent process through each connection and verify the actual pipe server PID before FRP bytes.
+  Use a private Unix socket with verified parent PID and UID on supported Unix/Android targets; unsupported platforms fail explicitly.
+  Never export or load an Agent device private key; the Agent supplies the authenticated outer TLS and fixed application scope.

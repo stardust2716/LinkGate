@@ -1,0 +1,13 @@
+# ADR0012：显式应用上下文的待确认权限申请
+
+2026-10-29。Windows开发Broker新增显式可选的 `grant.request.pending=experimental/PENDING_ONLY`；默认关闭，Android未实现这项能力。启用只允许保存/查询申请，不创建grant、认证设备/发布者、发布服务或打开数据流。已有网络/identity.device-grant能力仍unsupported。
+
+一个实际调用范围可注册多个applicationId，importAlias并不唯一，所以在此前尚未实现的grant.request参数中明确加入applicationRef，不能隐式选第一个应用或最近一次注册。方法接受applicationRef、importAlias、deviceId、publisherAppId、remoteServiceId和可省略reason。应用引用必须属于实际OS调用范围，且alias存在于已审核的ApprovedManifest；不存在、未批准或外部引用统一AUTH_REQUIRED。不能指定调用身份、连接策略或任意网络地址。
+
+deviceId仅为1–128位不透明ASCII引用（字母数字开头，其后可有字母数字及点、下划线、冒号、连字符），不是已认证设备；publisherAppId沿用公开manifest的应用ID规则，alias/serviceId为既有服务ID规则。reason最多256个Unicode标量，禁止控制字符/坏编码，省略规范化为空。该.NET实验合同没有Java运行实现，不宣称跨平台grant能力已经交付。
+
+SQLite schema4增加grant_requests，记录申请UUID、实际调用范围、应用引用、规范化参数、ApprovedRevision/DecisionVersion和获准import完整快照；同一immediate事务保存申请与幂等结果。结果只含grantRequestId和pendingUserApproval=true。每调用范围最多1024份、全局16384份申请，全部保留且不自动淘汰；普通操作使用原日志预算，不能消耗撤销预留。schema1/2/3迁移不改变原批准/操作，也不凭空产生申请；schema4缺失表失败关闭。
+
+operation.status仍返回同调用范围的历史结果，旧成功不等于申请当前仍有效。另有实验grant.request.status(grantRequestId)返回pending/superseded，仅当前调用范围可查；审核版本、批准修订或import快照不再匹配即superseded。pending更新未替换旧批准时保持原绑定，任何新的审核决定都保守要求重新申请。重放旧operationId只返回旧结果，不复活被取代的申请。
+
+Windows SDK显式协商/开启后提交，操作号由应用事先持久保存；丢回复/坏响应仍报告原号的未知结果，重新核验连接后只查询，不自动重放。宿主审核命令行只读展示申请；没有批准grant命令。申请中的设备/发布者/服务文字仍是未认证声明，后续真正批准必须先完成设备身份、服务协议/策略、后端授权与撤销边界，不能把这个pending记录当访问能力。

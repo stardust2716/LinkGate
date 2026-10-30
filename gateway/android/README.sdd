@@ -1,0 +1,10 @@
+Spec: Legacy Android gateway operating guide
+
+Purpose:
+  Explain existing installed behavior and reproducible builds separately from the new Agent.
+
+Owns:
+  ./README.md
+
+Must:
+  Keep current build prerequisites aligned with shared Android plugin versions and scope legacy build tasks to the app module.

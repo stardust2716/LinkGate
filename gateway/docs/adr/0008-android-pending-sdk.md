@@ -1,0 +1,11 @@
+# ADR0008：Android 待批准注册 SDK 与未知结果
+
+2026-10-29。Android客户端新增 registerPendingAsync/getOperationStatusAsync，复用签名固定、原有2秒超时和进程级资源上限。先hello协商 pending 能力，注册还须显式开启实验功能并提供事先持久保存的操作UUID。客户端不依赖注册核心、SQLite或FRP，不生成操作号或自动重连/重放。
+
+会话调度提取为可在普通JVM执行的ControlSession，真实BrokerClient提供Binder请求和每次请求前后的签名/安装身份复核。请求原始字节和结果DTO由便携合同生成/校验；Pending/PermissionDiff/OperationResult均不可变，查询只接受匹配的原操作号。
+
+修改请求进入transport前设置 mayHaveBeenSubmitted。此后IO、坏响应、超时、关闭、身份变化均按可能已提交处理，异常包含原operationId，调用方必须重新核验连接后显式查询。合法Broker错误保持固定消息的code/stage/retryable，不能因此自动换号。
+
+注册返回 OperationFuture，保留 immutable operationId 与单调 mayHaveBeenSubmitted()。为保持Java标准future语义，cancel仍产生CancellationException；取消与提交声明采用原子仲裁；进入transport后的取消保留标准异常，通过future元数据明确保留不确定性。调用者始终保留原操作号，mayHaveBeenSubmitted=true时必须查询；取消不代表原生Binder已终止或服务端已回滚。
+
+超时/关闭后丢弃迟到结果；工作线程阻塞不会创建替代线程。成功或合法Broker错误在通知future前结算活动请求，避免衔接请求被旧占位误拒绝；失败先关闭逻辑状态，避免回调重入后再次提交。纯JVM可注入transport测试提交后丢回复、超时和取消，但不能替代原生Binder/SQLite、跨UID或平台生命周期实测。本轮不安装或操作手机，完整授权和数据通道仍未实现。

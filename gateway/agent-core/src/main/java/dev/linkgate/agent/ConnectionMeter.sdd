@@ -1,0 +1,16 @@
+Spec: Generation-bound business connection meter
+
+Purpose:
+  Produce truthful cumulative connection snapshots throughout one non-migrating stream lifetime.
+
+Owns:
+  ./ConnectionMeter.java
+
+References:
+  /contracts/java/src/main/java/dev/linkgate/contracts/ConnectionStatus.sdd
+
+Must:
+  Track original admission, one selected path, actual payload counts, setup duration and terminal completeness separately.
+  Derive timestamps from original UTC and monotonic elapsed time; clock rollback and counter overflow fail closed without wrapping counts.
+  Increase snapshot sequence under the same lock as state changes and ignore late state or byte events after termination.
+  Mark complete only after clean bidirectional FIN and drain; interrupted or recovered tails remain incomplete.

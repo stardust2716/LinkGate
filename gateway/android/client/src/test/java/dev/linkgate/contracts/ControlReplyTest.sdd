@@ -1,0 +1,7 @@
+Spec: Hello reply JVM checks
+
+Purpose:
+  Verify response correlation, malformed replies and immutable results independently of Android.
+
+Owns:
+  ./ControlReplyTest.java

@@ -1,0 +1,824 @@
+diff --git a/client/connector.go b/client/connector.go
+index 4133237..041ac3b 100644
+--- a/client/connector.go
++++ b/client/connector.go
+@@ -17,6 +17,7 @@ package client
+ import (
+ 	"context"
+ 	"crypto/tls"
++	"errors"
+ 	"net"
+ 	"strconv"
+ 	"strings"
+@@ -98,6 +99,9 @@ func NewConnector(ctx context.Context, cfg *v1.ClientCommonConfig) Connector {
+ // After the underlying connection is established, you can call Connect() to get a stream.
+ // If TCPMux isn't enabled, the underlying connection is nil, you will get a new real TCP connection every time you call Connect().
+ func (c *defaultConnectorImpl) Open() error {
++	if linkgateBridgeEnabled() && (c.cfg.Transport.Protocol != "tcp" || c.cfg.Transport.ProxyURL != "") {
++		return errors.New("AGENT_BRIDGE_CONFIGURATION_REQUIRED")
++	}
+ 	xl := xlog.FromContextSafe(c.ctx)
+ 
+ 	// special for quic
+@@ -181,6 +185,9 @@ func (c *defaultConnectorImpl) Connect() (net.Conn, error) {
+ }
+ 
+ func (c *defaultConnectorImpl) realConnect() (net.Conn, error) {
++	if linkgateBridgeEnabled() {
++		return linkgateConnect(c.ctx)
++	}
+ 	xl := xlog.FromContextSafe(c.ctx)
+ 	var tlsConfig *tls.Config
+ 	var err error
+diff --git a/client/control_session.go b/client/control_session.go
+index e3ed27f..f6ae390 100644
+--- a/client/control_session.go
++++ b/client/control_session.go
+@@ -104,6 +104,11 @@ func (d *controlSessionDialer) Dial(previousRunID string) (*SessionContext, erro
+ }
+ 
+ func (d *controlSessionDialer) buildLoginMsg(previousRunID string) (*msg.Login, error) {
++	var bridgeErr error
++	previousRunID, bridgeErr = linkgateInitialRunID(previousRunID)
++	if bridgeErr != nil {
++		return nil, bridgeErr
++	}
+ 	hostname, _ := os.Hostname()
+ 	loginMsg := &msg.Login{
+ 		Arch:      runtime.GOARCH,
+diff --git a/pkg/nathole/controller.go b/pkg/nathole/controller.go
+index 22a5ec5..28c7c46 100644
+--- a/pkg/nathole/controller.go
++++ b/pkg/nathole/controller.go
+@@ -33,6 +33,7 @@ import (
+ 	"github.com/fatedier/frp/pkg/transport"
+ 	"github.com/fatedier/frp/pkg/util/log"
+ 	"github.com/fatedier/frp/pkg/util/util"
++	"github.com/stardust2716/Redesk/gateway/control-plane/authority"
+ )
+ 
+ // NatHoleTimeout seconds.
+@@ -51,10 +52,13 @@ type ClientCfg struct {
+ }
+ 
+ type Session struct {
+-	sid            string
+-	analysisKey    string
+-	recommandMode  int
+-	recommandIndex int
++	linkgatePermit    *authority.TransportAuthorization
++	linkgateReady     bool
++	linkgateReporters map[string]bool
++	sid               string
++	analysisKey       string
++	recommandMode     int
++	recommandIndex    int
+ 
+ 	visitorMsg         *msg.NatHoleVisitor
+ 	visitorTransporter transport.MessageTransporter
+@@ -92,9 +96,10 @@ func (s *Session) genAnalysisKey() {
+ }
+ 
+ type Controller struct {
+-	clientCfgs map[string]*ClientCfg
+-	sessions   map[string]*Session
+-	analyzer   *Analyzer
++	linkgateRequired bool
++	clientCfgs       map[string]*ClientCfg
++	sessions         map[string]*Session
++	analyzer         *Analyzer
+ 
+ 	mu sync.RWMutex
+ }
+@@ -151,6 +156,16 @@ func (c *Controller) GenSid() string {
+ }
+ 
+ func (c *Controller) HandleVisitor(m *msg.NatHoleVisitor, transporter transport.MessageTransporter, visitorUser string) {
++	if c.linkgateRequired {
++		_ = transporter.Send(c.GenNatHoleResponse(m.TransactionID, nil, "AUTH_REQUIRED"))
++		return
++	}
++	c.handleVisitor(m, transporter, visitorUser, nil)
++}
++func (c *Controller) handleVisitor(m *msg.NatHoleVisitor, transporter transport.MessageTransporter, visitorUser string, permit *authority.TransportAuthorization) {
++	if c.linkgateRequired && (permit == nil || !permit.Alive()) {
++		return
++	}
+ 	if m.PreCheck {
+ 		c.mu.RLock()
+ 		cfg, ok := c.clientCfgs[m.ProxyName]
+@@ -169,6 +184,7 @@ func (c *Controller) HandleVisitor(m *msg.NatHoleVisitor, transporter transport.
+ 
+ 	sid := c.GenSid()
+ 	session := &Session{
++		linkgatePermit:     permit,
+ 		sid:                sid,
+ 		visitorMsg:         m,
+ 		visitorTransporter: transporter,
+@@ -205,20 +221,39 @@ func (c *Controller) HandleVisitor(m *msg.NatHoleVisitor, transporter transport.
+ 		delete(c.sessions, sid)
+ 	}()
+ 
+-	if err := errors.PanicToError(func() {
+-		clientCfg.sidCh <- sid
+-	}); err != nil {
+-		return
++	if permit != nil {
++		select {
++		case clientCfg.sidCh <- sid:
++		case <-permit.Done():
++			return
++		case <-time.After(time.Duration(NatHoleTimeout) * time.Second):
++			return
++		}
++	} else {
++		if err := errors.PanicToError(func() {
++			clientCfg.sidCh <- sid
++		}); err != nil {
++			return
++		}
+ 	}
+ 
++	var revoked <-chan struct{}
++	if permit != nil {
++		revoked = permit.Done()
++	}
+ 	// wait for NatHoleClient message
+ 	select {
++	case <-revoked:
++		return
+ 	case <-session.notifyCh:
+ 	case <-time.After(time.Duration(NatHoleTimeout) * time.Second):
+ 		log.Debugf("wait for NatHoleClient message timeout, sid [%s]", sid)
+ 		return
+ 	}
+ 
++	if permit != nil && !permit.Alive() {
++		return
++	}
+ 	// Make hole-punching decisions based on the NAT information of the client and visitor.
+ 	vResp, cResp, err := c.analysis(session)
+ 	if err != nil {
+@@ -228,6 +263,11 @@ func (c *Controller) HandleVisitor(m *msg.NatHoleVisitor, transporter transport.
+ 	}
+ 	session.cResp = cResp
+ 	session.vResp = vResp
++	if permit != nil {
++		c.mu.Lock()
++		session.linkgateReady = true
++		c.mu.Unlock()
++	}
+ 
+ 	// send response to visitor and client
+ 	var g errgroup.Group
+@@ -236,6 +276,9 @@ func (c *Controller) HandleVisitor(m *msg.NatHoleVisitor, transporter transport.
+ 		if vResp.DetectBehavior.Role == "sender" {
+ 			time.Sleep(1 * time.Second)
+ 		}
++		if permit != nil && !permit.Alive() {
++			return nil
++		}
+ 		_ = session.visitorTransporter.Send(vResp)
+ 		return nil
+ 	})
+@@ -244,24 +287,40 @@ func (c *Controller) HandleVisitor(m *msg.NatHoleVisitor, transporter transport.
+ 		if cResp.DetectBehavior.Role == "sender" {
+ 			time.Sleep(1 * time.Second)
+ 		}
++		if permit != nil && !permit.Alive() {
++			return nil
++		}
+ 		_ = session.clientTransporter.Send(cResp)
+ 		return nil
+ 	})
+ 	_ = g.Wait()
+ 
++	if permit != nil {
++		select {
++		case <-permit.Done():
++		case <-time.After(time.Duration(cResp.DetectBehavior.ReadTimeoutMs+30000) * time.Millisecond):
++		}
++		return
++	}
+ 	time.Sleep(time.Duration(cResp.DetectBehavior.ReadTimeoutMs+30000) * time.Millisecond)
+ }
+ 
+ func (c *Controller) HandleClient(m *msg.NatHoleClient, transporter transport.MessageTransporter) {
+-	c.mu.RLock()
++	if c.linkgateRequired {
++		return
++	}
++	c.handleClient(m, transporter, "")
++}
++func (c *Controller) handleClient(m *msg.NatHoleClient, transporter transport.MessageTransporter, publisher string) {
++	c.mu.Lock()
+ 	session, ok := c.sessions[m.Sid]
+-	c.mu.RUnlock()
+-	if !ok {
++	if !ok || (c.linkgateRequired && (session.linkgatePermit == nil || !session.linkgatePermit.Alive() || session.linkgatePermit.PublisherNamespace() != publisher || session.visitorMsg.ProxyName != m.ProxyName || session.clientMsg != nil)) {
++		c.mu.Unlock()
+ 		return
+ 	}
+-	log.Tracef("handle client message, sid [%s], server name: %s", session.sid, m.ProxyName)
+ 	session.clientMsg = m
+ 	session.clientTransporter = transporter
++	c.mu.Unlock()
+ 	select {
+ 	case session.notifyCh <- struct{}{}:
+ 	default:
+@@ -269,18 +328,40 @@ func (c *Controller) HandleClient(m *msg.NatHoleClient, transporter transport.Me
+ }
+ 
+ func (c *Controller) HandleReport(m *msg.NatHoleReport) {
+-	c.mu.RLock()
++	if c.linkgateRequired {
++		return
++	}
++	c.handleReport(m, "")
++}
++func (c *Controller) handleReport(m *msg.NatHoleReport, subject string) {
++	c.mu.Lock()
+ 	session, ok := c.sessions[m.Sid]
+-	c.mu.RUnlock()
+ 	if !ok {
+-		log.Tracef("sid [%s] report make hole success: %v, but session not found", m.Sid, m.Success)
++		c.mu.Unlock()
+ 		return
+ 	}
++	if c.linkgateRequired {
++		if session.linkgatePermit == nil || !session.linkgatePermit.Alive() || !session.linkgateReady || (session.linkgatePermit.PublisherNamespace() != subject && session.linkgatePermit.VisitorNamespace() != subject) {
++			c.mu.Unlock()
++			return
++		}
++		if session.linkgateReporters == nil {
++			session.linkgateReporters = make(map[string]bool)
++		}
++		if session.linkgateReporters[subject] {
++			c.mu.Unlock()
++			return
++		}
++		session.linkgateReporters[subject] = true
++	}
++	key, mode, index := session.analysisKey, session.recommandMode, session.recommandIndex
++	c.mu.Unlock()
+ 	if m.Success {
+-		c.analyzer.ReportSuccess(session.analysisKey, session.recommandMode, session.recommandIndex)
++		c.analyzer.ReportSuccess(key, mode, index)
++	}
++	if !c.linkgateRequired {
++		log.Infof("sid [%s] report make hole success: %v, mode %v, index %v", session.sid, m.Success, mode, index)
+ 	}
+-	log.Infof("sid [%s] report make hole success: %v, mode %v, index %v",
+-		m.Sid, m.Success, session.recommandMode, session.recommandIndex)
+ }
+ 
+ func (c *Controller) GenNatHoleResponse(transactionID string, session *Session, errInfo string) *msg.NatHoleResp {
+@@ -337,10 +418,12 @@ func (c *Controller) analysis(session *Session) (*msg.NatHoleResp, *msg.NatHoleR
+ 		timeoutMs-cBehavior.SendDelayMs, vNatFeature.PortsDifference,
+ 	)
+ 
+-	log.Debugf("sid [%s] visitor nat: %+v, candidateAddrs: %v; client nat: %+v, candidateAddrs: %v, protocol: %s",
+-		session.sid, *vNatFeature, vm.MappedAddrs, *cNatFeature, cm.MappedAddrs, protocol)
+-	log.Debugf("sid [%s] visitor detect behavior: %+v", session.sid, vResp.DetectBehavior)
+-	log.Debugf("sid [%s] client detect behavior: %+v", session.sid, cResp.DetectBehavior)
++	if !c.linkgateRequired {
++		log.Debugf("sid [%s] visitor nat: %+v, candidateAddrs: %v; client nat: %+v, candidateAddrs: %v, protocol: %s",
++			session.sid, *vNatFeature, vm.MappedAddrs, *cNatFeature, cm.MappedAddrs, protocol)
++		log.Debugf("sid [%s] visitor detect behavior: %+v", session.sid, vResp.DetectBehavior)
++		log.Debugf("sid [%s] client detect behavior: %+v", session.sid, cResp.DetectBehavior)
++	}
+ 	return vResp, cResp, nil
+ }
+ 
+diff --git a/server/control.go b/server/control.go
+index 8009d8a..e115f4f 100644
+--- a/server/control.go
++++ b/server/control.go
+@@ -40,6 +40,7 @@ import (
+ 	"github.com/fatedier/frp/server/metrics"
+ 	"github.com/fatedier/frp/server/proxy"
+ 	"github.com/fatedier/frp/server/registry"
++	"github.com/stardust2716/Redesk/gateway/control-plane/authority"
+ )
+ 
+ type ControlID uint64
+@@ -354,6 +355,8 @@ func (cm *ControlManager) Close() error {
+ 
+ // SessionContext encapsulates the input parameters for creating a new Control.
+ type SessionContext struct {
++	LinkGate    *authority.TransportGate
++	LinkControl *authority.TransportControl
+ 	// all resource managers and controllers
+ 	RC *controller.ResourceController
+ 	// proxy manager
+@@ -386,6 +389,7 @@ const (
+ )
+ 
+ type Control struct {
++	linkPublications sync.Map
+ 	// session context
+ 	sessionCtx *SessionContext
+ 
+@@ -527,6 +531,9 @@ func (ctl *Control) startLocked() bool {
+ }
+ 
+ func (ctl *Control) Close() error {
++	if ctl.sessionCtx.LinkControl != nil {
++		ctl.sessionCtx.LinkControl.Close()
++	}
+ 	ctl.lifecycleMu.Lock()
+ 	switch ctl.state {
+ 	case controlStateCreated, controlStatePending:
+@@ -665,6 +672,7 @@ func (ctl *Control) loginUserInfo() plugin.UserInfo {
+ }
+ 
+ func (ctl *Control) closeProxy(pxy proxy.Proxy) {
++	ctl.linkgateForgetPublication(pxy)
+ 	pxy.Close()
+ 	ctl.sessionCtx.PxyManager.Del(pxy.GetName())
+ 	ctl.serverMetrics.CloseProxy(pxy.GetName(), pxy.GetConfigurer().GetBaseConfig().Type)
+@@ -681,6 +689,9 @@ func (ctl *Control) closeProxy(pxy proxy.Proxy) {
+ }
+ 
+ func (ctl *Control) worker() {
++	if ctl.sessionCtx.LinkControl != nil {
++		defer ctl.sessionCtx.LinkControl.Close()
++	}
+ 	xl := ctl.xl
+ 	ctl.serverMetrics.NewClient()
+ 
+@@ -727,9 +738,9 @@ func (ctl *Control) worker() {
+ func (ctl *Control) registerMsgHandlers() {
+ 	ctl.msgDispatcher.RegisterHandler(&msg.NewProxy{}, ctl.handleNewProxy)
+ 	ctl.msgDispatcher.RegisterHandler(&msg.Ping{}, ctl.handlePing)
+-	ctl.msgDispatcher.RegisterHandler(&msg.NatHoleVisitor{}, msg.AsyncHandler(ctl.handleNatHoleVisitor))
+-	ctl.msgDispatcher.RegisterHandler(&msg.NatHoleClient{}, msg.AsyncHandler(ctl.handleNatHoleClient))
+-	ctl.msgDispatcher.RegisterHandler(&msg.NatHoleReport{}, msg.AsyncHandler(ctl.handleNatHoleReport))
++	ctl.msgDispatcher.RegisterHandler(&msg.NatHoleVisitor{}, ctl.linkgateAsync(ctl.handleNatHoleVisitor, true))
++	ctl.msgDispatcher.RegisterHandler(&msg.NatHoleClient{}, ctl.linkgateAsync(ctl.handleNatHoleClient, false))
++	ctl.msgDispatcher.RegisterHandler(&msg.NatHoleReport{}, ctl.linkgateAsync(ctl.handleNatHoleReport, false))
+ 	ctl.msgDispatcher.RegisterHandler(&msg.CloseProxy{}, ctl.handleCloseProxy)
+ }
+ 
+@@ -788,6 +799,11 @@ func (ctl *Control) handlePing(m msg.Message) {
+ 		})
+ 		return
+ 	}
++	if ctl.sessionCtx.LinkGate != nil && ctl.sessionCtx.LinkGate.Heartbeat(ctl.sessionCtx.LinkControl) != nil {
++		_ = ctl.msgDispatcher.Send(&msg.Pong{Error: "AUTH_REQUIRED"})
++		_ = ctl.Close()
++		return
++	}
+ 	ctl.lastPing.Store(time.Now())
+ 	xl.Debugf("receive heartbeat")
+ 	_ = ctl.msgDispatcher.Send(&msg.Pong{})
+@@ -795,16 +811,44 @@ func (ctl *Control) handlePing(m msg.Message) {
+ 
+ func (ctl *Control) handleNatHoleVisitor(m msg.Message) {
+ 	inMsg := m.(*msg.NatHoleVisitor)
++	if ctl.sessionCtx.LinkGate != nil && !linkgateHoleVisitor(inMsg) {
++		_ = ctl.msgTransporter.Send(&msg.NatHoleResp{Error: "AUTH_REQUIRED"})
++		return
++	}
++	if ctl.sessionCtx.LinkGate != nil {
++		permit, err := ctl.sessionCtx.LinkGate.Visit(ctl.sessionCtx.LinkControl, inMsg.ProxyName, "xtcp")
++		if err != nil {
++			_ = ctl.msgTransporter.Send(&msg.NatHoleResp{TransactionID: inMsg.TransactionID, Error: authority.Code(err)})
++			return
++		}
++		defer permit.Close()
++		ctl.sessionCtx.RC.NatHoleController.HandleAuthorizedVisitor(inMsg, ctl.msgTransporter, ctl.sessionCtx.LinkControl.Namespace(), permit)
++		return
++	}
+ 	ctl.sessionCtx.RC.NatHoleController.HandleVisitor(inMsg, ctl.msgTransporter, ctl.sessionCtx.LoginMsg.User)
+ }
+ 
+ func (ctl *Control) handleNatHoleClient(m msg.Message) {
+ 	inMsg := m.(*msg.NatHoleClient)
++	if ctl.sessionCtx.LinkGate != nil && !linkgateHoleClient(inMsg) {
++		return
++	}
++	if ctl.sessionCtx.LinkGate != nil {
++		if ctl.sessionCtx.LinkGate.Publisher(ctl.sessionCtx.LinkControl, inMsg.ProxyName) != nil {
++			return
++		}
++		ctl.sessionCtx.RC.NatHoleController.HandleAuthorizedClient(inMsg, ctl.msgTransporter, ctl.sessionCtx.LinkControl.Namespace())
++		return
++	}
+ 	ctl.sessionCtx.RC.NatHoleController.HandleClient(inMsg, ctl.msgTransporter)
+ }
+ 
+ func (ctl *Control) handleNatHoleReport(m msg.Message) {
+ 	inMsg := m.(*msg.NatHoleReport)
++	if ctl.sessionCtx.LinkGate != nil {
++		ctl.sessionCtx.RC.NatHoleController.HandleAuthorizedReport(inMsg, ctl.sessionCtx.LinkControl.Namespace())
++		return
++	}
+ 	ctl.sessionCtx.RC.NatHoleController.HandleReport(inMsg)
+ }
+ 
+@@ -816,6 +860,16 @@ func (ctl *Control) handleCloseProxy(m msg.Message) {
+ }
+ 
+ func (ctl *Control) RegisterProxy(pxyMsg *msg.NewProxy) (remoteAddr string, err error) {
++	permit, gateErr := ctl.linkgatePublication(pxyMsg)
++	if gateErr != nil {
++		return "", gateErr
++	}
++	kept := false
++	defer func() {
++		if permit != nil && !kept {
++			permit.Close()
++		}
++	}()
+ 	var pxyConf v1.ProxyConfigurer
+ 	// Load configures from NewProxy message and validate.
+ 	pxyConf, err = config.NewProxyConfigurerFromMsg(pxyMsg, ctl.sessionCtx.ServerCfg)
+@@ -891,6 +945,8 @@ func (ctl *Control) RegisterProxy(pxyMsg *msg.NewProxy) (remoteAddr string, err
+ 	ctl.mu.Lock()
+ 	ctl.proxies[pxy.GetName()] = pxy
+ 	ctl.mu.Unlock()
++	ctl.linkgateWatchPublication(permit, pxy)
++	kept = true
+ 	return
+ }
+ 
+diff --git a/server/service.go b/server/service.go
+index 4556358..8e60d35 100644
+--- a/server/service.go
++++ b/server/service.go
+@@ -58,6 +58,7 @@ import (
+ 	"github.com/fatedier/frp/server/proxy"
+ 	"github.com/fatedier/frp/server/registry"
+ 	"github.com/fatedier/frp/server/visitor"
++	"github.com/stardust2716/Redesk/gateway/control-plane/authority"
+ )
+ 
+ const (
+@@ -80,6 +81,8 @@ func init() {
+ 
+ // Server service
+ type Service struct {
++	linkGate    *authority.TransportGate
++	linkAccepts chan struct{}
+ 	// Dispatch connections to different handlers listen on same port
+ 	muxer *mux.Mux
+ 
+@@ -143,7 +146,7 @@ type Service struct {
+ 	closeOnce   sync.Once
+ }
+ 
+-func NewService(cfg *v1.ServerConfig) (*Service, error) {
++func newService(cfg *v1.ServerConfig, gate *authority.TransportGate) (*Service, error) {
+ 	tlsConfig, err := transport.NewServerTLSConfig(
+ 		cfg.Transport.TLS.CertFile,
+ 		cfg.Transport.TLS.KeyFile,
+@@ -173,6 +176,8 @@ func NewService(cfg *v1.ServerConfig) (*Service, error) {
+ 
+ 	clientRegistry := registry.NewClientRegistry()
+ 	svr := &Service{
++		linkGate:       gate,
++		linkAccepts:    make(chan struct{}, 32),
+ 		ctlManager:     NewControlManager(clientRegistry),
+ 		clientRegistry: clientRegistry,
+ 		pxyManager:     proxy.NewManager(),
+@@ -249,15 +254,19 @@ func NewService(cfg *v1.ServerConfig) (*Service, error) {
+ 		return nil, fmt.Errorf("create server listener error, %v", err)
+ 	}
+ 
+-	svr.muxer = mux.NewMux(ln)
+-	svr.muxer.SetKeepAlive(time.Duration(cfg.Transport.TCPKeepAlive) * time.Second)
+-	go func() {
+-		_ = svr.muxer.Serve()
+-	}()
+-	ln = svr.muxer.DefaultListener()
++	if gate == nil {
++		svr.muxer = mux.NewMux(ln)
++		svr.muxer.SetKeepAlive(time.Duration(cfg.Transport.TCPKeepAlive) * time.Second)
++		go func() {
++			_ = svr.muxer.Serve()
++		}()
++		ln = svr.muxer.DefaultListener()
++	}
+ 
+ 	svr.listener = ln
+-	log.Infof("frps tcp listen on %s", address)
++	if gate == nil {
++		log.Infof("frps tcp listen on %s", address)
++	}
+ 
+ 	// Listen for accepting connections from client using kcp protocol.
+ 	if cfg.KCPBindPort > 0 {
+@@ -294,11 +303,13 @@ func NewService(cfg *v1.ServerConfig) (*Service, error) {
+ 	}
+ 
+ 	// Listen for accepting connections from client using websocket protocol.
+-	websocketPrefix := []byte("GET " + netpkg.FrpWebsocketPath)
+-	websocketLn := svr.muxer.Listen(0, uint32(len(websocketPrefix)), func(data []byte) bool {
+-		return bytes.Equal(data, websocketPrefix)
+-	})
+-	svr.websocketListener = netpkg.NewWebsocketListener(websocketLn)
++	if gate == nil {
++		websocketPrefix := []byte("GET " + netpkg.FrpWebsocketPath)
++		websocketLn := svr.muxer.Listen(0, uint32(len(websocketPrefix)), func(data []byte) bool {
++			return bytes.Equal(data, websocketPrefix)
++		})
++		svr.websocketListener = netpkg.NewWebsocketListener(websocketLn)
++	}
+ 
+ 	// Create http vhost muxer.
+ 	if cfg.VhostHTTPPort > 0 {
+@@ -358,16 +369,21 @@ func NewService(cfg *v1.ServerConfig) (*Service, error) {
+ 	}
+ 
+ 	// frp tls listener
+-	svr.tlsListener = svr.muxer.Listen(2, 1, func(data []byte) bool {
+-		// tls first byte can be 0x16 only when vhost https port is not same with bind port
+-		return int(data[0]) == netpkg.FRPTLSHeadByte || int(data[0]) == 0x16
+-	})
++	if gate == nil {
++		svr.tlsListener = svr.muxer.Listen(2, 1, func(data []byte) bool {
++			// tls first byte can be 0x16 only when vhost https port is not same with bind port
++			return int(data[0]) == netpkg.FRPTLSHeadByte || int(data[0]) == 0x16
++		})
+ 
++	}
+ 	// Create nat hole controller.
+ 	nc, err := nathole.NewController(time.Duration(cfg.NatHoleAnalysisDataReserveHours) * time.Hour)
+ 	if err != nil {
+ 		return nil, fmt.Errorf("create nat hole controller error, %v", err)
+ 	}
++	if gate != nil {
++		nc.RequireLinkGate()
++	}
+ 	svr.rc.NatHoleController = nc
+ 	return svr, nil
+ }
+@@ -401,7 +417,9 @@ func (svr *Service) Run(ctx context.Context) {
+ 		}()
+ 	}
+ 
+-	go svr.HandleListener(svr.sshTunnelListener, true)
++	if svr.linkGate == nil {
++		go svr.HandleListener(svr.sshTunnelListener, true)
++	}
+ 
+ 	if svr.kcpListener != nil {
+ 		go svr.HandleListener(svr.kcpListener, false)
+@@ -409,8 +427,12 @@ func (svr *Service) Run(ctx context.Context) {
+ 	if svr.quicListener != nil {
+ 		go svr.HandleQUICListener(svr.quicListener)
+ 	}
+-	go svr.HandleListener(svr.websocketListener, false)
+-	go svr.HandleListener(svr.tlsListener, false)
++	if svr.websocketListener != nil {
++		go svr.HandleListener(svr.websocketListener, false)
++	}
++	if svr.tlsListener != nil {
++		go svr.HandleListener(svr.tlsListener, false)
++	}
+ 
+ 	if svr.rc.NatHoleController != nil {
+ 		go svr.rc.NatHoleController.CleanWorker(svr.ctx)
+@@ -468,12 +490,24 @@ func (svr *Service) closeResources() {
+ 		svr.sshTunnelGateway.Close()
+ 	}
+ 	svr.rc.Close()
+-	svr.muxer.Close()
++	if svr.muxer != nil {
++		svr.muxer.Close()
++	}
++	if svr.linkGate != nil {
++		svr.linkGate.Close()
++	}
+ 	svr.ctlManager.Close()
+ }
+ 
+ func (svr *Service) handleConnection(ctx context.Context, conn net.Conn, internal bool) {
+ 	xl := xlog.FromContextSafe(ctx)
++	if svr.linkGate != nil {
++		if _, ok := ctx.Value(linkgatePeerKey{}).(*authority.TransportPeer); !ok {
++			conn.Close()
++			return
++		}
++		conn = netpkg.NewContextConn(ctx, conn)
++	}
+ 
+ 	acceptedConn, err := svr.acceptConnection(ctx, conn)
+ 	if err != nil {
+@@ -728,6 +762,25 @@ func (svr *Service) HandleListener(l net.Listener, internal bool) {
+ 
+ 		c = netpkg.NewContextConn(xlog.NewContext(ctx, xl), c)
+ 
++		if svr.linkGate != nil {
++			// Reserve admission before spawning so silent sockets cannot grow
++			// an unbounded goroutine queue or stall the listener's next peer.
++			select {
++			case svr.linkAccepts <- struct{}{}:
++			default:
++				_ = c.Close()
++				continue
++			}
++			go func(parent context.Context, raw net.Conn) {
++				boundContext, bound, acceptErr := svr.linkgateAccept(parent, raw)
++				<-svr.linkAccepts
++				if acceptErr != nil {
++					return
++				}
++				svr.serveAccepted(boundContext, bound, internal)
++			}(ctx, c)
++			continue
++		}
+ 		if !internal {
+ 			log.Tracef("start check TLS connection...")
+ 			originConn := c
+@@ -742,34 +795,35 @@ func (svr *Service) HandleListener(l net.Listener, internal bool) {
+ 			log.Tracef("check TLS connection success, isTLS: %v custom: %v internal: %v", isTLS, custom, internal)
+ 		}
+ 
+-		// Start a new goroutine to handle connection.
+-		go func(ctx context.Context, frpConn net.Conn) {
+-			if lo.FromPtr(svr.cfg.Transport.TCPMux) && !internal {
+-				fmuxCfg := fmux.DefaultConfig()
+-				fmuxCfg.KeepAliveInterval = time.Duration(svr.cfg.Transport.TCPMuxKeepaliveInterval) * time.Second
+-				// Use trace level for yamux logs
+-				fmuxCfg.LogOutput = xlog.NewTraceWriter(xlog.FromContextSafe(ctx))
+-				fmuxCfg.MaxStreamWindowSize = 6 * 1024 * 1024
+-				session, err := fmux.Server(frpConn, fmuxCfg)
+-				if err != nil {
+-					log.Warnf("failed to create mux connection: %v", err)
+-					frpConn.Close()
+-					return
+-				}
++		go svr.serveAccepted(ctx, c, internal)
++	}
++}
+ 
+-				for {
+-					stream, err := session.AcceptStream()
+-					if err != nil {
+-						log.Debugf("accept new mux stream error: %v", err)
+-						session.Close()
+-						return
+-					}
+-					go svr.handleConnection(ctx, stream, internal)
+-				}
+-			} else {
+-				svr.handleConnection(ctx, frpConn, internal)
++func (svr *Service) serveAccepted(ctx context.Context, frpConn net.Conn, internal bool) {
++	if lo.FromPtr(svr.cfg.Transport.TCPMux) && !internal {
++		fmuxCfg := fmux.DefaultConfig()
++		fmuxCfg.KeepAliveInterval = time.Duration(svr.cfg.Transport.TCPMuxKeepaliveInterval) * time.Second
++		// Use trace level for yamux logs
++		fmuxCfg.LogOutput = xlog.NewTraceWriter(xlog.FromContextSafe(ctx))
++		fmuxCfg.MaxStreamWindowSize = 6 * 1024 * 1024
++		session, err := fmux.Server(frpConn, fmuxCfg)
++		if err != nil {
++			log.Warnf("failed to create mux connection: %v", err)
++			frpConn.Close()
++			return
++		}
++
++		for {
++			stream, err := session.AcceptStream()
++			if err != nil {
++				log.Debugf("accept new mux stream error: %v", err)
++				session.Close()
++				return
+ 			}
+-		}(ctx, c)
++			go svr.handleConnection(ctx, stream, internal)
++		}
++	} else {
++		svr.handleConnection(ctx, frpConn, internal)
+ 	}
+ }
+ 
+@@ -815,6 +869,16 @@ func (svr *Service) RegisterControl(
+ 	default:
+ 		return nil, fmt.Errorf("unsupported wire protocol: %s", wireProtocol)
+ 	}
++	transportControl, gateErr := svr.linkgateLogin(ctlConn, loginMsg, internal)
++	if gateErr != nil {
++		return nil, gateErr
++	}
++	kept := false
++	defer func() {
++		if transportControl != nil && !kept {
++			transportControl.Close()
++		}
++	}()
+ 	// If client's RunID is empty, it's a new client, we just create a new controller.
+ 	// Otherwise, we check if there is one controller has the same run id. If so, we release previous controller and start new one.
+ 	var err error
+@@ -832,19 +896,25 @@ func (svr *Service) RegisterControl(
+ 	xl := xlog.FromContextSafe(ctx)
+ 	xl.AppendPrefix(loginMsg.RunID)
+ 	ctx = xlog.NewContext(ctx, xl)
+-	xl.Infof("client login info: ip [%s] version [%s] hostname [%s] os [%s] arch [%s]",
+-		ctlConn.RemoteAddr().String(), loginMsg.Version, loginMsg.Hostname, loginMsg.Os, loginMsg.Arch)
++	if svr.linkGate == nil {
++		xl.Infof("client login info: ip [%s] version [%s] hostname [%s] os [%s] arch [%s]",
++			ctlConn.RemoteAddr().String(), loginMsg.Version, loginMsg.Hostname, loginMsg.Os, loginMsg.Arch)
++	}
+ 
+ 	// Check auth.
+ 	authVerifier := svr.auth.Verifier
+ 	if internal && loginMsg.ClientSpec.AlwaysAuthPass {
+ 		authVerifier = auth.AlwaysPassVerifier
+ 	}
++	if svr.linkGate != nil {
++		authVerifier = auth.AlwaysPassVerifier
++	}
+ 	if err := authVerifier.VerifyLogin(loginMsg); err != nil {
+ 		return nil, err
+ 	}
+ 
+ 	ctl, err := NewControl(ctx, &SessionContext{
++		LinkGate: svr.linkGate, LinkControl: transportControl,
+ 		RC:             svr.rc,
+ 		PxyManager:     svr.pxyManager,
+ 		PluginManager:  svr.pluginManager,
+@@ -875,6 +945,7 @@ func (svr *Service) RegisterControl(
+ 		return ctl, errControlReplaced
+ 	}
+ 
++	kept = true
+ 	return ctl, nil
+ }
+ 
+@@ -885,6 +956,12 @@ func (svr *Service) RegisterWorkConn(
+ 	workWireProtocol string,
+ 	workClientHelloPresent bool,
+ ) error {
++	if svr.linkGate != nil {
++		scoped, err := svr.linkGate.Bind(linkgatePeer(workConn), newMsg.RunID)
++		if err != nil || scoped.Role() != "publish" {
++			return &authority.Error{Code: "AUTH_REQUIRED"}
++		}
++	}
+ 	if workClientHelloPresent {
+ 		return fmt.Errorf("ClientHello is not allowed on work connections")
+ 	}
+@@ -921,6 +998,13 @@ func (svr *Service) RegisterWorkConn(
+ }
+ 
+ func (svr *Service) RegisterVisitorConn(visitorConn net.Conn, newMsg *msg.NewVisitorConn, wireProtocol string) error {
++	if svr.linkGate != nil {
++		bound, err := svr.linkgateVisitor(visitorConn, newMsg)
++		if err != nil {
++			return err
++		}
++		visitorConn = bound
++	}
+ 	admit := func(visitorUser, visitorWireProtocol, visitorUDPPacketCodec string) error {
+ 		if visitorWireProtocol == "" {
+ 			visitorWireProtocol = wireProtocol
+diff --git a/pkg/nathole/discovery.go b/pkg/nathole/discovery.go
+index 241b0f6..f1a2001 100644
+--- a/pkg/nathole/discovery.go
++++ b/pkg/nathole/discovery.go
+@@ -18,6 +18,7 @@ import (
+ 	"errors"
+ 	"fmt"
+ 	"net"
++	"os"
+ 	"time"
+ 
+ 	"github.com/fatedier/golib/net/stun"
+@@ -27,6 +28,9 @@ var responseTimeout = 3 * time.Second
+ 
+ // If the localAddr is empty, it will listen on a random port.
+ func Discover(stunServers []string, localAddr string) ([]string, net.Addr, error) {
++	if linkgateDiscoveryEnabled() {
++		return linkgateDiscover(os.Getenv("LINKGATE_STUN_ENDPOINTS"), localAddr)
++	}
+ 	discoverConn, err := listen(localAddr)
+ 	if err != nil {
+ 		return nil, nil, err
+diff --git a/client/visitor/xtcp.go b/client/visitor/xtcp.go
+index 114f47b..bd98e16 100644
+--- a/client/visitor/xtcp.go
++++ b/client/visitor/xtcp.go
+@@ -60,6 +60,8 @@ func (sv *XTCPVisitor) Run() (err error) {
+ 		sv.session = NewQUICTunnelSession(sv.clientCfg)
+ 	}
+ 
++	sv.session = linkgateGuardTunnel(sv.session, sv.clientCfg, sv.cfg.Protocol)
++
+ 	if sv.cfg.BindPort > 0 {
+ 		sv.l, err = net.Listen("tcp", net.JoinHostPort(sv.cfg.BindAddr, strconv.Itoa(sv.cfg.BindPort)))
+ 		if err != nil {
+@@ -235,7 +237,11 @@ func (sv *XTCPVisitor) getTunnelConn(ctx context.Context) (net.Conn, error) {
+ 	if err == nil {
+ 		return conn, nil
+ 	}
+-	sv.session.Close()
++	if _, owned := sv.session.(*linkgateTunnelSession); !owned {
++		sv.session.Close()
++	} else if ctx.Err() != nil {
++		return nil, err
++	}
+ 
+ 	select {
+ 	case sv.startTunnelCh <- struct{}{}:

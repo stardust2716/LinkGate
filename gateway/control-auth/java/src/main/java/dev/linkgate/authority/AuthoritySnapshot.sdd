@@ -1,0 +1,11 @@
+Spec: Immutable Java current server authority
+
+Purpose:
+  Parse exact active grant/service generations supplied by an authenticated control peer.
+
+Owns:
+  ./AuthoritySnapshot.java
+
+Must:
+  Reject missing/unknown fields and inactive or inconsistent records, with canonical device/application/service IDs and UInt64 string counters.
+  Keep current state external to tokens and return fixed rejection without raw input.

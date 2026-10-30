@@ -1,0 +1,11 @@
+Spec: Public Windows connection IPC boundary verification
+
+Purpose:
+  Verify negotiation, original-byte validation, typed correlation and unknown mutation outcomes independently of transport fixtures.
+
+Owns:
+  ./FormalApiTests.cs
+
+Must:
+  Use owned local pipes and an explicitly synthetic provider; never present this boundary test as actual remote authorization or business transfer.
+  Cover experimental opt-in, original nested policy limits before provider invocation, required mutation IDs and malformed reply outcome preservation.

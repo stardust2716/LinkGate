@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-30",
+  "version": "0.3.0-preview.1",
+  "passed": true,
+  "installableTrialReady": true,
+  "production1Ready": false,
+  "installedWindows": {
+    "version": "0.3.0-preview.1",
+    "runId": "0591ddcb35e64b6bb6ed54bd99ba958a",
+    "passed": true,
+    "physicalNetworkAcceptance": false,
+    "legacyInstallationChanged": false,
+    "installerInstalled": true,
+    "uninstallVerified": true,
+    "identityPreserved": true,
+    "ownerRecovery": true,
+    "serverGrantRevocationRejectedNewConnection": true,
+    "ownedRuntimeChildrenStopped": 3,
+    "transfers": [
+      {
+        "passed": true,
+        "bytes": 2097152,
+        "path": "direct",
+        "complete": true
+      },
+      {
+        "passed": true,
+        "bytes": 2097152,
+        "path": "relay",
+        "complete": true
+      }
+    ]
+  },
+  "android": {
+    "package": "com.nebula.linkgate.agent",
+    "versionCode": 2,
+    "minSdk": 26,
+    "authenticatedModeMinimumSdk": 29,
+    "abis": [
+      "arm64-v8a",
+      "x86_64"
+    ],
+    "signatureVerified": true,
+    "signing": "existing-development-identity",
+    "signerCertificateSha256": "ccc21ebf6cab1610651f831a183f8b663fc749db63e80dc6c32de7795ec9879d",
+    "embeddedRuntimeHashesVerified": true,
+    "runtimeSourceCommit": "d8cf1800dc1abd7fda1828cab105d7a6b5a50eb1",
+    "physicalPhoneOperated": false,
+    "priorNativeEvidence": "verification-v0.3-windows-public-connection.json"
+  },
+  "package": {
+    "directory": "dist/LinkGate-v0.3.0-preview.1",
+    "sha256": {
+      "LinkGate-0.3.0-preview.1-Android.apk": "9c3588e92241523d9d02e8367ce41abda7ac18fedc4e2fb0d51c186d52f17866",
+      "LinkGate-0.3.0-preview.1-Linux-amd64-Server.zip": "c6877af4e495053001004e3911be7594cb37294e9061e334d0b6ee3122ed5e65",
+      "LinkGate-0.3.0-preview.1-Windows-x64-Setup.exe": "72becad20b9f6e0e94e9e5bed2732c4e4a11ff7ac654ecff48288868b9b0f84e",
+      "QUICKSTART.md": "187521b7503acc5612baf7cca16daf0c95635c41bcedd4f48a84f79250847510",
+      "SHA256SUMS.txt": "a29980dae1432850307cbed0580ff318b2b09ef9caa44eb5602123e03181eb70"
+    },
+    "linuxServerSha256": "7de03cbd9750ee53fc5fdab088d40d07d01b4b667dfd9f834beb2e030c080cab",
+    "windowsRuntimeSha256": "17819162e60b5d6d977cdbedd2c86f7a699ac74cefaab406f073dcaff0cb7e6c",
+    "windowsSelfContainedRuntime": "10.0.5",
+    "windowsProductionSignature": false
+  },
+  "failuresRetained": [
+    {
+      "runId": "bd85458f00394d0bbfe19d462b9eae05",
+      "reason": "Acceptance helper omitted pre-created private Linux directories.",
+      "resolution": "Create identity, authority and witness directories with mode 0700."
+    },
+    {
+      "runId": "1752c42b4177402f9b9a080f8899990b",
+      "reason": "Owner response affected=0 incorrectly rejected by positive-only parser.",
+      "resolution": "Canonical bounded nonnegative parser; final actual owner set/status/revoke passed."
+    }
+  ],
+  "verificationScope": "One complete isolated installed flow after necessary failure fixes; prior transport evidence reused, no full suite repetition.",
+  "notVerified": [
+    "physical four-network scenarios",
+    "physical Android installation in this delivery",
+    "production signing and update",
+    "100000 flows and 24/72-hour stability"
+  ],
+  "deferredSpec": "mature-release.sdd",
+  "cloudDeployed": false,
+  "legacyInstallationChanged": false
+}

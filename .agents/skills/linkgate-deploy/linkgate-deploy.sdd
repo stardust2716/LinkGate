@@ -1,0 +1,8 @@
+Spec: Public LinkGate deployment skill
+
+Owns:
+  ./SKILL.md
+
+Must:
+  Support current authenticated deployment rather than retired token-pairing scripts, preserving explicit target and identity boundaries.
+  Guide installation and precise app authorization without private machine dependencies or automatic retries after unknown mutations.

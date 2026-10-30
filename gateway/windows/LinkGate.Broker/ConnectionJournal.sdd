@@ -1,0 +1,24 @@
+Spec: Windows ConnectionJournal
+
+Purpose:
+  Retain caller-bound formal connection state and one-use attachments.
+
+Owns:
+  ./ConnectionJournal.cs
+
+References:
+  ./LocalAccess.sdd
+  /contracts/dotnet/LinkGate.Contracts/ConnectionStatus.sdd
+
+Must:
+  Reuse the local-access authority stamp when retaining a formal connection scope.
+  Allow coalesced snapshots to skip forward through pending/attaching/open/draining while rejecting reverse progress; slow half-closed streams must retain observed counters before termination.
+  Atomically admit exact local access, normalized request digest, original operation outcome and initial status under schema eight.
+  Replay matching old operations before current authority or quota checks without redial; reject changed intent and cross-caller references.
+  Keep successful open results after close/restart, but expose failures that occurred before transport readiness.
+  Bind single-use attachment claims to caller, original boot and current exact local access; consume each native attachment only once.
+  Reject stale or terminal snapshot updates and any identity/path/counter/time regression; recover old active rows in bounded batches with incomplete counters.
+  Apply combined experimental/formal active-flow limits and existing durable operation/revocation quotas without eviction.
+
+Tasks:
+  [x] #1 Verify state, persistence, replay, recovery and failure boundaries with owned local fixtures.

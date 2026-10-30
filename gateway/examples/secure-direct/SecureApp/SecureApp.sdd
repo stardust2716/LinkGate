@@ -1,0 +1,17 @@
+Spec: SDK-only secure stream application
+
+Purpose:
+  Serve and consume authenticated application traffic through a separately launched trusted Agent.
+
+Owns:
+  ./SecureApp.csproj
+  ./Program.cs
+
+References:
+  /windows/LinkGate.Client/BusinessConnections.sdd
+
+Must:
+  Depend only on the public SDK and framework libraries; carry no Broker, SQLite or device keys.
+  Pin the explicitly supplied Agent executable digest and hold its process identity for all control/data attachments.
+  Preserve HTTPS and WebSocket authority, application bearer authentication and certificate validation.
+  Persist application operation IDs and never automatically repeat failed or ambiguous business opens.

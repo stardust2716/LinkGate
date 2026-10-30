@@ -1,0 +1,12 @@
+Spec: Windows owned runtime verification
+
+Purpose:
+  Verify exact argument handling and kernel-enforced process-tree cleanup with actual child processes.
+
+Owns:
+  ./LinkGate.Processes.Tests.csproj
+  ./Program.cs
+
+Must:
+  Use only the fixture executable and owned artifact directories; never terminate unrelated processes.
+  Verify wrong digest rejection, quoted argument preservation, explicit Job disposal and owner-crash cleanup.

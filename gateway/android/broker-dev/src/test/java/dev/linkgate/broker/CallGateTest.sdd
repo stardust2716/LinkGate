@@ -1,0 +1,7 @@
+Spec: Binder admission JVM verification
+
+Purpose:
+  Verify active-call bounds and cleanup independently of Android Binder.
+
+Owns:
+  ./CallGateTest.java

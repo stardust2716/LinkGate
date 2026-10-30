@@ -1,0 +1,7 @@
+Spec: Android subject lineage verification
+
+Purpose:
+  Verify stable approved identity across platform-verified rotation and separation across reinstall or unrelated signers.
+
+Owns:
+  ./SubjectIdentityTest.java

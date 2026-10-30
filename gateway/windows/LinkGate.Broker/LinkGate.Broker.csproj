@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="LinkGate.Broker.Tests" />
+    <ProjectReference Include="../../contracts/dotnet/LinkGate.Contracts/LinkGate.Contracts.csproj" />
+    <ProjectReference Include="../../contracts/dotnet/LinkGate.Control/LinkGate.Control.csproj" />
+    <ProjectReference Include="../../control-auth/dotnet/LinkGate.Authority/LinkGate.Authority.csproj" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.14" />
+  </ItemGroup>
+</Project>

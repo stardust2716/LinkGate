@@ -1,0 +1,99 @@
+{
+  "clientVersion": "0.2.3",
+  "completedDateBeijing": "2026-10-29",
+  "finalCases": [
+    {
+      "case": "wifi-clash-off",
+      "record": "2026-10-29-v023-wifi-clash-off.json",
+      "fileMiB": 1076,
+      "websocketMessages": 1029,
+      "directBusinessBytePercent": 100.0,
+      "phoneDelta": {
+        "directTx": 1134178,
+        "directRx": 1129469917,
+        "relayTx": 0,
+        "relayRx": 0
+      },
+      "ecsIpBytesPadded": {
+        "ingressIpBytes": 1052,
+        "egressIpBytes": 1218,
+        "ingressTcpPayloadBytes": 340,
+        "egressTcpPayloadBytes": 374,
+        "packets": 35
+      },
+      "passed": true
+    },
+    {
+      "case": "wifi-clash-on",
+      "record": "2026-10-29-v023-wifi-clash-on.json",
+      "fileMiB": 1068,
+      "websocketMessages": 1021,
+      "directBusinessBytePercent": 100.0,
+      "phoneDelta": {
+        "directTx": 1125386,
+        "directRx": 1121072011,
+        "relayTx": 0,
+        "relayRx": 0
+      },
+      "ecsIpBytesPadded": {
+        "ingressIpBytes": 1210,
+        "egressIpBytes": 1804,
+        "ingressTcpPayloadBytes": 422,
+        "egressTcpPayloadBytes": 844,
+        "packets": 38
+      },
+      "passed": true
+    },
+    {
+      "case": "mobile-clash-off",
+      "record": "2026-10-29-v023-mobile-clash-off.json",
+      "fileMiB": 20,
+      "websocketMessages": 558,
+      "directBusinessBytePercent": 90.06315885767262,
+      "phoneDelta": {
+        "directTx": 1273,
+        "directRx": 19925490,
+        "relayTx": 576081,
+        "relayRx": 1622477
+      },
+      "ecsIpBytesPadded": {
+        "ingressIpBytes": 2441502,
+        "egressIpBytes": 3050631,
+        "ingressTcpPayloadBytes": 2266998,
+        "egressTcpPayloadBytes": 2868291,
+        "packets": 7733
+      },
+      "passed": true
+    },
+    {
+      "case": "mobile-clash-on",
+      "record": "2026-10-29-v023-mobile-clash-on.json",
+      "fileMiB": 26,
+      "websocketMessages": 491,
+      "directBusinessBytePercent": 100.0,
+      "phoneDelta": {
+        "directTx": 508612,
+        "directRx": 27771351,
+        "relayTx": 0,
+        "relayRx": 0
+      },
+      "ecsIpBytesPadded": {
+        "ingressIpBytes": 6289,
+        "egressIpBytes": 8690,
+        "ingressTcpPayloadBytes": 3849,
+        "egressTcpPayloadBytes": 5494,
+        "packets": 121
+      },
+      "passed": true
+    }
+  ],
+  "fileMiBTotal": 2190,
+  "websocketMessagesTotal": 3099,
+  "allApplicationTestsPassed": true,
+  "allPairedBytesMatched": true,
+  "allEcsCapturesComplete": true,
+  "allCasesHaveBusinessDirectEvidence": true,
+  "allCasesEntirelyDirect": false,
+  "phoneUiOperated": false,
+  "scope": "Single owned device pair and four user-selected scenarios; Windows TUN enabled; phone Clash-on uses per-app exclusion. Business percentage is not cloud billing savings. Earlier Wi-Fi trial retained separately."
+}

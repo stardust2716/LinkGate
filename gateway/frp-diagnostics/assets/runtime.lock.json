@@ -1,0 +1,8 @@
+{
+  "frpVersion": "0.71.1",
+  "sourceCommit": "d8cf1800dc1abd7fda1828cab105d7a6b5a50eb1",
+  "metricsSchema": 1,
+  "goVersion": "go version go1.27.3 windows/amd64",
+  "windowsSha256": "9fb9cacc64377da9e3bf14ddc777fa76eab097460c501c40119c1024bb7975cf",
+  "androidSha256": "c2edfefcb8899a663642d0eefcd32e91b99a97d5cf7c5c91feeecfcd40f5ac01"
+}

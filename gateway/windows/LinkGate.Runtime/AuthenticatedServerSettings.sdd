@@ -1,0 +1,14 @@
+Spec: AuthenticatedServerSettings
+
+Purpose:
+  Read explicitly confirmed public server settings for Windows Agent composition.
+
+Owns:
+  ./AuthenticatedServerSettings.cs
+
+References:
+  ./FrpRuntimeBridge.sdd
+
+Must:
+  Require exact schema-one fields, canonical numeric IPv4, distinct valid control/backend ports and a server certificate under the current owner root matching an independently confirmed SPKI.
+  Accept at most four canonical distinct IPv4 STUN endpoints and no secret/configuration extensions; perform no routing changes or certificate installation.

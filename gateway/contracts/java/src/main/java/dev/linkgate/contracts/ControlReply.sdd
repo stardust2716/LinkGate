@@ -1,0 +1,17 @@
+Spec: Portable hello response contract
+
+Purpose:
+  Validate API1 Android hello replies before exposing immutable public results.
+
+Owns:
+  ./ControlReply.java
+
+References:
+  ./StrictJson.sdd
+
+Must:
+  Validate strict JSON, request correlation, lexical version integers and exclusive result/error shape.
+  Bound and validate capabilities, duplicate names and Android-specific admission limits.
+  Preserve unknown capability names without treating them as usable automatically.
+  Expose immutable results and fixed error messages without raw server messages or details.
+  Share strict response-envelope validation with pending registration and query decoders.

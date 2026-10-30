@@ -1,0 +1,13 @@
+Spec: Durable mobile owner decisions
+
+Purpose:
+  Persist an owner operation before mutation and recover its original outcome without replay.
+
+Owns:
+  ./OwnerActions.java
+
+Must:
+  Write and synchronize a private intent before each review or access/peer decision.
+  Block new owner mutations while a previous unknown outcome remains pending.
+  Match retained result identity to the original subject before confirmation; abandonment requires a fresh unknown query.
+  Never store device private keys, certificates, addresses or application payload in receipts.

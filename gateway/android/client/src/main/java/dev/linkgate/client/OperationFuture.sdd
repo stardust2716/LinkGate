@@ -1,0 +1,14 @@
+Spec: Mutation outcome metadata
+
+Purpose:
+  Retain the caller operation UUID and possible-submission state through asynchronous failure or cancellation.
+
+Owns:
+  ./OperationFuture.java
+  ./MutationOutcomeUnknownException.java
+
+Must:
+  Keep the operation UUID immutable and possible-submission state monotonic.
+  Arbitrate cancellation and the transport-entry claim atomically so pre-entry cancellation cannot later submit.
+  Preserve normal CompletableFuture cancellation; cancellation after transport entry is not proof of rollback.
+  Use fixed unknown-outcome messages without raw causes or response data.

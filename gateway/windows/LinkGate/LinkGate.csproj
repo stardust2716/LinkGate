@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AssemblyName>LinkGate</AssemblyName>
+    <Product>LinkGate</Product>
+    <Version>0.2.3</Version>
+    <Description>Private TCP service gateway using FRP XTCP and STCP fallback.</Description>
+  </PropertyGroup>
+  <ItemGroup><EmbeddedResource Include="../../frp-diagnostics/assets/runtime.lock.json" LogicalName="LinkGate.RuntimeLock" /></ItemGroup>
+</Project>

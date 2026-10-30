@@ -1,0 +1,12 @@
+Spec: Default-network change observation
+
+Purpose:
+  Invalidate owned transport generations when the application's actual default route or link addresses change.
+
+Owns:
+  ./NetworkObserver.java
+
+Must:
+  Register only read-only default-network callbacks, compare current network rather than stale callback arguments and coalesce events on one bounded owned worker.
+  Keep addresses/routes in memory only; publish no candidate or interface details in public diagnostics.
+  Stop callbacks and owned work on host close without starting services, changing routing or occupying the VPN slot.

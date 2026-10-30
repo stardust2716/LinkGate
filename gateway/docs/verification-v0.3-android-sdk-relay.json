@@ -1,0 +1,184 @@
+{
+  "recordedUtc": "2026-10-30",
+  "specificationTarget": "1.0",
+  "installedBaseline": "0.2.3",
+  "native": {
+    "passed": true,
+    "runId": "2ee120e9e8dd4cc5b52fedf759b76172",
+    "checks": 41,
+    "actualSourceBuiltFrpc": true,
+    "actualProtectedNamedPipes": true,
+    "actualParentPidVerified": true,
+    "unrelatedPipeClientDenied": true,
+    "clientKeysExported": false,
+    "actualMutualTlsBackend": true,
+    "actualWireV2": true,
+    "actualTcpMux": true,
+    "actualRelayBytes": 67108864,
+    "actualXtcpOnlyBytes": 67108864,
+    "xtcpFallbackEnabled": false,
+    "loopbackStunTested": true,
+    "integrity": true,
+    "requestHalfClose": true,
+    "actualReportedPaths": [
+      "relay",
+      "direct"
+    ],
+    "missingLocalGrantRejected": true,
+    "scopePolicyRejected": true,
+    "activeRelayRevokeMs": 129,
+    "activeDirectRevokeMs": 129,
+    "localGrantRevokeMs": 248,
+    "localRuntimeRevokeMs": 247,
+    "pendingDenialPreservesRuntime": true,
+    "unrelatedRuntimePreserved": true,
+    "agentDataMtlsInRelayTested": true,
+    "businessSdkInRelayTested": true,
+    "androidNativeBridgeTested": true,
+    "androidNativeBridge": {
+      "passed": true,
+      "actualPackagedFrpc": true,
+      "keystoreKeyExported": false,
+      "actualUnixCredentials": true,
+      "unrelatedClientRefused": true,
+      "agentControlMtls": true,
+      "agentDataMtls": true,
+      "serverLease": true,
+      "relayBytes": 67108864,
+      "integrity": true,
+      "requestFin": true,
+      "pendingDenialPreservesRuntime": true,
+      "localRuntimeRevokeMs": 94,
+      "serverRevokeObservedMs": 108,
+      "businessSdkTested": false,
+      "physicalDeviceTested": false,
+      "serverTriggerToCompletionMs": 291
+    },
+    "androidPublicSdk": {
+      "passed": true,
+      "businessSdkTested": true,
+      "independentAndroidUid": 10179,
+      "agentUid": 10177,
+      "differentSigner": true,
+      "relayBytes": 67108864,
+      "integrity": true,
+      "requestFin": true,
+      "oneUseAttachment": true,
+      "concurrentSameApplicationStreams": 2,
+      "localRevokeMs": 1433,
+      "serverRevokeMs": 245,
+      "recordedPath": "relay",
+      "corruptConfigFailsClosed": true,
+      "ownerStopPreventsLateStartup": true,
+      "physicalDeviceTested": false
+    },
+    "physicalNatTested": false,
+    "cloudAccessed": false,
+    "installedRuntimeChanged": false,
+    "nativeBuild": {
+      "buildId": "c7290c14747d45e383654b4316d68743",
+      "builtUtc": "2026-10-30T01:43:26.5416615Z",
+      "authenticatedRuntimeSelected": true,
+      "apks": {
+        "agent/build/outputs/apk/debug/agent-debug.apk": "f0d89b63019afcff99c5f2c7708ce657dca93b78375c0a988a5f94afd6dbe791",
+        "agent/build/outputs/apk/androidTest/debug/agent-debug-androidTest.apk": "28afa18235e672654b29c4532c77f91e05a215badd29735ed0acf0a3a5f085f8",
+        "native-consumer/build/outputs/apk/debug/native-consumer-debug.apk": "db620708942f2ba7a67c554ce45ddae45078e125ef7a115b18281b3a9bbfaed7",
+        "native-consumer/build/outputs/apk/androidTest/debug/native-consumer-debug-androidTest.apk": "a674ebfc9326fd447a0fe9d503eddb1476244ff11139bdeb78b55374c811c3f9"
+      }
+    }
+  },
+  "backend": {
+    "topLevelTests": 155,
+    "linkgateTests": 13,
+    "vet": true,
+    "sourceCommit": "d8cf1800dc1abd7fda1828cab105d7a6b5a50eb1"
+  },
+  "unitTests": {
+    "agent-core": {
+      "tests": 15,
+      "failures": 0,
+      "errors": 0
+    },
+    "client": {
+      "tests": 40,
+      "failures": 0,
+      "errors": 0
+    },
+    "secure-transport": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    "app": {
+      "tests": 20,
+      "failures": 0,
+      "errors": 0
+    }
+  },
+  "runtimeLock": {
+    "schema": 1,
+    "sourceCommit": "d8cf1800dc1abd7fda1828cab105d7a6b5a50eb1",
+    "goVersion": "go version go1.27.3 windows/amd64",
+    "abis": {
+      "arm64-v8a": {
+        "launcherSha256": "25a371d964e8dd1a77a1a3f0ee5bb2087456555a47d0cb6074b1acda68ca16ac",
+        "frpcSha256": "459b543fa86adda016c52e51838f8e016cdf32e23ec068ce0c3a80e10e05a80f"
+      },
+      "x86_64": {
+        "launcherSha256": "f1172ab5031e0ccfb10174b55ab3f43eb99339c1552b99b09c9f5f5dd668e3fd",
+        "frpcSha256": "56624a188d057a50b2a401a499f026a77a3947d1c328b46630ca253690f80257"
+      }
+    }
+  },
+  "initialFailedRun": {
+    "runId": "d09a293ab4c74f4f8cabc3511f68fecc",
+    "stage": "internal-guest-hold-observation",
+    "nativeAssertionSeconds": 10,
+    "note": "Observation included pre-trigger coordination; host trigger-to-completion deadline remains independently enforced at five seconds."
+  },
+  "notValidated": [
+    "physical ARM64 and four networks",
+    "production server entry and enrollment",
+    "automatic connection policy and recovery",
+    "runtime pooling and 100000 flows",
+    "24h/72h endurance",
+    "production signing install update rollback"
+  ],
+  "testedBinaryManifest": {
+    "buildId": "c7290c14747d45e383654b4316d68743",
+    "builtUtc": "2026-10-30T01:43:26.5416615Z",
+    "authenticatedRuntimeSelected": true,
+    "apks": {
+      "agent/build/outputs/apk/debug/agent-debug.apk": "f0d89b63019afcff99c5f2c7708ce657dca93b78375c0a988a5f94afd6dbe791",
+      "agent/build/outputs/apk/androidTest/debug/agent-debug-androidTest.apk": "28afa18235e672654b29c4532c77f91e05a215badd29735ed0acf0a3a5f085f8",
+      "native-consumer/build/outputs/apk/debug/native-consumer-debug.apk": "db620708942f2ba7a67c554ce45ddae45078e125ef7a115b18281b3a9bbfaed7",
+      "native-consumer/build/outputs/apk/androidTest/debug/native-consumer-debug-androidTest.apk": "a674ebfc9326fd447a0fe9d503eddb1476244ff11139bdeb78b55374c811c3f9"
+    }
+  },
+  "directPreviewRegression": {
+    "passed": true,
+    "androidApi": 36,
+    "architecture": "x86_64",
+    "physicalPhone": false,
+    "cloudAccessed": false,
+    "keystoreKeyExported": false,
+    "independentAndroidUid": 10175,
+    "agentUid": 10173,
+    "differentSigningCertificate": true,
+    "wrongSignerDenied": true,
+    "localGrantRequired": true,
+    "publisherGrantRequired": true,
+    "authenticatedRefusal": true,
+    "mutualTls": true,
+    "nativeBinderDescriptor": true,
+    "oneUseAttachment": true,
+    "fileBytes": 67108864,
+    "integrity": true,
+    "requestFin": true,
+    "activeLocalRevokeMs": 868,
+    "backendConnections": 2,
+    "backendTx": "67108864"
+  },
+  "legacyAndroidReleaseBuild": true,
+  "buildEntrypointParsed": true
+}

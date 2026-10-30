@@ -1,0 +1,17 @@
+Spec: Windows and Java authenticated transport conformance
+
+Purpose:
+  Execute actual cross-implementation device handshakes, authorized business transfer and revocation.
+
+Structure:
+  ./InteropHarness: Windows owner and publisher fixture.
+  ./java: JVM Agent-role transport fixture with a separately generated device key.
+
+Owns:
+  ./verify.ps1
+  ./README.md
+
+Must:
+  Generate each device key at its own endpoint and exchange only CSR and public certificates.
+  Verify wrong peer, missing grant, large transfer integrity, half-close and revoked active streams.
+  Keep all fixture state isolated and label JVM protocol conformance separately from Android Binder or device acceptance.

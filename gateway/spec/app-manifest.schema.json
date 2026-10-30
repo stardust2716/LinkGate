@@ -1,0 +1,244 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://linkgate.example.invalid/spec/v1/app-manifest.schema.json",
+  "title": "Planned LinkGate application manifest v1",
+  "type": "object",
+  "properties": {
+    "manifestVersion": {
+      "const": 1
+    },
+    "applicationId": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128,
+      "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)+$"
+    },
+    "displayName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "exports": {
+      "type": "array",
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "properties": {
+          "serviceId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32,
+            "pattern": "^[a-z][a-z0-9-]{0,31}$"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "protocol": {
+            "enum": [
+              "tcp",
+              "http",
+              "https",
+              "ws",
+              "wss"
+            ]
+          },
+          "localTarget": {
+            "type": "object",
+            "properties": {
+              "host": {
+                "const": "127.0.0.1"
+              },
+              "port": {
+                "type": "integer",
+                "minimum": 1024,
+                "maximum": 65535
+              }
+            },
+            "required": [
+              "host",
+              "port"
+            ],
+            "additionalProperties": false
+          },
+          "logicalAuthority": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 259,
+            "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9.-]*[A-Za-z0-9])?(?::[0-9]{1,5})?$"
+          },
+          "healthCheck": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "tcp"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "const": "http"
+                  },
+                  "path": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1024,
+                    "pattern": "^/[^\\u0000-\\u0020\\u007f#]*$"
+                  },
+                  "expectedStatus": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 100,
+                      "maximum": 599
+                    },
+                    "minItems": 1,
+                    "maxItems": 10,
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "type",
+                  "path",
+                  "expectedStatus"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "serviceId",
+          "label",
+          "protocol",
+          "localTarget"
+        ],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "protocol": {
+                  "enum": [
+                    "https",
+                    "wss"
+                  ]
+                }
+              },
+              "required": [
+                "protocol"
+              ]
+            },
+            "then": {
+              "required": [
+                "logicalAuthority"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "imports": {
+      "type": "array",
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "properties": {
+          "alias": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32,
+            "pattern": "^[a-z][a-z0-9-]{0,31}$"
+          },
+          "protocol": {
+            "enum": [
+              "tcp",
+              "http",
+              "https",
+              "ws",
+              "wss"
+            ]
+          },
+          "endpointMode": {
+            "enum": [
+              "brokered",
+              "loopback"
+            ]
+          },
+          "logicalAuthority": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 259,
+            "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9.-]*[A-Za-z0-9])?(?::[0-9]{1,5})?$"
+          },
+          "connectionPolicy": {
+            "$ref": "connection-policy.schema.json"
+          }
+        },
+        "required": [
+          "alias",
+          "protocol",
+          "endpointMode",
+          "connectionPolicy"
+        ],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "protocol": {
+                  "enum": [
+                    "https",
+                    "wss"
+                  ]
+                }
+              },
+              "required": [
+                "protocol"
+              ]
+            },
+            "then": {
+              "required": [
+                "logicalAuthority"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "manifestVersion",
+    "applicationId",
+    "displayName",
+    "exports",
+    "imports"
+  ],
+  "additionalProperties": false,
+  "anyOf": [
+    {
+      "properties": {
+        "exports": {
+          "minItems": 1
+        }
+      }
+    },
+    {
+      "properties": {
+        "imports": {
+          "minItems": 1
+        }
+      }
+    }
+  ],
+  "$comment": "Semantic validation also rejects duplicate serviceId/alias, control characters, noncanonical authority and policy inconsistencies. Manifest has no credentials or trusted caller identity."
+}

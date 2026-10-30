@@ -1,0 +1,12 @@
+Spec: Windows owner transport interoperability fixture
+
+Purpose:
+  Provision isolated Windows and Java identities and enforce grants at a real Windows peer listener.
+
+Owns:
+  ./InteropHarness.csproj
+  ./Program.cs
+
+Must:
+  Stop only held owned processes and listeners and restrict cleanup to verified artifact children.
+  Check that rejected identity or authorization cannot create backend connections.

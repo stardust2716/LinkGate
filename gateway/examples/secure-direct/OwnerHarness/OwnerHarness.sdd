@@ -1,0 +1,17 @@
+Spec: Owner-controlled secure stream acceptance
+
+Purpose:
+  Provision only owned test resources and verify independent SDK applications against real Agent authority.
+
+Owns:
+  ./OwnerHarness.csproj
+  ./Program.cs
+
+References:
+  /windows/LinkGate.Broker/SecureAuthority.sdd
+  /windows/LinkGate.Broker/SecureIdentity.sdd
+
+Must:
+  Keep test authority separate from consumer applications and use explicit versioned grants.
+  Stop owned child processes and restrict recursive cleanup to verified artifact children.
+  Verify active revocation closes data within five seconds and prevents later opens.

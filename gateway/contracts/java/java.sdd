@@ -1,0 +1,43 @@
+Spec: Portable Java public contracts
+
+Platform: Java17
+
+Purpose:
+  Expose strict public declaration and control contracts usable by Android without changing legacy pairing semantics.
+
+Structure:
+  ./src: Portable contract models, validation and conformance checks.
+
+Owns:
+  ./src/main/java/dev/linkgate/contracts/ApplicationManifest.java
+  ./src/main/java/dev/linkgate/contracts/ConnectionPolicy.java
+  ./src/main/java/dev/linkgate/contracts/ContractException.java
+
+References:
+  /docs/adr/0001-public-contract-normalization.md
+  /contracts/vectors/cases.json
+  ./src/main/java/dev/linkgate/contracts/StrictJson.sdd
+  ./src/main/java/dev/linkgate/contracts/WireJson.sdd
+  ./src/main/java/dev/linkgate/contracts/SecureReply.sdd
+  ./src/main/java/dev/linkgate/contracts/ManifestContract.sdd
+  ./src/main/java/dev/linkgate/contracts/ControlHello.sdd
+  ./src/main/java/dev/linkgate/contracts/ControlReply.sdd
+  ./src/main/java/dev/linkgate/contracts/RegistrationReply.sdd
+  ./src/main/java/dev/linkgate/contracts/ControlRequest.sdd
+  ./src/main/java/dev/linkgate/contracts/PendingRegistry.sdd
+  ./src/main/java/dev/linkgate/contracts/ControlRegistration.sdd
+  ./src/test/java/dev/linkgate/contracts/ConformanceMain.sdd
+
+Must:
+  Validate UTF-8, JSON syntax and schema semantics consistently with the shared corpus.
+  Preserve lexical integers and Unicode scalar boundaries rather than coercing values.
+
+Exposes:
+  @dev.linkgate.contracts.ManifestContract.parse
+  @dev.linkgate.contracts.ManifestContract.normalizePolicy
+
+Tasks:
+  [x] #1 Implement the public parser, immutable models and shared-corpus runner.
+
+Done when:
+  The corpus runner verifies all selected valid and invalid cases and exits nonzero on any discrepancy.

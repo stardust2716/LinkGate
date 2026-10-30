@@ -1,0 +1,21 @@
+Spec: Agent authenticated control client
+
+Purpose:
+  Obtain independently verified server authority through bounded standard mTLS HTTP.
+
+Owns:
+  ./ControlClient.cs
+
+References:
+  /control-plane/authority/control_server.sdd
+
+Must:
+  Include caller-retained operation UUIDs only on explicit owner mutations and preserve uncertain transport outcomes for original-operation lookup.
+  Connect only to the explicitly configured IPv4 endpoint with logical TLS name linkgate.device and the pinned server certificate key.
+  Require local device key possession and owner PKIX profile; bypass automatic HTTP proxies and redirects.
+  Carry bounded hello/lease requests and explicit trusted-owner requests; never retry mutations or put tokens in URLs or logs.
+  Bound each complete call to three seconds, eight concurrent calls, and sixty-four KiB responses; close socket work on cancellation.
+  Establish a single server epoch through authenticated hello and permanently close the control generation on a mismatching response or disposal.
+  Verify returned signed lease and authenticated snapshot independently before returning Agent-only authority.
+  Permit read-only lease.check batches of at most sixty-four already verified snapshots bound to this client identity, clock and epoch.
+  Use a successful correlated mTLS response's HTTP Date only as a conservative forward clock observation; do not reset an old clock generation or infer time from unverified token claims.

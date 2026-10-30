@@ -1,0 +1,14 @@
+Spec: Public connection status value
+
+Purpose:
+  Read a bounded immutable connection status without treating transport selection as business delivery.
+
+Owns:
+  ./ConnectionStatus.java
+
+Must:
+  Restrict UTC years to 0001 through 9999 and reject leap seconds or 24-hour rollover normalization.
+  Match the public status DTO with exact fields, canonical UUIDs, owner/device/service references, uint64 decimal strings and UTC millisecond timestamps.
+  Require counters only on the immutable selected path and report business path only after positive payload bytes.
+  Reject impossible pending/ready/terminal combinations, unknown fields, malformed counters and reflected exception objects.
+  Keep all exposed values immutable and return a fresh map when a wire object is requested.

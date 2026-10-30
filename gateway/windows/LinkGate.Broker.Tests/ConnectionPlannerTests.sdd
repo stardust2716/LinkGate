@@ -1,0 +1,11 @@
+Spec: Windows planning lifetime verification
+
+Purpose:
+  Verify admission budgets and transport ownership across direct, relay and cancellation races.
+
+Owns:
+  ./ConnectionPlannerTests.cs
+
+Must:
+  Reproduce release reentry from a tracked raw abort and verify all resources close, cancellation is delivered and repeated release is safe.
+  Cover original budget consumption, direct preference, explicit relay permission, terminal failures, parent cancellation, late results, clock rollback and bounded setup capacity.

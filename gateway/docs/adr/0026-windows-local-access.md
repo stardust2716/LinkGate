@@ -1,0 +1,9 @@
+# ADR0026：Windows 本地访问权与声明审核分开
+
+imports声明审核允许应用提出这一类访问，正式接入还需要所有者批准精确的caller/applicationRef/importAlias/deviceId/publisherAppId/serviceId。旧Windows安全预览的审核、peer和远端grant组合保留原范围；新LocalAccess不把它自动升级为正式授权。
+
+LocalAccess仅向可信宿主提供proposal、批准和撤销，不加入普通应用RPC。proposal来自保留的待批准请求，绑定真实caller、当前approved revision、完整review decision、authority epoch、peer revision和import快照；批准事务重新读取比较。不能用自报身份、目标地址或放宽策略替换。
+
+活动权限绑定authority epoch，拒绝新的pending声明保留已有访问；明确重新批准、撤销、peer换代或grant撤销使旧scope失效。原操作号重放只返回原结果，不激活旧权限。每条active权限保留撤销日志额度，设备撤销同时退役publisher和visitor grant，两类记录合计最多4096条。
+
+SQLite原子迁移schema6→7，新访问表为空，不推测旧应用权限。当前schema缺表拒绝启动。500项Windows回归通过，其中39项覆盖精确范围、策略、持久重放、拒绝保留、重新批准失效、并发双库、写入回滚、满额度撤销、损坏行和迁移。正式Windows连接API、所有者操作工作流和动态候选仍需组合，hello未提前声明支持。

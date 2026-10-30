@@ -1,0 +1,19 @@
+Spec: Control authority verification host
+
+Purpose:
+  Own real server and Java child lifetimes while checking .NET control authorization.
+
+Owns:
+  ./ControlAuthority.Tests.csproj
+  ./Program.cs
+
+Structure:
+  ./DataFixture.cs: Actual SDK data delivery, deterministic backend and scoped lifecycle.
+
+Must:
+  Hold verified source-built child processes in owned kill-on-close jobs and protect fixture directories.
+  Never export client private keys, print raw error contents or let pending clients survive cleanup.
+  Emit evidence only after all actual-network checks pass.
+  Use uniquely named nonexportable per-user CNG test keys and delete their owned handles in final cleanup.
+  Verify actual server epoch replacement and control outage close blocked data and preserve closed old guards.
+  Verify an explicitly lagging client clock can acquire current authority using authenticated conservative response time without relaxing signed temporal claims.

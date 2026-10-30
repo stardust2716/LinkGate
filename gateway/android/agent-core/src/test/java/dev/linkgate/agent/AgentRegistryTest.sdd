@@ -1,0 +1,17 @@
+Spec: Mobile state authority SQLite verification
+
+Purpose:
+  Verify real transactional approval, caller scope and recovery before native Binder integration.
+
+Owns:
+  ./AgentRegistryTest.java
+
+Must:
+  Verify coalesced attaching-to-draining snapshots persist counters before simulated restart without accepting state regression.
+  Verify formal connection operations, policy narrowing, caller-bound one-use attachment, stale snapshot rejection, crash recovery and schema1 migration without altering retained grants.
+  Cover explicit local access, reinstall scope, denied pending preservation, stale approval, revocation reservations, open recovery and rollback on failures.
+  Keep JDBC and all test databases out of application SDK/runtime dependencies.
+
+  Verify relay policy separation, method conflicts, legacy-path compatibility and retained relay paths after restart.
+
+  Declared relay limits cannot be silently ignored by the experimental stream API.

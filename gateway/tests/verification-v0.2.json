@@ -1,0 +1,54 @@
+{
+  "version": "0.2.0",
+  "date": "2026-10-28",
+  "releaseStatus": "preview-network-matrix-pending",
+  "windowsChecksPassed": 59,
+  "androidJvmTestsPassed": 15,
+  "goMetricsTestsPassed": 2,
+  "serverGuardTestsPassed": 6,
+  "exactFrpPatchVerified": true,
+  "loopbackIntegration": {
+    "http": true,
+    "fileIntegrity": true,
+    "websocket": true,
+    "xtcpUnavailableStcpFallback": true,
+    "badTokenCaAndServiceKeyRejected": true,
+    "bothEndsBytesMatched": true,
+    "visitorTx": 717,
+    "visitorRx": 74664,
+    "fallbackReasonAndSetupTimeVerified": true,
+    "directBusinessObserved": false
+  },
+  "windowsViaOwnEcsSmoke": {
+    "fileBodyBytesVerified": 1048576,
+    "fileElapsedMs": 6371,
+    "websocket": true,
+    "actualPath": "relay",
+    "visitorTxEqualsPublisherRx": 434,
+    "visitorRxEqualsPublisherTx": 1049020,
+    "visitorLastSetupMs": 1510,
+    "fallbackReason": "direct_tunnel_unavailable",
+    "ecsAccountingWindowSeconds": 300,
+    "ecsIngressIpBytes": 1090946,
+    "ecsEgressIpBytes": 1353732,
+    "ecsKernelDroppedPackets": 0,
+    "ecsUnparsedPackets": 0,
+    "note": "ECS window is longer than the smoke test and includes coordination and wire overhead. Not a phone or mobile WAN directness test."
+  },
+  "installation": {
+    "windowsPortableVersion": "0.2.0",
+    "windowsInstalledConfigAndRuntimeVerified": true,
+    "androidPackage": "com.nebula.linkgate",
+    "androidVersionNameReadback": "0.2.0",
+    "androidVersionCodeReadback": 2,
+    "samePersistentAndroidSigningIdentity": true,
+    "phoneUiOperated": false
+  },
+  "phoneNetworkMatrix": {
+    "wifi-clash-off": "deferred-by-user",
+    "wifi-clash-on": "deferred-by-user",
+    "mobile-clash-off": "deferred-by-user",
+    "mobile-clash-on": "deferred-by-user"
+  },
+  "wanDirectnessVerified": false
+}

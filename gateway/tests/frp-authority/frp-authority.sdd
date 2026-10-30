@@ -1,0 +1,20 @@
+Spec: Actual owned FRP platform bridge verification
+
+Purpose:
+  Exercise the source-built backend and frpc binaries through protected Windows Agent pipes with nonexportable device identities.
+
+Owns:
+  ./verify.ps1
+  ./README.md
+
+Structure:
+  ./dotnet: Isolated Agent-owned runtime composition and actual relay traffic.
+
+References:
+  /backend-frp/backend-frp.sdd
+  /windows/LinkGate.Runtime/LinkGate.Runtime.sdd
+
+Must:
+  Hold source-built binaries in verified owned Jobs, sign only public client CSRs and keep client keys nonexportable.
+  Reject unrelated pipe clients before external delivery, verify actual relay bytes and server revocation, and preserve unrelated approved runtime ownership.
+  Treat transport fixture bytes separately from Agent end-to-end data mTLS, SDK integration or physical NAT acceptance.

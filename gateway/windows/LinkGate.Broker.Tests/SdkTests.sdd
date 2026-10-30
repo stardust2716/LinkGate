@@ -1,0 +1,10 @@
+Spec: Thin SDK integration verification
+
+Purpose:
+  Verify bounded SDK errors, explicit recovery and separate consumer artifacts.
+
+Owns:
+  ./SdkTests.cs
+
+Must:
+  Cover opt-in, stable operation IDs, sanitized errors, interrupted mutation replies and explicit queries after reconnect.

@@ -1,0 +1,8 @@
+Spec: Independent gateway integration examples
+
+Purpose:
+  Demonstrate application integration without copying gateway internals into consumers.
+
+Structure:
+  ./dotnet-registration: Pending registration using only the client SDK.
+  ./secure-direct: Secure application traffic through independent authenticated Agents.

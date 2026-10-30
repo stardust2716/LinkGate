@@ -1,0 +1,1 @@
+{"schema":1,"identityDirectory":"/var/lib/linkgate/identity","authorityDirectory":"/var/lib/linkgate/authority","witnessDirectory":"/var/lib/linkgate-witness","controlAddress":"0.0.0.0:27111","backendAddress":"0.0.0.0:27112"}

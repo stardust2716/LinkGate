@@ -1,0 +1,83 @@
+{
+  "case": "wifi-clash-off",
+  "clientVersion": "0.2.0",
+  "testVersion": 1,
+  "status": "partial-needs-retest",
+  "pcTunObserved": "Meta Tunnel Up",
+  "phoneNetwork": "same-router-wifi-user-confirmed",
+  "phoneClash": "off-user-confirmed",
+  "phone": {
+    "testVersion": 1,
+    "scenario": "wifi-clash-off",
+    "startedUtcMs": 1793184964780,
+    "elapsedMs": 62504,
+    "fileBytesVerified": 20971520,
+    "filesCompleted": 20,
+    "fileError": "none",
+    "websocketPayloadBytes": 147456,
+    "websocketFrames": 72,
+    "websocketError": "websocket_failed",
+    "uidRxDelta": 43264898,
+    "uidTxDelta": 21730084,
+    "before": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": false,
+      "businessDirectObserved": false,
+      "directTx": 0,
+      "directRx": 0,
+      "relayTx": 0,
+      "relayRx": 0,
+      "activeConnections": 0,
+      "setupMs": 0,
+      "bytesPerSecond": 0,
+      "fallbackReason": "none",
+      "complete": true
+    },
+    "after": {
+      "schemaVersion": 1,
+      "currentPath": "idle",
+      "natHoleObserved": false,
+      "businessDirectObserved": false,
+      "directTx": 0,
+      "directRx": 0,
+      "relayTx": 76826,
+      "relayRx": 21048347,
+      "activeConnections": 0,
+      "setupMs": 1534,
+      "bytesPerSecond": 498231,
+      "fallbackReason": "direct_tunnel_unavailable",
+      "complete": true
+    }
+  },
+  "windowsDelta": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 21049375,
+    "relayRx": 76826
+  },
+  "phoneDelta": {
+    "directTx": 0,
+    "directRx": 0,
+    "relayTx": 76826,
+    "relayRx": 21048347
+  },
+  "byteComparison": {
+    "phoneTxMinusWindowsRx": 0,
+    "windowsTxMinusPhoneRx": 1028
+  },
+  "knownTestDefect": "Unsolicited Pong was rejected by the v1 test parser. Reproduced locally at 15040 ms. Corrected in 0.2.1/testVersion2.",
+  "windowsSampling": "Stable idle snapshots around the isolated first run, padded by 5 seconds; device clocks are not assumed identical.",
+  "ecsStatus": "captured",
+  "ecsAlignedApprox": {
+    "ingressIpBytes": 21786172,
+    "egressIpBytes": 24802641,
+    "ingressTcpPayloadBytes": 21258448,
+    "egressTcpPayloadBytes": 24198765,
+    "packets": 23447
+  },
+  "ecsCaptureComplete": true,
+  "ecsKernelDroppedPackets": 0,
+  "ecsUnparsedPackets": 0,
+  "ecsAlignment": "UTC-second buckets covering the phone test, includes encryption/control/retransmission overhead; not exact application bytes."
+}

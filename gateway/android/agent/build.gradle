@@ -1,0 +1,36 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'com.nebula.linkgate.agent'
+    compileSdk 37
+    ndkVersion '29.0.13113456'
+    defaultConfig {
+        applicationId 'com.nebula.linkgate.agent'
+        minSdk 26
+        targetSdk 36
+        versionCode 4
+        versionName '0.3.0-preview.3'
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        multiDexEnabled true
+    }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17;coreLibraryDesugaringEnabled true }
+    buildTypes { release { minifyEnabled false; signingConfig signingConfigs.debug } }
+    def runtimeDirectory=providers.gradleProperty('linkgateAgentRuntimeDir').orElse(layout.buildDirectory.dir('owned-runtime').map {it.asFile.absolutePath}).get()
+    sourceSets {main {jniLibs.srcDirs=["${runtimeDirectory}/jniLibs"];assets.srcDir "${runtimeDirectory}/assets"}}
+    packaging {jniLibs {useLegacyPackaging=true;keepDebugSymbols += ['**/libfrpc.so','**/liblinkgate-agent-launcher.so']}}
+    packaging { resources {
+        excludes += ['META-INF/versions/9/OSGI-INF/MANIFEST.MF']
+        merges += ['META-INF/LICENSE.md', 'META-INF/NOTICE.md', 'META-INF/DEPENDENCIES']
+    } }
+}
+dependencies {
+    implementation project(':public-contracts')
+    implementation project(':control-ipc')
+    implementation project(':agent-core')
+    implementation project(':secure-transport')
+    implementation project(':descriptor-core')
+    implementation project(':control-authority')
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test:runner:1.7.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.3.0'
+}

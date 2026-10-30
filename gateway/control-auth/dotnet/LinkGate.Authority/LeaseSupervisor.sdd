@@ -1,0 +1,18 @@
+Spec: Bounded active authorization supervisor
+
+Purpose:
+  Close active Agent sessions when their signed authority expires, changes or loses authenticated control health.
+
+Owns:
+  ./LeaseSupervisor.cs
+
+References:
+  ./ControlClient.sdd
+  ./ServerLease.sdd
+
+Must:
+  Register at most one hundred twenty-eight active receipts, bound to the same control identity, clock and epoch.
+  Poll authenticated current authority in batches of at most sixty-four every five hundred milliseconds; reject expired local receipts before a network call.
+  Cancel affected guards on known revocation, control failure, epoch mismatch or disposal within the three-second RPC bound plus poll scheduling.
+  Never revive a stopped guard or replace a live stream's authority generations; renew only newer valid leases for unchanged current authority.
+  Keep tokens inside Agent components and make guard lifetime observable without business data injection.

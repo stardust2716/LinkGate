@@ -1,0 +1,12 @@
+Spec: Verified Android signing subject policy
+
+Purpose:
+  Preserve a caller identity across OS-verified signing rotation while separating reinstall and unrelated signers.
+
+Owns:
+  ./SubjectIdentity.java
+
+Must:
+  Accept only platform-verified signer snapshots, with original-to-current lineage ordering.
+  Bind scope to UID, package, first install and original signer or exact multiple-signer set.
+  Keep full current provenance for snapshot comparison and owner review without trusting application declarations.

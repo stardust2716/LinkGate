@@ -1,0 +1,13 @@
+Spec: Real cross-language mTLS control fixture
+
+Purpose:
+  Exercise independent Agent clients against the actual server control service and durable authority.
+
+Owns:
+  ./main.go
+
+Must:
+  Read only public P-256 CSRs from a preprotected ignored fixture directory and keep the owner root and server private keys in process.
+  Listen only on loopback with bounded lifetime, issue exact owner/publisher/visitor roles and service grants, and publish only public configuration.
+  Permit fixture-only revocation and epoch restart through a bounded file marker in the owned directory, never through an unauthenticated network administration endpoint.
+  Close server and storage on exit; emit only fixed status and never tokens or private keys.

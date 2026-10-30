@@ -1,0 +1,17 @@
+Spec: Human review and operation recovery
+
+Purpose:
+  Bind explicit decisions to fully rendered snapshots and recover uncertain operations without replay.
+
+Owns:
+  ./ReviewWorkflow.cs
+
+Must:
+  Require a rendered snapshot and fresh action-specific confirmation before any decision.
+  Persist the operation receipt before calling the Broker; failed persistence sends no decision.
+  Block new decisions while a prepared receipt remains unresolved and never automatically resend or replace its operation UUID.
+  Recover by querying and matching the original operation result; acknowledgement failure retains recovery state.
+  Permit explicit abandonment only after an unknown-operation query and a separate warning confirmation, without changing Broker state.
+  Distinguish historical results from current approval and discard selection after every decision attempt.
+  Use bounded commands and fixed error codes without raw exceptions.
+  Inspect pending permission requests read-only and clear declaration selection during request navigation; provide no grant approval action.
