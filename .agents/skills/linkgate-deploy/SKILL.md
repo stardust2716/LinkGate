@@ -7,6 +7,8 @@ description: 部署、安装和排查LinkGate认证应用网关，涵盖Linux/EC
 
 先找到包含gateway/release/version.json和gateway/backend-frp的仓库根。无源码时使用用户指定的LinkGate仓库或可信Release；不依赖维护者的private、artifacts或本机目录。
 
+下列相对链接供仓库内阅读；若skill被单独安装到用户目录，把docs路径解析到刚定位的仓库根，不把skill的上级目录当项目。
+
 阅读[部署指南](../../../docs/DEPLOYMENT.md)；源码构建再读[构建说明](../../../docs/BUILD.md)。核对所选Release的文件、版本、架构、SHA256SUMS和签名状态。Windows和Android版本独立，不能强求同号。当前试用版使用开发签名/未生产签名，不宣称生产就绪。
 
 ## 确认目标与边界
